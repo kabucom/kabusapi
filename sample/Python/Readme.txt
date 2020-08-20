@@ -1,56 +1,56 @@
-y‘O’ñz
-EPC‚Épython3‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚é‚±‚ÆB
-EPUSH”zM(websocket)‚ğ‚·‚é‚É‚ÍApython3‚ÌƒCƒ“ƒXƒg[ƒ‹Œã‚ÉƒRƒ}ƒ“ƒhƒvƒƒ“ƒvƒg‚É‚ÄˆÈ‰º‚ÌƒRƒ}ƒ“ƒh‚ğÀs‚·‚éB
-ƒRƒ}ƒ“ƒhFpy -m pip install websocket-client
+ã€å‰æã€‘
+ãƒ»PCã«python3ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹ã“ã¨ã€‚
+ãƒ»PUSHé…ä¿¡(websocket)ã‚’ã™ã‚‹ã«ã¯ã€python3ã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«å¾Œã«ã‚³ãƒãƒ³ãƒ‰ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã«ã¦ä»¥ä¸‹ã®ã‚³ãƒãƒ³ãƒ‰ã‚’å®Ÿè¡Œã™ã‚‹ã€‚
+ã‚³ãƒãƒ³ãƒ‰ï¼špy -m pip install websocket-client
 
-y’ˆÓz
-utoken.pyvƒtƒ@ƒCƒ‹–¼‚ÍApython‚Å—\–ñ‚Æ‚³‚ê‚Ä‚¢‚é‚½‚ßg—p‚Å‚«‚Ü‚¹‚ñB
+ã€æ³¨æ„ã€‘
+ã€Œtoken.pyã€ãƒ•ã‚¡ã‚¤ãƒ«åã¯ã€pythonã§äºˆç´„ã¨ã•ã‚Œã¦ã„ã‚‹ãŸã‚ä½¿ç”¨ã§ãã¾ã›ã‚“ã€‚
 
-ykabuƒXƒeAPIÀs•û–@z
-ƒRƒ}ƒ“ƒhƒvƒƒ“ƒvƒg‚©‚çAŠeƒRƒ}ƒ“ƒh‚ğÀs‚·‚éB
+ã€kabuã‚¹ãƒ†APIå®Ÿè¡Œæ–¹æ³•ã€‘
+ã‚³ãƒãƒ³ãƒ‰ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã‹ã‚‰ã€å„ã‚³ãƒãƒ³ãƒ‰ã‚’å®Ÿè¡Œã™ã‚‹ã€‚
 
-‚PDƒg[ƒNƒ“”­s
-ƒRƒ}ƒ“ƒhFpython kabusapi_token.py
-¦‚P‚Å”­s‚µ‚½ƒg[ƒNƒ“‚ğ‚QˆÈ~‚ÌŠeƒtƒ@ƒCƒ‹“à‚ÌuX-API-KEYv‚Éw’è‚·‚é
+ï¼‘ï¼ãƒˆãƒ¼ã‚¯ãƒ³ç™ºè¡Œ
+ã‚³ãƒãƒ³ãƒ‰ï¼špython kabusapi_token.py
+â€»ï¼‘ã§ç™ºè¡Œã—ãŸãƒˆãƒ¼ã‚¯ãƒ³ã‚’ï¼’ä»¥é™ã®å„ãƒ•ã‚¡ã‚¤ãƒ«å†…ã®ã€ŒX-API-KEYã€ã«æŒ‡å®šã™ã‚‹
 
-‚QD’•¶”­’
-ƒRƒ}ƒ“ƒhFpython kabusapi_sendorder.py
+ï¼’ï¼æ³¨æ–‡ç™ºæ³¨
+ã‚³ãƒãƒ³ãƒ‰ï¼špython kabusapi_sendorder.py
 
-‚RD’•¶æÁ
-ƒRƒ}ƒ“ƒhFpython kabusapi_cancelorder.py
+ï¼“ï¼æ³¨æ–‡å–æ¶ˆ
+ã‚³ãƒãƒ³ãƒ‰ï¼špython kabusapi_cancelorder.py
 
-‚SDæˆø—]—ÍiŒ»•¨j
-ƒRƒ}ƒ“ƒhFpython kabusapi_cash.py
+ï¼”ï¼å–å¼•ä½™åŠ›ï¼ˆç¾ç‰©ï¼‰
+ã‚³ãƒãƒ³ãƒ‰ï¼špython kabusapi_cash.py
 
-‚TDæˆø—]—ÍiM—pj
-ƒRƒ}ƒ“ƒhFpython kabusapi_margin.py
+ï¼•ï¼å–å¼•ä½™åŠ›ï¼ˆä¿¡ç”¨ï¼‰
+ã‚³ãƒãƒ³ãƒ‰ï¼špython kabusapi_margin.py
 
-‚UD‰¿î•ñE”Âî•ñ
-ƒRƒ}ƒ“ƒhFpython kabusapi_board.py
+ï¼–ï¼æ™‚ä¾¡æƒ…å ±ãƒ»æ¿æƒ…å ±
+ã‚³ãƒãƒ³ãƒ‰ï¼špython kabusapi_board.py
 
-‚VD–Á•¿î•ñ
-ƒRƒ}ƒ“ƒhFpython kabusapi_symbol.py
+ï¼—ï¼éŠ˜æŸ„æƒ…å ±
+ã‚³ãƒãƒ³ãƒ‰ï¼špython kabusapi_symbol.py
 
-‚WD’•¶–ñ’èÆ‰ï
-ƒRƒ}ƒ“ƒhFpython kabusapi_orders.py
+ï¼˜ï¼æ³¨æ–‡ç´„å®šç…§ä¼š
+ã‚³ãƒãƒ³ãƒ‰ï¼špython kabusapi_orders.py
 
-‚XDc‚Æ‰ï
-ƒRƒ}ƒ“ƒhFpython kabusapi_positions.py
+ï¼™ï¼æ®‹é«˜ç…§ä¼š
+ã‚³ãƒãƒ³ãƒ‰ï¼špython kabusapi_positions.py
 
-10DPUSH”zMŠJn
-ƒRƒ}ƒ“ƒhFpython kabusapi_websocket.py
+10ï¼PUSHé…ä¿¡é–‹å§‹
+ã‚³ãƒãƒ³ãƒ‰ï¼špython kabusapi_websocket.py
 
-11D–Á•¿“o˜^
-ƒRƒ}ƒ“ƒhFpython kabusapi_register.py
+11ï¼éŠ˜æŸ„ç™»éŒ²
+ã‚³ãƒãƒ³ãƒ‰ï¼špython kabusapi_register.py
 
-12D–Á•¿“o˜^‰ğœ
-ƒRƒ}ƒ“ƒhFpython kabusapi_unregister.py
+12ï¼éŠ˜æŸ„ç™»éŒ²è§£é™¤
+ã‚³ãƒãƒ³ãƒ‰ï¼špython kabusapi_unregister.py
 
-13D–Á•¿“o˜^‘S‰ğœ
-ƒRƒ}ƒ“ƒhFpython kabusapi_unregisterall.py
+13ï¼éŠ˜æŸ„ç™»éŒ²å…¨è§£é™¤
+ã‚³ãƒãƒ³ãƒ‰ï¼špython kabusapi_unregisterall.py
 
 
-// ƒ‰ƒCƒZƒ“ƒX‚É‚Â‚¢‚Ä
+// ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã«ã¤ã„ã¦
 Copyright (c) 2020 au Kabucom Securities Co., Ltd.
 Released under the MIT license
 https://opensource.org/licenses/mit-license.php

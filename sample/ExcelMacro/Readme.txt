@@ -1,4 +1,4 @@
-// ƒ‰ƒCƒZƒ“ƒX‚É‚Â‚¢‚Ä
+// ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã«ã¤ã„ã¦
 
 Copyright (c) 2020 au Kabucom Securities Co., Ltd
 Released under the MIT license
