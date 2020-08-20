@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="Description" content="kabuステーション APIに関するページです。">
+	<meta name="Keywords" content="auKabucom, kabu.com,auカブコム証券, カブドットコム証券,API">
+	<title>kabuステーション API ｜株のことならネット証券会社【auカブコム証券】</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" type="text/css" href="content/css/common.css">
+	<link rel="stylesheet" type="text/css" href="content/css/manual.css">
+</head>
+
+<body>
+	<header>
+		<p class="logo">
+			<a href="https://kabu.com" target="_blank">
+				<img src="content/image/common/logo-kabucomau.png" width="180px" />
+			</a>
+		</p>
+	</header>
+
+	<div id="visual">
+		<section class="visual-inner">
+			<h1>
+				<a href="index.html">
+					<img src="content/image/common/logo.png" alt="kabuステーションAPI" width="520px" />
+				</a>
+			</h1>
+		</section>
+	</div>
+	<div class="container">
+		<div class="grid-sidebar affix">
+			<ul class="list-group">
+				<li class="list-group-item">
+					<a href="howto.html" class="font-weight-normal">API利用設定</a>
+				</li>
+				<li class="list-group-item">
+					<a href="howto.html#step1" class="sidebar-image">
+						<img src="content/image/howto/nav_step1.png" class="sidebar-image" id="sidebar-step1">
+					</a>
+				</li>
+				<li class="list-group-item">
+					<a href="howto.html#step2" class="font-weight-normal">
+						<img src="content/image/howto/nav_step2.png" class="sidebar-image" id="sidebar-step2">
+					</a>
+				</li>
+			</ul>
+			<ul class="list-group">
+				<li class="list-group-item">
+					<a href="add-in.html" class="font-weight-normal">Excelアドイン利用方法</a>
+				</li>
+				<li class="list-group-item">
+					<a href="#step1" class="sidebar-image">
+						<img src="content/image/add-in/nav_step1.png" class="sidebar-image" id="sidebar_step1">
+					</a>
+				</li>
+				<li class="list-group-item">
+					<a href="#step2" class="font-weight-normal">
+						<img src="content/image/add-in/nav_step2.png" class="sidebar-image" id="sidebar_step2">
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="grid-content">
+			<button onClick="window.print()" class="btn_print">印刷する</button>
+			<div class="page-header">
+				<h3>Excelアドインの利用方法 </h3>
+			</div>
+
+			<a name="step1" id="step1"></a>
+			<div class="support_title">
+				<img src="content/image/common/sankaku.gif" width="9px" height="12px"> &nbsp;Excelのアドインを利用するには以下のステップを実行してください。
+			</div>
+			<div class="support_box">
+				<div class="step_title">
+					<img src="content/image/common/support_title1.gif" height="22px">
+					<h2>Excelアドインのインストール</h2>
+				</div>
+				<div class="support_contents">
+					<div class="support_text">
+						<h3>Excelアドインのインストール</h3>
+						<ol>
+							<li>kabuステーション<sup>&reg;</sup>APIポータルサイトの「サンプルコード」の「Excelアドイン」からGitHubのリリースページを開いてください。
+								<div class="support_img">
+									<img src="content/image/add-in/step1_1.png" width="80%" height="auto" alt="">
+								</div>
+							</li>
+							<li>ファイル1式をローカルの任意のフォルダに保存してください。</li>
+							<li>Excelを起動します。</li>
+							<li>Excelの「ファイル」タブをクリックします。
+								<div class="support_img">
+									<img src="content/image/add-in/step1_3.png" width="30%" height="auto" alt="">
+								</div>
+							</li>
+							<li>「オプション」をクリックしてください。
+								<div class="support_img">
+									<img src="content/image/add-in/step1_4.png" width="30%" height="auto" alt="">
+								</div>
+							</li>
+							<li>「Excelのオプション」ダイアログから「アドイン」をクリックしてください。
+								<div class="support_img">
+									<img src="content/image/add-in/step1_5.png" width="30%" height="auto" alt="">
+								</div>
+							</li>
+
+							<li>ダイアログ下部にある「設定」ボタンをクリックします。
+								<div class="support_img">
+									<img src="content/image/add-in/step1_6.png" width="50%" height="auto" alt="">
+								</div>
+							</li>
+							<li>「アドイン」ダイアログが表示されますので、「参照」ボタンをクリックしてください。
+								<div class="support_img">
+									<img src="content/image/add-in/step1_7.png" width="30%" height="auto" alt="">
+								</div>
+							</li>
+							<li>２で保存したファイルの中から、お使いのExcelのバージョンに応じて、ファイルを選択してください。
+								<p>Excelが64bitの場合：KabuSuteAddin-AddIn64.xll</p>
+								<p>Excelが32bitの場合：KabuSuteAddin-AddIn.xll</p>
+								<div class="support_img">
+									<img src="content/image/add-in/step1_9.png" width="100%" height="auto" alt="">
+								</div>
+							</li>
+							<li>「KabuSute Add-In」が追加され、チェックがついていることを確認し、「OK」ボタンをクリックしてください。
+								<div class="support_img">
+									<img src="content/image/add-in/step1_10.png" width="50%" height="auto" alt="">
+								</div>
+							</li>
+							<li>リボンに「kabuSTATION アドイン」が追加され、Excelアドインが利用できるようになります
+								<div class="support_img">
+									<img src="content/image/add-in/step1_11.png" width="100%" height="auto" alt="">
+								</div>
+							</li>
+
+						</ol>
+						<a name="step2" id="step2"></a>
+					<!-- /support_text -->
+					</div>
+				<!-- /support_contents -->
+				</div>
+			<!-- /support_box -->
+			</div>
+
+			<div class="support_box">
+				<div class="step_title">
+					<img src="content/image/common/support_title1.gif" height="22px">
+					<h2>Excelアドイン共通操作</h2>
+				</div>
+				<div class="support_contents">
+					<div class="support_text">
+						<h3>Excelアドイン共通操作</h3>
+						<ol>
+							<li>制御ボタン
+								<p>それぞれ発注とPUSH配信の更新について有効/無効を切り替えるボタンです。</p>
+								<p>ボタンをクリックするごとに有効と無効が切り替わります。</p>
+								<p>アイコン右下の丸い点が「赤」の場合は無効、「緑」の場合は有効を表します。</p>
+								<p>それぞれの機能をお使いになる場合には、有効状態にしてご利用ください。</p>
+								<div class="support_img">
+									<img src="content/image/add-in/step2_1.png" width="50%" height="auto" alt="">
+								</div>
+							</li>
+							<li>使用環境
+								<p>kabuステーション<sup>&reg;</sup>APIでは「本番用」と「検証用」の2つの環境をご用意しております。</p>
+								<p>【本番用】：実際の銘柄情報やお客さまご自身の残高情報を取得したり、実際に発注や取消を行うことができます。</p>
+								<p>【検証用】：常に一定の値を返します。実際に発注することはできませんが、お客さまが作成したプログラムのテスト実行にご利用いただけます。</p>
+								<p>ご利用目的に応じて、どちらの環境を使用するかを選択してください。 </p>
+								<div class="support_img">
+									<img src="content/image/add-in/step2_2.png" width="auto" height="auto" alt="">
+								</div>
+							</li>
+							<li>ポート
+								<p>【本番用】をご利用になる場合には「18080」を入力してください。</p>
+								<p>【検証用】をご利用になる場合には「18081」を入力してください。</P>
+								<p>※誤操作の防止のため、「２．使用環境」と「３．ポート」が一致しない場合はAPIをご利用できません。</p>
+								<p>※誤ログインの防止のため、「３．ポート」と「４．APIパスワード」の環境が一致しない場合は認証エラーとなります。</p>
+							</li>
+							<li>APIパスワード
+								<p>kabuステーション<sup>&reg;</sup>の「APIシステム設定」で設定したパスワードを入力してください。</p>
+								<p>入力ボックスの右にある「○○ログイン」ボタンをクリックしますと、「３．ポート」で設定した環境に対してログイン認証を行います。</p>
+								<p> 正しく認証された場合はログイン状態となり、アイコンが緑色に変わります。</p>
+								<div class="support_img">
+									<img src="content/image/add-in/step2_4.png" width="80%" height="auto" alt="">
+								</div>
+								<p>
+									※kabuステーション<sup>&reg;</sup>APIはログイン要求を受けると、トークンを発行し、Exelはこのトークンを保持します。<br>
+									kabuステーション<sup>&reg;</sup>を再起動したり、再ログインした場合、このトークンは無効となります。<br>
+									続けてご使用になるには再度ログインボタンをクリックしてください。
+								</p>
+							</li>
+							<li>Excel関数の使用
+								<p>アドインをインストールすると、kabuステーションAPIに対応した関数が使用できます。</p>
+								<div class="support_img">
+									<img src="content/image/add-in/step2_5.png" width="80%" height="auto" alt="">
+								</div>
+								<p>それぞれの関数の使用方法はGitHubリリースページからExcelファイルをご参照ください。</p>
+							</li>
+						</ol>
+					<!-- /support_text -->
+					</div>
+				<!-- /support_contents -->
+				</div>
+			<!-- /support_box -->
+			</div>
+		</div>
+		<div class="container-botton-area">
+		</div>
+	</div>
+
+	<footer>
+		<p class="copy">&copy;2020 - auKabucom Securities Co.,Ltd. All rights reserved.</p>
+	</footer>
+</body>
+
+</html>

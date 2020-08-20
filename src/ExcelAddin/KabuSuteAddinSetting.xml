@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<settings>
+  <setting1>
+    <OrderButton>0</OrderButton>
+    <UpdateButton>1</UpdateButton>
+    <PortBox>18081</PortBox>
+    <DevApiPassword></DevApiPassword>
+    <ProdApiPassword></ProdApiPassword>
+    <ApiToken></ApiToken>
+  </setting1>
+</settings>

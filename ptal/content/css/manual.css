@@ -1,0 +1,484 @@
+@charset "UTF-8";
+
+/* Header
+-----------------------------------------------------*/
+
+.page-header {
+    padding: 15px;
+    margin: 15px;
+    border-bottom: 1px solid #d2d0d0;
+}
+
+.page-header h3 {
+    font-size: 1.75rem;
+    color: #036;
+}
+
+.page-header h3 sup {
+    font-size: smaller;
+    vertical-align: super;
+}
+
+
+/* Content area
+----------------------------------------------------*/
+
+.support_title {
+    font-size: 18px;
+    color: #00235a;
+    text-align: left;
+    line-height: 2em;
+    margin: 0 15px;
+    clear: both;
+    padding: 0 15px;
+}
+
+.support_title sup {
+    font-size: smaller;
+    vertical-align: super;
+}
+
+.support_box {
+    display: block;
+    height: auto;
+    padding: 15px;
+    margin: 15px;
+    clear: both;
+}
+
+.support_contents {
+    display: block;
+    height: auto;
+    margin: 0px 0px 30px 0px;
+    padding: 15px 30px 0px 30px;
+    background-color: #ededed;
+    border: 1px solid #00235a;
+}
+
+.support_text {
+    color: #666;
+    font-size: 16px;
+    line-height: 2em;
+    letter-spacing: 0.1em;
+    text-align: left;
+    padding: 15px 0 30px 0px;
+}
+
+.support_img {
+    display: block;
+    margin: 15px 15px 15px 0px;
+    padding: 0px 0px 30px 0px;
+}
+
+.support_text ol {
+    font-size: 16px;
+    line-height: 2em;
+    letter-spacing: 0.1em;
+    padding: 0px 0px 0px 30px;
+    list-style-type: decimal;
+}
+
+.support_text li {
+    padding-right: 15px;
+    margin: 15px 0 0 0;
+}
+
+.support_text h2 {
+    color: #666;
+    font-size: 16px;
+    text-align: left;
+    margin: 0px 0px 0px 0px;
+    font-weight: bold;
+}
+
+.support_text h3 {
+    color: #fff;
+    font-size: 16px;
+    line-height: 2em;
+    text-align: center;
+    margin: 0px 0px 15px 0px;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    padding: 5px;
+    background-color: #00235a;
+}
+
+.support_text sup {
+    vertical-align: super;
+    font-size: smaller;
+}
+
+.support_text ul {
+    line-height: 2em;
+    letter-spacing: 0.1em;
+    list-style-type: disc;
+    margin: 15px 0 0 0;
+    padding: 0px 0px 15px 15px;
+}
+
+.support_text dl {
+    width: 880px;
+    color: #666;
+    overflow: hidden;
+    margin: 0px 0px 0px -30px;
+    font-size: 16px;
+    line-height: 2em;
+}
+
+.support_text dt {
+    width: 180px;
+    float: left;
+    text-align: left;
+    font-weight: bold;
+    color: #00235a;
+    border-top: none;
+    padding-top: 0em;
+    margin: 0px 15px 0px 0px;
+    line-height: 2em;
+}
+
+.support_text dd {
+    width: 615px;
+    margin-left: 195px;
+    text-align: left;
+    padding-top: 0em;
+    line-height: 2em;
+}
+
+.step_title {
+    display: inline-block;
+    margin: -20px 15px 15px 0px;
+    text-align: left;
+    width: auto;
+    clear: both;
+    padding-top: 15px;
+}
+
+.step_title h2 {
+    font-size: 22px;
+    color: #00235a;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.step_title sup {
+    vertical-align: super;
+    font-size: smaller;
+}
+
+
+/*  body
+-----------------------------------------------------*/
+
+body {
+    font-family: 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, sans-serif;
+    font-size: 100%;
+    color: #333333;
+}
+
+a {
+    font-weight: bold;
+    color: #2b6884;
+}
+
+#contents {
+    background-color: #f3f3f3;
+    display: block;
+    height: auto;
+    margin: 0 0 30px 0;
+    clear: both;
+}
+
+#contents-inner {
+    width: 920px;
+    margin: 0 auto;
+    padding: 10px 0 10px;
+}
+
+#contents #contents-inner h2 {
+    padding: 20px 0;
+    font-size: 137%;
+    font-weight: bold;
+    color: #b70000;
+}
+
+#contents #contents-inner p {
+    line-height: 1.5;
+    font-size: 90%;
+    float: left;
+}
+
+#contents #contents-inner dl {
+    padding-top: 20px;
+    margin-bottom: 5px;
+}
+
+#contents #contents-inner dl dt:before {
+    content: "\03e";
+    color: #2b6884;
+    padding-right: 8px;
+}
+
+#contents #contents-inner dl dt a:hover {
+    text-decoration: none;
+}
+
+#contents #contents-inner dl dd {
+    display: block;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    padding-left: 1.0rem;
+    line-height: 1.5;
+    font-size: 84%;
+}
+
+#contents #contents-inner dl dd:last-of-type {
+    margin-bottom: 0;
+}
+
+#contents-inner div p.icon img {
+    height: 64px;
+}
+
+#contents-inner div p.comment {
+    padding: 10px;
+}
+
+#contents-inner div.issue,
+#contents-inner div.reference,
+#contents-inner div.guide {
+    margin: 15px;
+    background-color: #fff;
+    border: solid 1px #ccc;
+    border-radius: 4px;
+}
+
+#contents-inner div.issue {
+    display: flex;
+    padding: 20px;
+}
+
+#contents-inner div.issue p.icon {
+    position: relative;
+    width: 9%;
+    padding: 0 20px;
+}
+
+#contents-inner div.issue p.icon img {
+    position: absolute;
+    top: 30%;
+    height: 60px;
+}
+
+#contents-inner .read {
+    display: flex;
+}
+
+#contents-inner .read div {
+    display: inline-block;
+    width: 35.35%;
+    padding: 10px 50px 10px;
+    vertical-align: top;
+}
+
+#contents-inner .read div p.icon,
+#contents-inner .read div h2 {
+    text-align: center;
+}
+
+
+/*  sub
+-----------------------------------------------------*/
+
+.container-botton-area {
+    padding: 20px 0 50px 0;
+    text-align: center;
+    width: 100%;
+    display: table;
+    border-top: 1px solid #d2d0d0;
+}
+
+.bnrarea a:hover {
+    opacity: 0.7;
+}
+
+
+/* Grid
+------------------------------------------------------*/
+
+.grid-sidebar {
+    padding: 0 15px;
+}
+
+.grid-content {
+    width: 90%;
+    margin: 15px;
+}
+
+[class*="grid-"] {
+    float: left;
+}
+
+
+/* Sidebar Menu
+----------------------------------------------------*/
+
+.sidebar-image {
+    width: 210px;
+}
+
+.list-group {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    border-radius: 0.25rem;
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 0 10px 10px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125)
+}
+
+.affix {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 80px;
+}
+
+
+/*  tab
+-----------------------------------------------------*/
+
+@media screen and (min-width:568px) {
+    .container {
+        width: 560px;
+        padding: 0;
+    }
+    .step_title {
+        width: 100%;
+    }
+    .grid-content {
+        width: 100%;
+        margin: 0;
+    }
+    .sidebar-image {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        width: 760px;
+    }
+    .grid-sidebar {
+        padding: 15px;
+    }
+    .step_title {
+        width: 100%;
+    }
+    .grid-content {
+        width: 100%;
+        padding: 0;
+    }
+    .step_title {
+        width: 100%;
+    }
+    .sidebar-image {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .container {
+        width: 920px;
+    }
+    .step_title {
+        width: 100%;
+    }
+    .grid-sidebar {
+        width: 20%;
+        padding: 15px;
+    }
+    .grid-content {
+        width: 70%;
+        padding: 15px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .container {
+        width: 1140px;
+    }
+    .grid-sidebar {
+        width: 20%;
+        padding: 15px;
+    }
+    .grid-content {
+        width: 70%;
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width:992px) {
+    header {
+        position: unset;
+    }
+    .affix {
+        position: unset;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        width: auto;
+        padding: 0 75px;
+        position: unset;
+    }
+    #visual h1 img,
+    #visual p {
+        width: 80%;
+    }
+    #contents-inner {
+        width: 100%;
+    }
+    #contents-inner .read div {
+        width: auto;
+        display: block;
+    }
+    .affix {
+        position: absolute;
+        top: 185px;
+    }
+    .grid-content {
+        margin-top: 450px;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .container {
+        width: 95%;
+        padding: 0;
+    }
+    header {
+        padding: 0 38px;
+    }
+    #contents-inner div.issue p.icon {
+        width: auto;
+        padding: 0;
+    }
+    #contents-inner div.issue p.icon img {
+        display: none;
+    }
+    .affix {
+        position: absolute;
+        top: 150px;
+        float:left;
+    }
+    .grid-content {
+        margin-top: 450px;
+    }
+}

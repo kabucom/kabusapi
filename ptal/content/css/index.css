@@ -1,0 +1,160 @@
+@charset "UTF-8";
+
+/*  body
+-----------------------------------------------------*/
+body {
+    font-family: 'ÉqÉâÉMÉmäpÉS ProN W3', 'Hiragino Kaku Gothic ProN', 'ÉÅÉCÉäÉI', Meiryo, sans-serif;
+    font-size: 100%;
+    color: #333333;
+}
+
+a {
+    font-weight: bold;
+    color: #2b6884;
+}
+
+#contents {
+    background-color: #f3f3f3;
+}
+
+#contents-inner {
+    width: 920px;
+    margin: 0 auto;
+    padding: 10px 0 10px;
+}
+
+#contents #contents-inner h2 {
+    padding: 20px 0;
+    font-size: 137%;
+    font-weight: bold;
+    color: #b70000;
+}
+
+#contents #contents-inner p.icon {
+    line-height: 1.5;
+    font-size: 90%;
+    float:left;
+}
+
+#contents #contents-inner dl {
+    padding-top: 20px;
+    margin-bottom: 5px;
+}
+
+    #contents #contents-inner dl dt:before {
+        content: "\03e";
+        color: #2b6884;
+        padding-right: 8px;
+    }
+
+    #contents #contents-inner dl dt a:hover {
+        text-decoration: none;
+    }
+
+    #contents #contents-inner dl dd {
+        display: block;
+        margin-bottom: 30px;
+        margin-top: 10px;
+        padding-left: 1.0rem;
+        line-height: 1.5;
+        font-size: 84%;
+    }
+
+        #contents #contents-inner dl dd:last-of-type {
+            margin-bottom: 0;
+        }
+
+#contents-inner div p.icon img {
+    height: 64px;
+}
+
+#contents-inner div p.comment {
+    padding: 10px;
+}
+
+#contents-inner div.issue,
+#contents-inner div.reference,
+#contents-inner div.guide {
+    margin: 15px;
+    background-color: #fff;
+    border: solid 1px #ccc;
+    border-radius: 4px;
+}
+
+#contents-inner div.issue {
+    display: flex;
+    padding: 20px;
+}
+
+    #contents-inner div.issue p.icon {
+        position: relative;
+        width: 9%;
+        padding: 0 20px;
+    }
+
+        #contents-inner div.issue p.icon img {
+            position: absolute;
+            top: 30%;
+            height: 60px;
+        }
+
+        #contents-inner div.issue h2 {
+	        text-align: center;
+        }
+
+#contents-inner .read div {
+    display: inline-block;
+    width: 35.35%;
+    padding: 10px 50px 10px;
+    vertical-align: top;
+}
+
+    #contents-inner .read div p.icon,
+    #contents-inner .read div h2 {
+        text-align: center;
+    }
+
+/*  sub
+-----------------------------------------------------*/
+.bnrarea {
+    padding:20px 0 100px 0;
+    text-align: center;
+    border-top: solid 1px #cccccc;
+    width: 100%;
+}
+
+    .bnrarea a:hover {
+        opacity: 0.7;
+    }
+
+/*  tab
+-----------------------------------------------------*/
+@media screen and (max-width: 768px) {
+    header {
+        width: auto;
+    }
+
+    #visual h1 img, #visual p {
+        width: 80%;
+    }
+
+    #contents-inner {
+        width: 100%;
+    }
+
+        #contents-inner .read div {
+            width: auto;
+            display: block;
+        }
+}
+
+@media screen and (max-width: 568px) {
+    #contents-inner div.issue p.icon {
+        width: auto;
+        padding: 0;
+    }
+
+        #contents-inner div.issue p.icon img {
+            display: none;
+        }
+}

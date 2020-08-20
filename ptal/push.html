@@ -1,0 +1,679 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Description" content="kabuステーション APIに関するページです。">
+	<meta name="Keywords" content="auKabucom, kabu.com,auカブコム証券, カブドットコム証券,API">
+	<title>kabuステーション API ｜株のことならネット証券会社【auカブコム証券】</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" type="text/css" href="content/css/guide.css">
+	<link rel="stylesheet" type="text/css" href="content/css/common.css">
+	<link rel="stylesheet" type="text/css" href="content/css/index.css">
+</head>
+<body>
+	<header>
+		<p class="logo">
+			<a href="https://kabu.com" target="_blank">
+				<img src="content/image/common/logo-kabucomau.png" width="180px" />
+			</a>
+		</p>
+	</header>
+	<main>
+		<div id="visual">
+			<section class="visual-inner">
+				<h1>
+					<a href="index.html">
+						<img src="content/image/common/logo.png" alt="kabuステーションAPI" width="520px" />
+					</a>
+				</h1>
+			</section>
+		</div>
+
+		<div id="contents">
+			<div id="contents-inner">
+				<div class="issue">
+					<div class="issue-inner">
+<h3>時価PUSH配信について</h3>
+<p class="mb10">kabuステーションAPIにおけるPUSH配信はWebSocketを採用しています。</p>
+<br>
+<br>
+<h4>１．メソッド</h4>
+<p class="mb10">/kabusapi/websocket</p>
+<br>
+
+<h4>２．リクエストURL</h4>
+<p>【本番用】 ws://localhost:18080/kabusapi/websocket</p>
+<p>【検証用】 ws://localhost:18081/kabusapi/websocket</p>
+<br>
+
+<h4>３．配信銘柄</h4>
+<p>RESTの<a href="https://github.com/pages/kabucom/kabusapi/redoc/index.html#tag/register%2Fpaths%2F~1register%2Fput">「銘柄登録」</a>にて登録した銘柄についてPUSH配信を行います。</p>
+<p>登録できる銘柄は最大50銘柄です。</p>
+<br>
+
+<h4>４．レスポンス</h4>
+<p>各フィールドのコード値についてはRESTの<a href="https://github.com/pages/kabucom/kabusapi/redoc/index.html#tag/info%2Fpaths%2F~1board~1%7Bsymbol%7D%40%7Bexchange%7D%2Fget">「時価情報・板情報」</a>をご参照ください。</p>
+
+<table class="main-table">
+<tr>
+	<th>No.</th>
+	<th>フィールド</th>
+	<th>型</th>
+	<th>内容</th>
+</tr>
+<tr>
+	<td>1</td>
+	<td>Symbol</td>
+	<td>文字列</td>
+	<td>銘柄コード</td>
+</tr>
+<tr>
+	<td>2</td>
+	<td>SymbolName</td>
+	<td>文字列</td>
+	<td>銘柄名</td>
+</tr>
+<tr>
+	<td>3</td>
+	<td>Exchange</td>
+	<td>数値</td>
+	<td>市場コード</td>
+</tr>
+<tr>
+	<td>4</td>
+	<td>ExchangeName</td>
+	<td>文字列</td>
+	<td>市場名称</td>
+</tr>
+<tr>
+	<td>5</td>
+	<td>CurrentPrice</td>
+	<td>数値</td>
+	<td>現値</td>
+</tr>
+<tr>
+	<td>6</td>
+	<td>CurrentPriceTime</td>
+	<td>文字列</td>
+	<td>現値時刻</td>
+</tr>
+<tr>
+	<td>7</td>
+	<td>CurrentPriceChangeStatus</td>
+	<td>文字列</td>
+	<td>現値前値比較</td>
+</tr>
+<tr>
+	<td>8</td>
+	<td>CurrentPriceStatus</td>
+	<td>数値</td>
+	<td>現値ステータス</td>
+</tr>
+<tr>
+	<td>9</td>
+	<td>CalcPrice</td>
+	<td>数値</td>
+	<td>計算用現値</td>
+</tr>
+<tr>
+	<td>10</td>
+	<td>PreviousClose</td>
+	<td>数値</td>
+	<td>前日終値</td>
+</tr>
+<tr>
+	<td>11</td>
+	<td>PreviousCloseTime</td>
+	<td>文字列</td>
+	<td>前日終値日付</td>
+</tr>
+<tr>
+	<td>12</td>
+	<td>ChangePreviousClose</td>
+	<td>数値</td>
+	<td>前日比</td>
+</tr>
+<tr>
+	<td>13</td>
+	<td>ChangePreviousClosePer</td>
+	<td>数値</td>
+	<td>騰落率</td>
+</tr>
+<tr>
+	<td>14</td>
+	<td>OpeningPrice</td>
+	<td>数値</td>
+	<td>始値</td>
+</tr>
+<tr>
+	<td>15</td>
+	<td>OpeningPriceTime</td>
+	<td>文字列</td>
+	<td>始値時刻</td>
+</tr>
+<tr>
+	<td>16</td>
+	<td>HighPrice</td>
+	<td>数値</td>
+	<td>高値</td>
+</tr>
+<tr>
+	<td>17</td>
+	<td>HighPriceTime</td>
+	<td>文字列</td>
+	<td>高値時刻</td>
+</tr>
+<tr>
+	<td>18</td>
+	<td>LowPrice</td>
+	<td>数値</td>
+	<td>安値</td>
+</tr>
+<tr>
+	<td>19</td>
+	<td>LowPriceTime</td>
+	<td>文字列</td>
+	<td>安値時刻</td>
+</tr>
+<tr>
+	<td>20</td>
+	<td>TradingVolume</td>
+	<td>数値</td>
+	<td>売買高</td>
+</tr>
+<tr>
+	<td>21</td>
+	<td>TradingVolumeTime</td>
+	<td>文字列</td>
+	<td>売買高時刻</td>
+</tr>
+<tr>
+	<td>22</td>
+	<td>VWAP</td>
+	<td>数値</td>
+	<td>売買高加重平均価格(VWAP)</td>
+</tr>
+<tr>
+	<td>23</td>
+	<td>TradingValue</td>
+	<td>数値</td>
+	<td>売買代金</td>
+</tr>
+<tr>
+	<td>24</td>
+	<td>BidQty</td>
+	<td>数値</td>
+	<td>最良売気配数量</td>
+</tr>
+<tr>
+	<td>25</td>
+	<td>BidPrice</td>
+	<td>数値</td>
+	<td>最良売気配値段</td>
+</tr>
+<tr>
+	<td>26</td>
+	<td>BidTime</td>
+	<td>文字列</td>
+	<td>最良売気配時刻</td>
+</tr>
+<tr>
+	<td>27</td>
+	<td>BidSign</td>
+	<td>文字列</td>
+	<td>最良売気配フラグ</td>
+</tr>
+<tr>
+	<td>28</td>
+	<td>MarketOrderSellQty</td>
+	<td>数値</td>
+	<td>売成行数量</td>
+</tr>
+<tr>
+	<td>29</td>
+	<td>Sell1</td>
+	<td>リスト</td>
+	<td>売気配数量1本目</td>
+</tr>
+<tr>
+	<td>29-1</td>
+	<td>  Time</td>
+	<td>文字列</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>29-2</td>
+	<td>  Sign</td>
+	<td>文字列</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>29-3</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>時刻</td>
+</tr>
+<tr>
+	<td>29-4</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>気配フラグ</td>
+</tr>
+<tr>
+	<td>30</td>
+	<td>Sell2</td>
+	<td>リスト</td>
+	<td>売気配数量2本目</td>
+</tr>
+<tr>
+	<td>30-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>30-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>31</td>
+	<td>Sell3</td>
+	<td>リスト</td>
+	<td>売気配数量3本目</td>
+</tr>
+<tr>
+	<td>31-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>31-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>32</td>
+	<td>Sell4</td>
+	<td>リスト</td>
+	<td>売気配数量4本目</td>
+</tr>
+<tr>
+	<td>32-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>32-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>33</td>
+	<td>Sell5</td>
+	<td>リスト</td>
+	<td>売気配数量5本目</td>
+</tr>
+<tr>
+	<td>33-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>33-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>34</td>
+	<td>Sell6</td>
+	<td>リスト</td>
+	<td>売気配数量6本目</td>
+</tr>
+<tr>
+	<td>34-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>34-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>35</td>
+	<td>Sell7</td>
+	<td>リスト</td>
+	<td>売気配数量7本目</td>
+</tr>
+<tr>
+	<td>35-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>35-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>36</td>
+	<td>Sell8</td>
+	<td>リスト</td>
+	<td>売気配数量8本目</td>
+</tr>
+<tr>
+	<td>36-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>36-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>37</td>
+	<td>Sell9</td>
+	<td>リスト</td>
+	<td>売気配数量9本目</td>
+</tr>
+<tr>
+	<td>37-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>37-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>38</td>
+	<td>Sell10</td>
+	<td>リスト</td>
+	<td>売気配数量10本目</td>
+</tr>
+<tr>
+	<td>38-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>38-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>39</td>
+	<td>AskQty</td>
+	<td>数値</td>
+	<td>最良買気配数量</td>
+</tr>
+<tr>
+	<td>40</td>
+	<td>AskPrice</td>
+	<td>数値</td>
+	<td>最良買気配値段</td>
+</tr>
+<tr>
+	<td>41</td>
+	<td>AskTime</td>
+	<td>文字列</td>
+	<td>最良買気配時刻</td>
+</tr>
+<tr>
+	<td>42</td>
+	<td>AskSign</td>
+	<td>文字列</td>
+	<td>最良買気配フラグ</td>
+</tr>
+<tr>
+	<td>43</td>
+	<td>MarketOrderBuyQty</td>
+	<td>数値</td>
+	<td>買成行数量</td>
+</tr>
+<tr>
+	<td>44</td>
+	<td>Buy1</td>
+	<td>リスト</td>
+	<td>買気配数量1本目</td>
+</tr>
+<tr>
+	<td>44-1</td>
+	<td>  Time</td>
+	<td>文字列</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>44-2</td>
+	<td>  Sign</td>
+	<td>文字列</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>44-3</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>時刻</td>
+</tr>
+<tr>
+	<td>44-4</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>気配フラグ</td>
+</tr>
+<tr>
+	<td>45</td>
+	<td>Buy2</td>
+	<td>リスト</td>
+	<td>買気配数量2本目</td>
+</tr>
+<tr>
+	<td>45-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>45-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>46</td>
+	<td>Buy3</td>
+	<td>リスト</td>
+	<td>買気配数量3本目</td>
+</tr>
+<tr>
+	<td>46-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>46-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>47</td>
+	<td>Buy4</td>
+	<td>リスト</td>
+	<td>買気配数量4本目</td>
+</tr>
+<tr>
+	<td>47-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>47-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>48</td>
+	<td>Buy5</td>
+	<td>リスト</td>
+	<td>買気配数量5本目</td>
+</tr>
+<tr>
+	<td>48-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>48-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>49</td>
+	<td>Buy6</td>
+	<td>リスト</td>
+	<td>買気配数量6本目</td>
+</tr>
+<tr>
+	<td>49-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>49-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>50</td>
+	<td>Buy7</td>
+	<td>リスト</td>
+	<td>買気配数量7本目</td>
+</tr>
+<tr>
+	<td>50-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>50-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>51</td>
+	<td>Buy8</td>
+	<td>リスト</td>
+	<td>買気配数量8本目</td>
+</tr>
+<tr>
+	<td>51-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>51-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>52</td>
+	<td>Buy9</td>
+	<td>リスト</td>
+	<td>買気配数量9本目</td>
+</tr>
+<tr>
+	<td>52-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>52-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>53</td>
+	<td>Buy10</td>
+	<td>リスト</td>
+	<td>買気配数量10本目</td>
+</tr>
+<tr>
+	<td>53-1</td>
+	<td>  Price</td>
+	<td>数値</td>
+	<td>値段</td>
+</tr>
+<tr>
+	<td>53-2</td>
+	<td>  Qty</td>
+	<td>数値</td>
+	<td>数量</td>
+</tr>
+<tr>
+	<td>54</td>
+	<td>OverSellQty</td>
+	<td>数値</td>
+	<td>OVER気配数量</td>
+</tr>
+<tr>
+	<td>55</td>
+	<td>UnderBuyQty</td>
+	<td>数値</td>
+	<td>UNDER気配数量</td>
+</tr>
+<tr>
+	<td>56</td>
+	<td>TotalMarketValue</td>
+	<td>数値</td>
+	<td>時価総額</td>
+</tr>
+</table>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer>
+		<p class="copy">&copy;2020 - auKabucom Securities Co.,Ltd. All rights reserved.</p>
+	</footer>
+</body>
+</html>

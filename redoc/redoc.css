@@ -1,0 +1,106 @@
+﻿#redoc-body, .api-content span {
+    font-family: 'Meiryo', 'hiragino kaku gothic pro', sans-serif !important;
+}
+
+#resources-nav .menu-subitems li label, #resources-nav .menu-subitems li label {
+    font-size: 13px;
+    color: #a9b4bf;
+    font-family: 'Meiryo', 'hiragino kaku gothic pro', sans-serif !important;
+    font-weight: 300;
+}
+
+.api-content [class*=hint--]:after {
+    background: #4d4d4d;
+    color: #E9EBEE;
+    padding: 15px;
+    font-size: 12px;
+    font-family: 'Meiryo', 'hiragino kaku gothic pro', sans-serif !important;
+    border-radius: 4px;
+    line-height: 20px !important;
+}
+
+.api-content .api-url {
+    color: #E9EBEE;
+    font-size: 1em !important;
+    font-family: 'Meiryo', 'hiragino kaku gothic pro', sans-serif !important;
+}
+
+.api-content .method-api-url-path {
+    color: #87E8C7;
+    font-size: 1em !important;
+    font-family: 'Meiryo', 'hiragino kaku gothic pro', sans-serif !important;
+}
+
+.api-content pre {
+    border: 2px solid #2d2d2d;
+    box-shadow: 0 0 30px 3px #2d2d2d;
+    color: #fff;
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace !important;
+}
+
+    .api-content pre span {
+        border: none;
+        color: #fff;
+        font-family: Menlo,Monaco,Consolas,"Courier New",monospace !important;
+    }
+
+.menu-item-header, [_nghost-c0] p, [_ngcontent-c0].redoc-wrap, [_nghost-c0] h5, .params-wrap.params-array[_ngcontent-c21]:before {
+    font-family: 'Meiryo', 'hiragino kaku gothic pro', sans-serif !important;
+}
+
+[_nghost-c0] h2, [_nghost-c0] h1, header[_ngcontent-c15], [_nghost-c0] h3 {
+    font-family: 'Meiryo', 'hiragino kaku gothic pro', sans-serif !important;
+    font-weight: 900 !important;
+}
+
+.api-content .openapi-button {
+    background: #4392d4 !important;
+    border-radius: 4px !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 0.5em 1em !important;
+}
+
+.api-content a.openapi-button:hover {
+    background: #78b3e5 !important;
+}
+
+.api-content span .title {
+    background-color: cadetblue;
+}
+
+.req-example {
+    color: #777;
+    background-color: #eee;
+    font-style: italic;
+}
+
+.menu-header api-logo {
+    padding: 0.5em 0.5em;
+}
+
+.four-price {
+    color: #417db0;
+    background: #c6d9ea;
+    padding: 0 0.7em;
+    margin: 0 0.2em;
+    border-radius: 0.2em;
+    font-size: 0.95em;
+}
+
+.depth {
+    color: #448567;
+    background: #c8e4d8;
+    padding: 0.1em 0.7em;
+    margin: 0 0.2em;
+    border-radius: 0.2em;
+    font-size: 0.9em;
+}
+
+strong {
+    font-weight: 700 !important;
+}
+
+[_nghost-c0] .redoc-markdown-block ul, [_nghost-c0] .redoc-markdown-block ol {
+    font-family: 'Meiryo', 'hiragino kaku gothic pro', sans-serif !important;
+}

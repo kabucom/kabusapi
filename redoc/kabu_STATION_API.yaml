@@ -1,0 +1,2402 @@
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "kabuステーションAPI"
+  contact:
+    url: "../ptal/index.html"
+  x-logo:
+    url: "../ptal/content/image/common/logo.png"
+host: "localhost"
+schemes:
+    - "http"
+basePath: "/kabusapi"
+tags:
+    - name: "auth"
+      description: "APIトークンの発行"
+      x-displayName: "認証"
+    - name: "order"
+      description: "注文の発注・取消"
+      x-displayName: "発注"
+    - name: "wallet"
+      description: "取引余力を取得"
+      x-displayName: "取引余力"
+    - name: "info"
+      description: "銘柄情報の取得、残高照会"
+      x-displayName: "情報"
+    - name: "register"
+      description: "PUSH配信銘柄登録・解除"
+      x-displayName: "銘柄登録"
+paths:
+  /token:
+    post:
+      tags:
+      - "auth"
+      summary: "トークン発行"
+      description: "APIトークンを発行します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "req"
+        required: true
+        schema:
+          $ref: "#/definitions/RequestToken"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/TokenSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /sendorder:
+    post:
+      tags:
+      - "order"
+      summary: "注文発注"
+      description: "注文を発注します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "req"
+        required: true
+        schema:
+          $ref: "#/definitions/RequestSendOrder"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/OrderSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /cancelorder:
+    put:
+      tags:
+      - "order"
+      summary: "注文取消"
+      description: "注文を取消します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "req"
+        required: true
+        schema:
+          $ref: "#/definitions/RequestCancelOrder"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/OrderSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /wallet/cash:
+    get:
+      tags:
+      - "wallet"
+      summary: "取引余力（現物）"
+      description: "口座の取引余力（現物）を取得します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/WalletCashSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /wallet/cash/{symbol}@{exchange}:
+    get:
+      tags:
+      - "wallet"
+      summary: "取引余力（現物）（銘柄指定）"
+      description: "指定した銘柄の取引余力（現物）を取得します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      - name: "symbol"
+        in: "path"
+        description: "銘柄コード"
+        required: true
+        type: "string"
+      - name: "exchange"
+        in: "path"
+        description: |-
+          市場コード
+          |定義値|説明|
+          |-|-|
+          |1|東証|
+          |3|名証|
+          |5|福証|
+          |6|札証|
+        enum:
+          - 1
+          - 3
+          - 5
+          - 6
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/WalletCashSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /wallet/margin:
+    get:
+      tags:
+      - "wallet"
+      summary: "取引余力（信用）"
+      description: "口座の取引余力（信用）を取得します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/WalletMarginSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /wallet/margin/{symbol}@{exchange}:
+    get:
+      tags:
+      - "wallet"
+      summary: "取引余力（信用）（銘柄指定）"
+      description: "指定した銘柄の取引余力（信用）を取得します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      - name: "symbol"
+        in: "path"
+        description: "銘柄コード"
+        required: true
+        type: "string"
+      - name: "exchange"
+        in: "path"
+        description: |-
+          市場コード
+          |定義値|説明|
+          |-|-|
+          |1|東証|
+          |3|名証|
+          |5|福証|
+          |6|札証|
+        enum:
+          - 1
+          - 3
+          - 5
+          - 6
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/WalletMarginSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /board/{symbol}@{exchange}:
+    get:
+      tags:
+      - "info"
+      summary: "時価情報・板情報"
+      description: "指定した銘柄の時価情報・板情報を取得します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      - name: "symbol"
+        in: "path"
+        description: "銘柄コード"
+        required: true
+        type: "string"
+      - name: "exchange"
+        in: "path"
+        description: |-
+          市場コード
+          |定義値|説明|
+          |-|-|
+          |1|東証|
+          |3|名証|
+          |5|福証|
+          |6|札証|
+        enum:
+          - 1
+          - 3
+          - 5
+          - 6
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/BoardSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /symbol/{symbol}@{exchange}:
+    get:
+      tags:
+      - "info"
+      summary: "銘柄情報"
+      description: "指定した銘柄情報を取得します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      - name: "symbol"
+        in: "path"
+        description: "銘柄コード"
+        required: true
+        type: "string"
+        format: ""
+      - name: "exchange"
+        in: "path"
+        description: |-
+          市場コード
+          |定義値|説明|
+          |-|-|
+          |1|東証|
+          |3|名証|
+          |5|福証|
+          |6|札証|
+        enum:
+          - 1
+          - 3
+          - 5
+          - 6
+        required: true
+        type: "string"
+        format: ""
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/SymbolSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /orders:
+    get:
+      tags:
+      - "info"
+      summary: "注文約定照会"
+      description: "注文一覧を取得します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      - name: "product"
+        in: "query"
+        description: |-
+          取得する商品
+          |定義値|説明|
+          |-|-|
+          |0|すべて|
+          |1|現物|
+          |2|信用|
+        enum:
+          - "0"
+          - "1"
+          - "2"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/OrdersSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /positions:
+    get:
+      tags:
+      - "info"
+      summary: "残高照会"
+      description: "残高一覧を取得します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      - name: "product"
+        in: "query"
+        description: |-
+          取得する商品
+          |定義値|説明|
+          |-|-|
+          |0|すべて|
+          |1|現物|
+          |2|信用|
+        enum:
+          - "0"
+          - "1"
+          - "2"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PositionsSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /register:
+    put:
+      tags:
+      - "register"
+      summary: "銘柄登録"
+      description: "PUSH配信する銘柄を登録します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "req"
+        description: "登録する銘柄のリスト"
+        required: true
+        schema:
+          $ref: "#/definitions/RequestRegister"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+              $ref: "#/definitions/RegistSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /unregister:
+    put:
+      tags:
+      - "register"
+      summary: "銘柄登録解除"
+      description: "PUSH配信している銘柄を解除します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "req"
+        description: "登録解除する銘柄のリスト"
+        required: true
+        schema:
+          $ref: "#/definitions/RequestRegister"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RegistSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /unregister/all:
+    put:
+      tags:
+      - "register"
+      summary: "銘柄登録全解除"
+      description: "PUSH配信している銘柄をすべて解除します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/UnregisterAllSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+definitions:
+  #Request
+  RequestToken:
+    type: "object"
+    required:
+      - APIPassword
+    properties:
+      APIPassword:
+        description: "APIパスワード"
+        type: "string"
+        example: "xxxxxx"
+  RequestSendOrder:
+    type: "object"
+    required:
+      - Password
+      - Symbol
+      - Exchange
+      - SecurityType
+      - Side
+      - CashMargin
+      - MarginTradeType
+      - DelivType
+      - FundType
+      - AccountType
+      - Qty
+      - ClosePositionOrder
+      - ClosePositions
+      - Price
+      - ExpireDay
+      - FrontOrderType
+    properties:
+      Password:
+        description: "注文パスワード"
+        type: "string"
+        example: "xxxxxx"
+      Symbol:
+        description: "銘柄コード"
+        type: "string"
+        example: "3997"
+      Exchange:
+        description: |-
+          市場コード
+          |定義値|説明|
+          |-|-|
+          |1|東証|
+          |3|名証|
+          |5|福証|
+          |6|札証|
+        type: "integer"
+        format: "int32"
+        example: 1
+      SecurityType:
+        description:  |-
+          商品種別
+          |定義値|説明|
+          |-|-|
+          |1|株式|
+        type: "integer"
+        format: "int32"
+        example: 1
+      Side:
+        description: |-
+          売買区分
+          |定義値|説明|
+          |-|-|
+          |1|売|
+          |2|買|
+        type: "string"
+        example: "2"
+      CashMargin:
+        description: |-
+          現物信用区分
+          |定義値|説明|
+          |-|-|
+          |1|現物|
+          |2|信用新規|
+          |3|信用返済|
+        type: "integer"
+        format: "int32"
+        example: 1
+      MarginTradeType:
+        description: |-
+          信用取引区分<br>※現物取引の場合は省略可。<br>※信用取引の場合、必須。
+          |定義値|説明|
+          |-|-|
+          |1|制度信用|
+          |2|一般信用|
+          |3|一般信用（売短）|
+        type: "integer"
+        format: "int32"
+        example: 1
+      DelivType:
+        description: |-
+          受渡区分<br>※株式取引の場合、必須。<br>※現物売、信用返済の場合は「0(指定なし)」を指定する。
+          |定義値|説明|
+          |-|-|
+          |0|指定なし|
+          |1|自動振替|
+          |2|お預り金|
+        type: "integer"
+        format: "int32"
+        example: 2
+      FundType:
+        description: |-
+          資産区分<br>※株式取引の場合、必須。<br>※現物売、信用返済の場合は「'  '(指定なし)」を指定する。
+          |定義値|説明|
+          |-|-|
+          |(半角スペース2つ)|指定なし|
+          |02|保護|
+          |AA|信用代用|
+          |BB|証拠金代用|
+          |11|信用取引|
+        type: "string"
+        example: "AA"
+      AccountType:
+        description: |-
+          口座種別
+          |定義値|説明|
+          |-|-|
+          |2|一般|
+          |4|特定|
+          |12|法人|
+        type: "integer"
+        format: "int32"
+        example: 2
+      Qty:
+        description: "注文数量"
+        type: "integer"
+        format: "int32"
+        example: 100
+      ClosePositionOrder:
+        description: |-
+          決済順序<br>※信用取引の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。
+          |定義値|説明|
+          |-|-|
+          |0|日付（古い順）、損益（高い順）|
+          |1|日付（古い順）、損益（低い順）|
+          |2|日付（新しい順）、損益（高い順）|
+          |3|日付（新しい順）、損益（低い順）|
+          |4|損益（高い順）、日付（古い順）|
+          |5|損益（高い順）、日付（新しい順）|
+          |6|損益（低い順）、日付（古い順）|
+          |7|損益（低い順）、日付（新しい順）|
+        type: "integer"
+        format: "int32"
+        example: null
+      ClosePositions:
+        description: "返済建玉指定<br>※信用取引の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。"
+        type: "array"
+        items:
+          $ref: "#/definitions/Positions"
+      Price:
+        description: "注文価格<br>※FrontOrderTypeで成行を指定した場合、0を指定する。"
+        type: "integer"
+        format: "int32"
+        example: 2000
+      ExpireDay:
+        description: "注文有効期限<br>yyyyMMdd形式"
+        type: "integer"
+        format: "int32"
+        example: 20200716
+      FrontOrderType:
+        description: |-
+          執行条件
+          |定義値|説明|
+          |-|-|
+          |10|成行|
+          |13|寄成（前場）|
+          |14|寄成（後場）|
+          |15|引成（前場）|
+          |16|引成（後場）|
+          |17|IOC成行|
+          |20|指値|
+          |21|寄指（前場）|
+          |22|寄指（後場）|
+          |23|引指（前場）|
+          |24|引指（後場）|
+          |25|不成（前場）|
+          |26|不成（後場）|
+          |27|IOC指値|
+        type: "integer"
+        format: "int32"
+        example: 20
+  Positions:
+    type: "object"
+    properties:
+      HoldID:
+        description: "返済建玉ID"
+        type: "string"
+        example: "20200715E02N04738464"
+      Qty:
+        description: "返済建玉数量"
+        type: "integer"
+        format: "int32"
+        example: 100
+  RequestCancelOrder:
+    type: "object"
+    required:
+      - OrderId
+      - Password
+    properties:
+      OrderId:
+        description: "注文番号<br>sendorderのレスポンスで受け取るOrderID。"
+        type: "string"
+        example: "20200529A01N06848002"
+      Password:
+        description: "注文パスワード"
+        type: "string"
+        example: "xxxxxx"
+  RequestRegister:
+    type: "object"
+    properties:
+      Symbols:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            Symbol:
+              description: "銘柄コード"
+              type: "string"
+              example: "9433"
+            Exchange:
+              description: |-
+                市場コード
+                |定義値|説明|
+                |-|-|
+                |1|東証|
+                |3|名証|
+                |5|福証|
+                |6|札証|
+              type: "integer"
+              format: "int32"
+              example: 1
+  TokenSuccess:
+    type: "object"
+    properties:
+      Result:
+        description: "結果コード<br>0が成功。それ以外はエラーコード。"
+        type: "integer"
+        format: "int32"
+        example: 0
+      Token:
+        description: "APIトークン"
+        type: "string"
+        example: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  OrderSuccess:
+    type: "object"
+    properties:
+      Result:
+        description: "結果コード<br>0が成功。それ以外はエラーコード。"
+        type: "integer"
+        format: "int32"
+        example: 0
+      OrderId:
+        description: "受付注文番号"
+        type: "string"
+        example: "20200529A01N06848002"
+  WalletCashSuccess:
+    type: "object"
+    properties:
+      StockAccountWallet:
+        description: "現物買付可能額"
+        type: "number"
+        format: "double"
+        example: null
+  WalletMarginSuccess:
+    type: "object"
+    properties:
+      MarginAccountWallet:
+        description: "信用新規可能額"
+        type: "number"
+        format: "double"
+        example: null
+      DepositkeepRate:
+        description: "保証金維持率"
+        type: "number"
+        format: "double"
+        example: null
+      ConsignmentDepositRate:
+        description: "委託保証金率<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、nullを返す。"
+        type: "number"
+        format: "double"
+        example: null
+      CashOfConsignmentDepositRate:
+        description: "現金委託保証金率<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、nullを返す。"
+        type: "number"
+        format: "double"
+        example: null
+  BoardSuccess:
+    type: "object"
+    properties:
+      Symbol:
+        description: "銘柄コード"
+        type: "string"
+        example: "5401"
+      SymbolName:
+        description: "銘柄名"
+        type: "string"
+        example: "新日鐵住金"
+      Exchange:
+        description: |-
+          市場コード
+          |定義値|説明|
+          |-|-|
+          |1|東証|
+          |3|名証|
+          |5|福証|
+          |6|札証|
+        type: "integer"
+        format: "int32"
+        example: 1
+      ExchangeName:
+        description: "市場名称"
+        type: "string"
+        example: "東証１部"
+      CurrentPrice:
+        description: "現値"
+        type: "number"
+        format: "double"
+        example: 2408.0
+      CurrentPriceTime:
+        description: "現値時刻"
+        type: "string"
+        format: "date-time"
+        example: "2020-07-22T15:00:00+09:00"
+      CurrentPriceChangeStatus:
+        description: |-
+          現値前値比較
+          |定義値|説明|
+          |-|-|
+          |0000|事象なし|
+          |0056|変わらず|
+          |0057|UP|
+          |0058|DOWN|
+          |0059|中断板寄り後の初値|
+          |0060|ザラバ引け|
+          |0061|板寄り引け|
+          |0062|中断引け|
+          |0063|ダウン引け|
+          |0064|逆転終値|
+          |0066|特別気配引け|
+          |0067|一時留保引け|
+          |0068|売買停止引け|
+          |0069|サーキットブレーカ引け|
+          |0431|ダイナミックサーキットブレーカ引け|
+        type: "string"
+        example: "0058"
+      CurrentPriceStatus:
+        description: |-
+          現値ステータス
+          |定義値|説明|
+          |-|-|
+          |1|現値|
+          |2|不連続歩み|
+          |3|板寄せ|
+          |4|システム障害|
+          |5|中断|
+          |6|売買停止|
+          |7|売買停止・システム停止解除|
+          |8|終値|
+          |9|システム停止|
+          |10|概算値|
+          |11|参考値|
+          |12|サーキットブレイク実施中|
+          |13|システム障害解除|
+          |14|サーキットブレイク解除|
+          |15|中断解除|
+          |16|一時留保中|
+          |17|一時留保解除|
+          |18|ファイル障害|
+          |19|ファイル障害解除|
+          |20|Spread/Strategy|
+          |21|ダイナミックサーキットブレイク発動|
+          |22|ダイナミックサーキットブレイク解除|
+          |23|板寄せ約定|
+        type: "integer"
+        format: "int32"
+        example: 1
+      CalcPrice:
+        description: "計算用現値"
+        type: "number"
+        format: "double"
+        example: 343.7
+      PreviousClose:
+        description: "前日終値"
+        type: "number"
+        format: "double"
+        example: 1048.0000
+      PreviousCloseTime:
+        description: "前日終値日付"
+        type: "string"
+        format: "date-time"
+        example: null
+      ChangePreviousClose:
+        description: "前日比"
+        type: "number"
+        format: "double"
+        example: 1360.0000
+      ChangePreviousClosePer:
+        description: "騰落率"
+        type: "number"
+        format: "double"
+        example: 129.77
+      OpeningPrice:
+        description: "始値"
+        type: "number"
+        format: "double"
+        example: 2380.0
+      OpeningPriceTime:
+        description: "始値時刻"
+        type: "string"
+        format: "date-time"
+        example: "2020-07-22T09:00:00+09:00"
+      HighPrice:
+        description: "高値"
+        type: "number"
+        format: "double"
+        example: 2418.0
+      HighPriceTime:
+        description: "高値時刻"
+        type: "string"
+        format: "date-time"
+        example: "2020-07-22T13:25:47+09:00"
+      LowPrice:
+        description: "安値"
+        type: "number"
+        format: "double"
+        example: 2370.0
+      LowPriceTime:
+        description: "安値時刻"
+        type: "string"
+        format: "date-time"
+        example: "2020-07-22T10:00:04+09:00"
+      TradingVolume:
+        description: "売買高"
+        type: "number"
+        format: "double"
+        example: 4571500.0
+      TradingVolumeTime:
+        description: "売買高時刻"
+        type: "string"
+        format: "date-time"
+        example: "2020-07-22T15:00:00+09:00"
+      VWAP:
+        description: "売買高加重平均価格（VWAP）"
+        type: "number"
+        format: "double"
+        example: 2394.4262
+      TradingValue:
+        description: "売買代金"
+        type: "number"
+        format: "double"
+        example: 10946119350.0
+      BidQty:
+        description: "最良売気配数量"
+        type: "number"
+        format: "double"
+        example: 100.0
+      BidPrice:
+        description: "最良売気配値段"
+        type: "number"
+        format: "double"
+        example: 2408.5000
+      BidTime:
+        description: "最良売気配時刻"
+        type: "string"
+        format: "date-time"
+        example: "2020-07-22T14:59:59+09:00"
+      BidSign:
+        description: |-
+          最良売気配フラグ
+          |定義値|説明|
+          |-|-|
+          |0000|事象なし|
+          |0101|一般気配|
+          |0102|特別気配|
+          |0103|注意気配|
+          |0107|寄前気配|
+          |0108|停止前特別気配|
+          |0109|引け後気配|
+          |0116|寄前気配約定成立ポイントなし|
+          |0117|寄前気配約定成立ポイントあり|
+          |0118|連続約定気配|
+          |0119|停止前の連続約定気配|
+          |0120|買い上がり売り下がり中|
+        type: "string"
+        example: "0101"
+      MarketOrderSellQty:
+        description: "売成行数量"
+        type: "number"
+        format: "double"
+        example: 0.0
+      Sell1:
+        description: "売気配数量1本目"
+        type: "object"
+        properties:
+          Time:
+            description: "時刻"
+            type: "string"
+            format: "date-time"
+            example: "2020-07-22T14:59:59+09:00"
+          Sign:
+            description: |-
+              気配フラグ
+              |定義値|説明|
+              |-|-|
+              |0000|事象なし|
+              |0101|一般気配|
+              |0102|特別気配|
+              |0103|注意気配|
+              |0107|寄前気配|
+              |0108|停止前特別気配|
+              |0109|引け後気配|
+              |0116|寄前気配約定成立ポイントなし|
+              |0117|寄前気配約定成立ポイントあり|
+              |0118|連続約定気配|
+              |0119|停止前の連続約定気配|
+              |0120|買い上がり売り下がり中|
+            type: "string"
+            example: "0101"
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2408.5000
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 100.0
+      Sell2:
+        description: "売気配数量2本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2409.0
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 800.0
+      Sell3:
+        description: "売気配数量3本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2409.5000
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 2100.0
+      Sell4:
+        description: "売気配数量4本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2410.0
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 800.0
+      Sell5:
+        description: "売気配数量5本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2410.5000
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 500.0
+      Sell6:
+        description: "売気配数量6本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2411.0
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 8400.0
+      Sell7:
+        description: "売気配数量7本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2411.5000
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 1200.0
+      Sell8:
+        description: "売気配数量8本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2412.0
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 27200.0
+      Sell9:
+        description: "売気配数量9本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2412.5000
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 400.0
+      Sell10:
+        description: "売気配数量10本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2413.0
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 16400.0
+      AskQty:
+        description: "最良買気配数量"
+        type: "number"
+        format: "double"
+        example: 200.0
+      AskPrice:
+        description: "最良買気配値段"
+        type: "number"
+        format: "double"
+        example: 2407.5000
+      AskTime:
+        description: "最良買気配時刻"
+        type: "string"
+        format: "date-time"
+        example: "2020-07-22T14:59:59+09:00"
+      AskSign:
+        description: |-
+          最良買気配フラグ
+          |定義値|説明|
+          |-|-|
+          |0000|事象なし|
+          |0101|一般気配|
+          |0102|特別気配|
+          |0103|注意気配|
+          |0107|寄前気配|
+          |0108|停止前特別気配|
+          |0109|引け後気配|
+          |0116|寄前気配約定成立ポイントなし|
+          |0117|寄前気配約定成立ポイントあり|
+          |0118|連続約定気配|
+          |0119|停止前の連続約定気配|
+          |0120|買い上がり売り下がり中|
+        type: "string"
+        example: "0101"
+      MarketOrderBuyQty:
+        description: "買成行数量"
+        type: "number"
+        format: "double"
+        example: 0.0
+      Buy1:
+        description: "買気配数量1本目"
+        type: "object"
+        properties:
+          Time:
+            description: "時刻"
+            type: "string"
+            format: "date-time"
+            example: "2020-07-22T14:59:59+09:00"
+          Sign:
+            description: |-
+              気配フラグ
+              |定義値|説明|
+              |-|-|
+              |0000|事象なし|
+              |0101|一般気配|
+              |0102|特別気配|
+              |0103|注意気配|
+              |0107|寄前気配|
+              |0108|停止前特別気配|
+              |0109|引け後気配|
+              |0116|寄前気配約定成立ポイントなし|
+              |0117|寄前気配約定成立ポイントあり|
+              |0118|連続約定気配|
+              |0119|停止前の連続約定気配|
+              |0120|買い上がり売り下がり中|
+            type: "string"
+            example: "0101"
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2407.5000
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 200.0
+      Buy2:
+        description: "買気配数量2本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2407.0
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 400.0
+      Buy3:
+        description: "買気配数量3本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2406.5000
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 1000.0
+      Buy4:
+        description: "買気配数量4本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2406.0
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 5800.0
+      Buy5:
+        description: "買気配数量5本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2405.5000
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 7500.0
+      Buy6:
+        description: "買気配数量6本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2405.0
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 2200.0
+      Buy7:
+        description: "買気配数量7本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2404.5000
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 16700.0
+      Buy8:
+        description: "買気配数量8本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2404.0
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 30100.0
+      Buy9:
+        description: "買気配数量9本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2403.5000
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 1300.0
+      Buy10:
+        description: "買気配数量10本目"
+        type: "object"
+        properties:
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 2403.0
+          Qty:
+            description: "数量"
+            type: "number"
+            format: "double"
+            example: 3000.0
+      OverSellQty:
+        description: "OVER気配数量"
+        type: "number"
+        format: "double"
+        example: 974900.0
+      UnderBuyQty:
+        description: "UNDER気配数量"
+        type: "number"
+        format: "double"
+        example: 756000.0
+      TotalMarketValue:
+        description: "時価総額"
+        type: "number"
+        format: "double"
+        example: 3266254659361.4
+  RegistSuccess:
+    type: "object"
+    properties:
+      RegistList:
+        description: "現在登録されている銘柄のリスト"
+        type: "array"
+        items:
+            type: "object"
+            properties:
+              Symbol:
+                description: "銘柄コード"
+                type: "string"
+                example: "9433"
+              Exchange:
+                description: |-
+                  市場コード
+                  |定義値|説明|
+                  |-|-|
+                  |1|東証|
+                  |3|名証|
+                  |5|福証|
+                  |6|札証|
+                type: "integer"
+                format: "int32"
+                example: 1
+  UnregisterAllSuccess:
+    type: "object"
+    properties:
+      RegistList:
+        description: "現在登録されている銘柄のリスト<br>※銘柄登録解除が正常に行われれば、空リストを返します。<br>　登録解除でエラー等が発生した場合、現在登録されている銘柄のリストを返します"
+        type: "object"
+        example: []
+  SymbolSuccess:
+    type: "object"
+    properties:
+      Symbol:
+        description: "銘柄コード"
+        type: "string"
+        example: "9433"
+      SymbolName:
+        description: "銘柄名"
+        type: "string"
+        example: "ＫＤＤＩ"
+      DisplayName:
+        description: "銘柄略称"
+        type: "string"
+        example: "ＫＤＤＩ"
+      Exchange:
+        description: |-
+          市場コード
+          |定義値|説明|
+          |-|-|
+          |1|東証|
+          |3|名証|
+          |5|福証|
+          |6|札証|
+        type: "integer"
+        format: "int32"
+        example: 1
+      ExchangeName:
+        description: "市場名称"
+        type: "string"
+        example: "東証１部"
+      BisCategory:
+        description: |-
+          業種コード名
+          |定義値|説明|
+          |-|-|
+          |0050      |水産・農林業|
+          |1050      |鉱業|
+          |2050      |建設業|
+          |3050      |食料品|
+          |3100      |繊維製品|
+          |3150      |パルプ・紙|
+          |3200      |化学|
+          |3250      |医薬品|
+          |3300      |石油・石炭製品|
+          |3350      |ゴム製品|
+          |3400      |ガラス・土石製品|
+          |3450      |鉄鋼|
+          |3500      |非鉄金属|
+          |3550      |金属製品|
+          |3600      |機械|
+          |3650      |電気機器|
+          |3700      |輸送用機器|
+          |3750      |精密機器|
+          |3800      |その他製品|
+          |4050      |電気・ガス業|
+          |5050      |陸運業|
+          |5100      |海運業|
+          |5150      |空運業|
+          |5200      |倉庫・運輸関連業|
+          |5250      |情報・通信業|
+          |6050      |卸売業|
+          |6100      |小売業|
+          |7050      |銀行業|
+          |7100      |証券、商品先物取引業|
+          |7150      |保険業|
+          |7200      |その他金融業|
+          |8050      |不動産業|
+          |9050      |サービス業|
+          |9999      |その他|
+        type: "string"
+        example: "5250      "
+      TotalMarketValue:
+        description: "時価総額"
+        type: "number"
+        format: "double"
+        example: 7654484465100
+      TotalStocks:
+        description: "発行済み株式数（千株）"
+        type: "number"
+        format: "double"
+        example: 4484
+      TradingUnit:
+        description: "売買単位"
+        type: "number"
+        format: "double"
+        example: 100
+      FiscalYearEndBasic:
+        description: "決算期日"
+        type: "integer"
+        format: "int32"
+        example: 20210331
+      PriceRangeGroup:
+        description: |-
+          呼値グループ
+          呼値コード|値段の水準|呼値単位|
+          |-|-|-|
+          |10000|3000円以下|1
+          |10000|5000円以下|5
+          |10000|30000円以下|10
+          |10000|50000円以下|50
+          |10000|300000円以下|100
+          |10000|500000円以下|500
+          |10000|3000000円以下|1000
+          |10000|5000000円以下|5000
+          |10000|30000000円以下|10000
+          |10000|50000000円以下|50000
+          |10000|50000000円超|100000
+          |10003|1000円以下|0.1
+          |10003|3000円以下|0.5
+          |10003|10000円以下|1
+          |10003|30000円以下|5
+          |10003|100000円以下|10
+          |10003|300000円以下|50
+          |10003|1000000円以下|100
+          |10003|3000000円以下|500
+          |10003|10000000円以下|1000
+          |10003|30000000円以下|5000
+          |10003|50000000円以下|10000
+          |10003|50000000円超|10000
+        type: "string"
+        example: "10003"
+      KCMarginBuy:
+        description: "一般信用買建フラグ<br>※trueのとき一般信用買建可能"
+        type: "boolean"
+        format: ""
+        example: true
+      KCMarginSell:
+        description: "一般信用売建フラグ<br>※trueのとき一般信用売建可能"
+        type: "boolean"
+        format: ""
+        example: true
+      MarginBuy:
+        description: "制度信用買建フラグ<br>※trueのとき制度信用買建可能"
+        type: "boolean"
+        format: ""
+        example: true
+      MarginSell:
+        description: "制度信用売建フラグ<br>※trueのとき制度信用売建可能"
+        type: "boolean"
+        format: ""
+        example: true
+      UpperLimit:
+        description: "値幅上限"
+        type: "number"
+        format: "double"
+        example: 4041
+      LowerLimit:
+        description: "値幅下限"
+        type: "number"
+        format: "double"
+        example: 2641
+  OrdersSuccess:
+    type: "array"
+    items:
+        type: "object"
+        properties:
+          ID:
+            description: "注文番号"
+            type: "string"
+            example: "20200715A02N04738436"
+          State:
+            description: |-
+              状態
+              |定義値|説明|
+              |-|-|
+              |1|待機（発注待機）|
+              |2|処理中（発注送信中）|
+              |3|処理済（発注済・訂正済）|
+              |4|訂正取消送信中|
+              |5|終了（発注エラー・取消済・全約定・失効・期限切れ）|
+            type: "integer"
+            format: "int32"
+            example: 5
+          OrderState:
+            description: |-
+              注文状態
+              |定義値|説明|
+              |-|-|
+              |1|待機（発注待機）|
+              |2|処理中（発注送信中）|
+              |3|処理済（発注済・訂正済）|
+              |4|訂正取消送信中|
+              |5|終了（発注エラー・取消済・全約定・失効・期限切れ）|
+            type: "integer"
+            format: "int32"
+            example: 5
+          OrdType:
+            description: |-
+              執行条件
+              |定義値|説明|
+              |-|-|
+              |1|ザラバ|
+              |2|寄り|
+              |3|引け|
+              |4|不成|
+            type: "integer"
+            format: "int32"
+            example: 1
+          RecvTime:
+            description: "受注日時"
+            type: "string"
+            example: "2020-07-16T18:00:51.763683"
+          Symbol:
+            description: "銘柄コード"
+            type: "string"
+            example: "8306"
+          SymbolName:
+            description: "銘柄名"
+            type: "string"
+            example: "三菱ＵＦＪフィナンシャル・グループ"
+          Exchange:
+            description: |-
+              市場コード
+              |定義値|説明|
+              |-|-|
+              |1|東証|
+              |3|名証|
+              |5|福証|
+              |6|札証|
+            type: "integer"
+            format: "int32"
+            example: 1
+          ExchangeName:
+            description: "市場名"
+            type: "string"
+            example: "東証１部"
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 704.5
+          OrderQty:
+            description: "発注数量"
+            type: "number"
+            format: "double"
+            example: 1500
+          CumQty:
+            description: "約定数量"
+            type: "number"
+            format: "double"
+            example: 1500
+          Side:
+            description: |-
+              売買区分
+              |定義値|説明|
+              |-|-|
+              |1|売|
+              |2|買|
+            type: "string"
+            example: "1"
+          CashMargin:
+            description: |-
+              現物信用区分
+              |定義値|説明|
+              |-|-|
+              |1|現物|
+              |2|信用新規|
+              |3|信用返済|
+            type: "integer"
+            format: "int32"
+            example: 2
+          AccountType:
+            description: |-
+              口座種別
+              |定義値|説明|
+              |-|-|
+              |2|一般|
+              |4|特定|
+              |12|法人|
+            type: "integer"
+            format: "int32"
+            example: 4
+          DelivType:
+            description: |-
+              受渡区分
+              |定義値|説明|
+              |-|-|
+              |1|自動振替|
+              |2|お預り金|
+            type: "integer"
+            format: "int32"
+            example: 2
+          ExpireDay:
+            description: "注文有効期限<br>yyyyMMdd形式"
+            type: "integer"
+            format: "int32"
+            example: 20200702
+          MarginTradeType:
+            description: |-
+              信用取引区分
+              |定義値|説明|
+              |-|-|
+              |1|制度信用|
+              |2|一般信用|
+              |3|一般信用（売短）|
+            type: "integer"
+            format: "int32"
+            example: 1
+          Details:
+            description: "注文詳細"
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                SeqNum:
+                  description: "通番"
+                  type: "integer"
+                  format: "int32"
+                  example: 1
+                ID:
+                  description: "注文詳細番号"
+                  type: "string"
+                  example: "20200715A02N04738436"
+                RecType:
+                  description: |-
+                    明細種別
+                    |定義値|説明|
+                    |-|-|
+                    |1|受付|
+                    |2|繰越|
+                    |3|期限切れ|
+                    |4|発注|
+                    |5|訂正|
+                    |6|取消|
+                    |7|失効|
+                    |8|約定|
+                  type: "integer"
+                  format: "int32"
+                  example: 1
+                ExchangeID:
+                  description: "取引所番号"
+                  type: "string"
+                  example: "00000000-0000-0000-0000-00000000"
+                State:
+                  description: |-
+                    状態
+                    |定義値|説明|
+                    |-|-|
+                    |1|待機（発注待機）|
+                    |2|処理中（発注送信中・訂正送信中・取消送信中）|
+                    |3|処理済（発注済・訂正済・取消済・全約定・期限切れ）|
+                    |4|エラー|
+                    |5|削除済み|
+                  type: "integer"
+                  format: "int32"
+                  example: 3
+                TransactTime:
+                  description: "処理時刻"
+                  type: "string"
+                  example: "2020-07-16T18:00:51.763683"
+                OrdType:
+                  description: |-
+                    執行条件
+                    |定義値|説明|
+                    |-|-|
+                    |1|ザラバ|
+                    |2|寄り|
+                    |3|引け|
+                    |4|不成|
+                  type: "integer"
+                  format: "int32"
+                  example: 1
+                Price:
+                  description: "値段"
+                  type: "number"
+                  format: "double"
+                  example: 704.5
+                Qty:
+                  description: "数量"
+                  type: "number"
+                  format: "double"
+                  example: 1500
+                ExecutionID:
+                  description: "約定番号"
+                  type: "string"
+                  example: ""
+                ExecutionDay:
+                  description: "約定日時"
+                  type: "string"
+                  example: "2020-07-02T18:02:00"
+                DelivDay:
+                  description: "受渡日"
+                  type: "integer"
+                  format: "int32"
+                  example: 20200706
+                Commission:
+                  description: "手数料"
+                  type: "number"
+                  format: "double"
+                  example: 0
+                CommissionTax:
+                  description: "手数料消費税"
+                  type: "number"
+                  format: "double"
+                  example: 0
+  PositionsSuccess:
+    type: "array"
+    items:
+        type: "object"
+        properties:
+          ExecutionID:
+            description: "約定番号"
+            type: "string"
+            example: "20200715E02N04738464"
+          AccountType:
+            description: |-
+              口座種別
+              |定義値|説明|
+              |-|-|
+              |2|一般|
+              |4|特定|
+              |12|法人|
+            type: "integer"
+            format: "int32"
+            example: 4
+          Symbol:
+            description: "銘柄コード"
+            type: "string"
+            example: "8306"
+          SymbolName:
+            description: "銘柄名"
+            type: "string"
+            example: "三菱ＵＦＪフィナンシャル・グループ"
+          Exchange:
+            description: |-
+              市場コード
+              |定義値|説明|
+              |-|-|
+              |1|東証|
+              |3|名証|
+              |5|福証|
+              |6|札証|
+            type: "integer"
+            format: "int32"
+            example: 1
+          ExchangeName:
+            description: "市場名"
+            type: "string"
+            example: "東証１部"
+          ExecutionDay:
+            description: "約定日（建玉日）"
+            type: "integer"
+            format: "int32"
+            example: 20200702
+          Price:
+            description: "値段"
+            type: "number"
+            format: "double"
+            example: 704
+          LeavesQty:
+            description: "残数量"
+            type: "number"
+            format: "double"
+            example: 500
+          HoldQty:
+            description: "拘束数量（保有数量）"
+            type: "number"
+            format: "double"
+            example: 0
+          Side:
+            description: |-
+              売買区分
+              |定義値|説明|
+              |-|-|
+              |1|売|
+              |2|買|
+            type: "string"
+            example: "1"
+          Expenses:
+            description: "諸経費"
+            type: "number"
+            format: "double"
+            example: 0
+          Commission:
+            description: "手数料"
+            type: "number"
+            format: "double"
+            example: 1620
+          CommissionTax:
+            description: "手数料消費税"
+            type: "number"
+            format: "double"
+            example: 162
+          ExpireDay:
+            description: "返済期日"
+            type: "integer"
+            format: "int32"
+            example: 20201229
+          MarginTradeType:
+            description: |-
+              信用取引区分
+              |定義値|説明|
+              |-|-|
+              |1|制度信用|
+              |2|一般信用|
+              |3|一般信用（売短）|
+            type: "integer"
+            format: "int32"
+            example: 1
+          CurrentPrice:
+            description: "現在値"
+            type: "number"
+            format: "double"
+            example: 414.5
+          Valuation:
+            description: "評価金額"
+            type: "number"
+            format: "double"
+            example: 207250
+          ProfitLoss:
+            description: "評価損益額"
+            type: "number"
+            format: "double"
+            example: 144750
+          ProfitLossRate:
+            description: "評価損益率"
+            type: "number"
+            format: "double"
+            example: 41.12215909090909
+#APIエラー結果
+  ErrorResponse:
+    type: "object"
+    properties:
+      Code:
+        description: "エラーコード"
+        type: "integer"
+        format: "int32"
+        example: 4001001
+      Message:
+        description: |-
+          エラーメッセージ
+          |エラーコード|エラーメッセージ|
+          |-|-|
+          |4001001|内部エラー|
+          |4001002|トリガキー生成エラー|
+          |4001003|エラー：Uターン|
+          |4001004|トリガ生成エラー|
+          |4001005|パラメータ変換エラー|
+          |4001006|API実行回数エラー|
+          |4001007|ログイン認証エラー|
+          |4001008|API利用不可|
+          |4001009|APIキー不一致|
+          |4001010|クエリ文字列不正|
+          |4001011|リクエスト文字列不正|
+          |4001012|リクエスト不正|
+          |4001013|トークン取得失敗|
+          |4001014|許可されていないHTTPメソッド|
+          |4001015|ContentLength超過|
+          |4001016|サポートされていないメディアタイプ|
+          |4001017|ローカル以外からのリクエストは許可されない|
+          |4001018|銘柄が登録できませんでした|
+          |4001019|一部の銘柄が登録できませんでした|
+          |4001020|銘柄が解除できませんでした|
+          |4001021|一部の銘柄が解除できませんでした|
+          |4002001|銘柄が見つからない|
+          |4002002|執行条件エラー|
+          |4002003|執行条件エラー|
+          |4002004|トリガチェックエラー - 詳細はkabuSログファイルを確認してください|
+          |4002005|商品エラー|
+          |4002006|レジスト数エラー|
+          |4002007|パラメータ不正：AccountType - 詳細はkabuSログファイルを確認してください|
+          |4002008|パラメータ不正：Side - 詳細はkabuSログファイルを確認してください|
+          |4002009|パラメータ不正：CashMargin - 詳細はkabuSログファイルを確認してください|
+          |4002010|パラメータ不正：DelivType - 詳細はkabuSログファイルを確認してください|
+          |4002011|パラメータ不正：FundType - 詳細はkabuSログファイルを確認してください|
+          |4002012|パラメータ不正：FrontOrderType - 詳細はkabuSログファイルを確認してください|
+          |4002013|パラメータ不正：MarginTradeType - 詳細はkabuSログファイルを確認してください|
+          |4002014|パラメータ不正：TimeInForce - 詳細はkabuSログファイルを確認してください|
+          |4002015|パラメータ不正：返済順指定と返済指定は同時に設定できない|
+          |4002016|パラメータ不正：DelivType - 詳細はkabuSログファイルを確認してください|
+          |4002017|パラメータ不正：値段指定エラー|
+          |4002018|パラメータ不正：IOC対象銘柄ではない - 詳細はkabuSログファイルを確認してください|
+          |4003001|ワンショット：金額エラー|
+          |4003002|ワンショット：数量エラー|
+          |4004001|該当注文なしエラー|
+          |4004002|取消不可|
+        type: "string"
+        example: "内部エラー"
