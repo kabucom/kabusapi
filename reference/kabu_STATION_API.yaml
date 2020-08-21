@@ -12,19 +12,31 @@ schemes:
 basePath: "/kabusapi"
 tags:
     - name: "auth"
-      description: "APIトークンの発行"
+      description: |-
+        APIトークンを発行します。
       x-displayName: "認証"
     - name: "order"
-      description: "注文の発注・取消"
+      description: |-
+        注文の発注・取消を行います。<br>
+        発注系のリクエストは秒間5件ほどの流量制限を設けています。
       x-displayName: "発注"
     - name: "wallet"
-      description: "取引余力を取得"
+      description: |-
+        取引余力を取得します。<br>
+        取引余力のリクエストは秒間10件ほどの流量制限を設けています。
       x-displayName: "取引余力"
     - name: "info"
-      description: "銘柄情報の取得、残高照会"
+      description: |-
+        銘柄情報の取得や注文・残高の照会を行います。<br>
+        情報系のリクエストは秒間10件ほどの流量制限を設けています。<br>
+        リクエストされた銘柄は自動でAPI登録銘柄リストに登録されます。<br>
+        API登録銘柄リストに登録できる銘柄数は、REST/PUSHを含めて最大50銘柄です。
       x-displayName: "情報"
     - name: "register"
-      description: "PUSH配信銘柄登録・解除"
+      description: |-
+        PUSH配信する銘柄の登録や解除を行います。<br>
+        登録された銘柄はkabuステーションのAPI登録銘柄リストに表示されます。<br>
+        API登録銘柄リストに登録できる銘柄数は、REST/PUSHを含めて最大50銘柄です。
       x-displayName: "銘柄登録"
 paths:
   /token:
@@ -32,7 +44,14 @@ paths:
       tags:
       - "auth"
       summary: "トークン発行"
-      description: "APIトークンを発行します"
+      description: |-
+        APIトークンを発行します。<br>
+        発行したトークンは有効である限り使用することができ、リクエストごとに発行する必要はありません。<br>
+        発行されたAPIトークンは以下のタイミングで無効となります。<br>
+        ・kabuステーションを終了した時<br>
+        ・kabuステーションからログアウトした時<br>
+        ・別のトークンが新たに発行された時<br>
+        ※kabuステーションは早朝、強制的にログアウトいたしますのでご留意ください。<br>
       consumes:
       - "application/json"
       produces:
@@ -89,7 +108,9 @@ paths:
       tags:
       - "order"
       summary: "注文発注"
-      description: "注文を発注します"
+      description: |-
+        注文を発注します。<br>
+        同一の銘柄に対しての注文は同時に5件ほどを上限としてご利用ください。
       consumes:
       - "application/json"
       produces:
@@ -808,7 +829,7 @@ paths:
       tags:
       - "register"
       summary: "銘柄登録解除"
-      description: "PUSH配信している銘柄を解除します"
+      description: "API登録銘柄リストに登録されている銘柄を解除します"
       consumes:
       - "application/json"
       produces:
@@ -867,7 +888,7 @@ paths:
       tags:
       - "register"
       summary: "銘柄登録全解除"
-      description: "PUSH配信している銘柄をすべて解除します"
+      description: "API登録銘柄リストに登録されている銘柄をすべて解除します"
       consumes:
       - "application/json"
       produces:
@@ -1151,7 +1172,7 @@ definitions:
   TokenSuccess:
     type: "object"
     properties:
-      Result:
+      ResultCode:
         description: "結果コード<br>0が成功。それ以外はエラーコード。"
         type: "integer"
         format: "int32"
