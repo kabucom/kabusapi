@@ -70,39 +70,39 @@ paths:
         "400":
           description: "BadRequest"
           schema:
-            $ref: "#/definitions/ErrorResponse"
+            $ref: "#/definitions/AuthErrorResponse"
         "401":
           description: "Unauthorized"
           schema:
-            $ref: "#/definitions/ErrorResponse"
+            $ref: "#/definitions/AuthErrorResponse"
         "403":
           description: "Forbidden"
           schema:
-            $ref: "#/definitions/ErrorResponse"
+            $ref: "#/definitions/AuthErrorResponse"
         "404":
           description: "NotFound"
           schema:
-            $ref: "#/definitions/ErrorResponse"
+            $ref: "#/definitions/AuthErrorResponse"
         "405":
           description: "MethodNotAllowed"
           schema:
-            $ref: "#/definitions/ErrorResponse"
+            $ref: "#/definitions/AuthErrorResponse"
         "413":
           description: "RequestEntityTooLarge"
           schema:
-            $ref: "#/definitions/ErrorResponse"
+            $ref: "#/definitions/AuthErrorResponse"
         "415":
           description: "UnsupportedMediaType"
           schema:
-            $ref: "#/definitions/ErrorResponse"
+            $ref: "#/definitions/AuthErrorResponse"
         "429":
           description: "TooManyRequests"
           schema:
-            $ref: "#/definitions/ErrorResponse"
+            $ref: "#/definitions/AuthErrorResponse"
         "500":
           description: "InternalServerError"
           schema:
-            $ref: "#/definitions/ErrorResponse"
+            $ref: "#/definitions/AuthErrorResponse"
   /sendorder:
     post:
       tags:
@@ -1029,7 +1029,7 @@ definitions:
         example: 1
       DelivType:
         description: |-
-          受渡区分<br>※株式取引の場合、必須。<br>※現物売、信用返済の場合は「0(指定なし)」を指定する。
+          受渡区分<br>※現物買は指定必須。<br>※現物売は「0(指定なし)」を設定<br>※信用新規は「0(指定なし)」を設定<br>※信用返済は指定必須
           |定義値|説明|
           |-|-|
           |0|指定なし|
@@ -1040,10 +1040,10 @@ definitions:
         example: 2
       FundType:
         description: |-
-          資産区分<br>※株式取引の場合、必須。<br>※現物売、信用返済の場合は「'  '(指定なし)」を指定する。
+          資産区分<br>※株式取引の場合、必須。<br>※現物売、信用返済の場合に「'  '」 半角スペース2つを指定 。
           |定義値|説明|
           |-|-|
-          |(半角スペース2つ)|指定なし|
+          |(半角スペース2つ)|現物売、信用返済の場合|
           |02|保護|
           |AA|信用代用|
           |BB|証拠金代用|
@@ -1093,7 +1093,15 @@ definitions:
         format: "int32"
         example: 2000
       ExpireDay:
-        description: "注文有効期限<br>yyyyMMdd形式"
+        description: |-
+          注文有効期限<br>
+          yyyyMMdd形式。<br>
+          「0」を指定すると、kabuステーション上の発注画面の「本日」に対応する日付として扱います。<br>
+          「本日」は直近の注文可能日となり、以下のように設定されます。<br>
+          引けまでの間 : 当日<br>
+          引け後       : 翌取引所営業日<br>
+          休前日       : 休日明けの取引所営業日<br>
+          ※ 日替わりはkabuステーションが日付変更通知を受信したタイミングです。
         type: "integer"
         format: "int32"
         example: 20200716
@@ -1328,7 +1336,7 @@ definitions:
         description: "前日終値日付"
         type: "string"
         format: "date-time"
-        example: null
+        example: "2020-07-21T00:00:00+09:00"
       ChangePreviousClose:
         description: "前日比"
         type: "number"
@@ -1937,7 +1945,7 @@ definitions:
       PriceRangeGroup:
         description: |-
           呼値グループ
-          呼値コード|値段の水準|呼値単位|
+          |呼値コード|値段の水準|呼値単位|
           |-|-|-|
           |10000|3000円以下|1
           |10000|5000円以下|5
@@ -2044,7 +2052,7 @@ definitions:
           RecvTime:
             description: "受注日時"
             type: "string"
-            example: "2020-07-16T18:00:51.763683"
+            example: "2020-07-16T18:00:51.763683+09:00"
           Symbol:
             description: "銘柄コード"
             type: "string"
@@ -2192,7 +2200,7 @@ definitions:
                 TransactTime:
                   description: "処理時刻"
                   type: "string"
-                  example: "2020-07-16T18:00:51.763683"
+                  example: "2020-07-16T18:00:51.763683+09:00"
                 OrdType:
                   description: |-
                     執行条件
@@ -2221,8 +2229,8 @@ definitions:
                   example: ""
                 ExecutionDay:
                   description: "約定日時"
-                  type: "string"
-                  example: "2020-07-02T18:02:00"
+                  format: "date-time"
+                  example: "2020-07-02T18:02:00+09:00"
                 DelivDay:
                   description: "受渡日"
                   type: "integer"
@@ -2363,6 +2371,64 @@ definitions:
             format: "double"
             example: 41.12215909090909
 #APIエラー結果
+  AuthErrorResponse:
+      type: "object"
+      properties:
+        Code:
+          description: "エラーコード"
+          type: "integer"
+          format: "int32"
+          example: 4001001
+        Message:
+          description: |-
+            エラーメッセージ
+            |エラーコード|エラーメッセージ|
+            |-|-|
+            |4001001|内部エラー|
+            |4001002|トリガキー生成エラー|
+            |4001003|エラー：Uターン|
+            |4001004|トリガ生成エラー|
+            |4001005|パラメータ変換エラー|
+            |4001006|API実行回数エラー|
+            |4001007|ログイン認証エラー|
+            |4001008|API利用不可|
+            |4001009|APIキー不一致|
+            |4001010|クエリ文字列不正|
+            |4001011|リクエスト文字列不正|
+            |4001012|リクエスト不正|
+            |4001013|トークン取得失敗：kabuステーションがログインしている状態で、APIパスワードが不正|
+            |4001014|許可されていないHTTPメソッド|
+            |4001015|ContentLength超過|
+            |4001016|サポートされていないメディアタイプ|
+            |4001017|ログイン認証エラー：kabuSステーション未ログイン状態。|
+            |4001018|銘柄が登録できませんでした|
+            |4001019|一部の銘柄が登録できませんでした|
+            |4001020|銘柄が解除できませんでした|
+            |4001021|一部の銘柄が解除できませんでした|
+            |4002001|銘柄が見つからない|
+            |4002002|執行条件エラー|
+            |4002003|執行条件エラー|
+            |4002004|トリガチェックエラー - 詳細はkabuSログファイルを確認してください|
+            |4002005|商品エラー|
+            |4002006|レジスト数エラー|
+            |4002007|パラメータ不正：AccountType - 詳細はkabuSログファイルを確認してください|
+            |4002008|パラメータ不正：Side - 詳細はkabuSログファイルを確認してください|
+            |4002009|パラメータ不正：CashMargin - 詳細はkabuSログファイルを確認してください|
+            |4002010|パラメータ不正：DelivType - 詳細はkabuSログファイルを確認してください|
+            |4002011|パラメータ不正：FundType - 詳細はkabuSログファイルを確認してください|
+            |4002012|パラメータ不正：FrontOrderType - 詳細はkabuSログファイルを確認してください|
+            |4002013|パラメータ不正：MarginTradeType - 詳細はkabuSログファイルを確認してください|
+            |4002014|パラメータ不正：TimeInForce - 詳細はkabuSログファイルを確認してください|
+            |4002015|パラメータ不正：返済順指定と返済指定は同時に設定できない|
+            |4002016|パラメータ不正：DelivType - 詳細はkabuSログファイルを確認してください|
+            |4002017|パラメータ不正：値段指定エラー|
+            |4002018|パラメータ不正：IOC対象銘柄ではない - 詳細はkabuSログファイルを確認してください|
+            |4003001|ワンショット：金額エラー|
+            |4003002|ワンショット：数量エラー|
+            |4004001|該当注文なしエラー|
+            |4004002|取消不可|
+          type: "string"
+          example: "内部エラー"
   ErrorResponse:
     type: "object"
     properties:
