@@ -1040,10 +1040,10 @@ definitions:
         example: 2
       FundType:
         description: |-
-          資産区分<br>※株式取引の場合、必須。<br>※現物売、信用返済の場合に「'  '」 半角スペース2つを指定 。
+          資産区分<br>※現物買は、指定必須。<br>※現物売は、「'  '」 半角スペース2つを指定必須。<br>※信用新規と信用返済は、指定不要。
           |定義値|説明|
           |-|-|
-          |(半角スペース2つ)|現物売、信用返済の場合|
+          |(半角スペース2つ)|現物売の場合|
           |02|保護|
           |AA|信用代用|
           |BB|証拠金代用|
@@ -2156,7 +2156,7 @@ definitions:
               type: "object"
               properties:
                 SeqNum:
-                  description: "通番"
+                  description: "※注文明細レコードの生成順序です。<br>※通番であるとは限りませんが、大小による順序は保たれています。"
                   type: "integer"
                   format: "int32"
                   example: 1
@@ -2237,12 +2237,12 @@ definitions:
                   format: "int32"
                   example: 20200706
                 Commission:
-                  description: "手数料"
+                  description: "手数料<br>※注文詳細の明細種別が約定（RecType=8)の場合に設定。"
                   type: "number"
                   format: "double"
                   example: 0
                 CommissionTax:
-                  description: "手数料消費税"
+                  description: "手数料消費税<br>※明細種別は約定（RecType=8）の場合にのみ表示されます。"
                   type: "number"
                   format: "double"
                   example: 0
@@ -2252,7 +2252,7 @@ definitions:
         type: "object"
         properties:
           ExecutionID:
-            description: "約定番号"
+            description: "約定番号<br>※現物取引では、nullが返ります。"
             type: "string"
             example: "20200715E02N04738464"
           AccountType:
@@ -2291,7 +2291,7 @@ definitions:
             type: "string"
             example: "東証１部"
           ExecutionDay:
-            description: "約定日（建玉日）"
+            description: "約定日（建玉日）<br>※現物取引では、nullが返ります。"
             type: "integer"
             format: "int32"
             example: 20200702
