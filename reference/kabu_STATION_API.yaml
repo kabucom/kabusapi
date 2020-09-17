@@ -1218,17 +1218,17 @@ definitions:
         format: "double"
         example: null
       DepositkeepRate:
-        description: "保証金維持率"
+        description: "保証金維持率<br>※銘柄指定の場合のみ<br>※銘柄が指定されなかった場合、0.0を返す。"
         type: "number"
         format: "double"
         example: null
       ConsignmentDepositRate:
-        description: "委託保証金率<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、nullを返す。"
+        description: "委託保証金率<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、Noneを返す。"
         type: "number"
         format: "double"
         example: null
       CashOfConsignmentDepositRate:
-        description: "現金委託保証金率<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、nullを返す。"
+        description: "現金委託保証金率<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、Noneを返す。"
         type: "number"
         format: "double"
         example: null
