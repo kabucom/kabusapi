@@ -1062,7 +1062,7 @@ definitions:
         format: "int32"
         example: 2
       Qty:
-        description: "注文数量"
+        description: "注文数量<br>※信用一括返済の場合、返済したい合計数量を入力してください。"
         type: "integer"
         format: "int32"
         example: 100
@@ -1083,7 +1083,7 @@ definitions:
         format: "int32"
         example: null
       ClosePositions:
-        description: "返済建玉指定<br>※信用取引の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。"
+        description: "返済建玉指定<br>※信用取引の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。<br>※信用一括返済の場合、各建玉IDと返済したい数量を入力してください。<br>※建玉IDは「E」から始まる番号です。"
         type: "array"
         items:
           $ref: "#/definitions/Positions"
