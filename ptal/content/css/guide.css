@@ -1,5 +1,6 @@
 /*  footer
 -----------------------------------------------------*/
+
 .copy {
     padding: 35px 0;
     text-align: center;
@@ -16,7 +17,8 @@
     background: #6ebefc;
 }
 
-#visual h1, #visual p {
+#visual h1,
+#visual p {
     padding: 0rem 0;
     text-align: center;
 }
@@ -33,7 +35,8 @@
     padding: 1.0rem 0 1.0rem;
 }
 
-b, strong {
+b,
+strong {
     font-weight: bold;
 }
 
@@ -66,25 +69,27 @@ b, strong {
     margin: auto;
 }
 
-#contents-inner div.issue div.issue-inner h3{
+#contents-inner div.issue div.issue-inner h3 {
+    line-height: initial;
     font-size: 1.4em;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-#contents-inner div.issue div.issue-inner h4{
+#contents-inner div.issue div.issue-inner h4 {
+    line-height: initial;
     font-size: 1.2em;
     font-weight: normal;
     margin-bottom: 10px;
 }
 
-
 #contents-inner div.issue div.issue-inner p {
+    line-height: initial;
     margin: 10px;
 }
 
 #contents-inner div.issue div.issue-inner ul {
+    line-height: initial;
     list-style: none;
     margin: 10px;
 }
-
