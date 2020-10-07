@@ -1040,7 +1040,7 @@ definitions:
         example: 2
       FundType:
         description: |-
-          資産区分<br>※現物買は、指定必須。<br>※現物売は、「'  '」 半角スペース2つを指定必須。<br>※信用新規と信用返済は、指定不要。
+          資産区分 (預り区分)<br>※現物買は、指定必須。<br>※現物売は、「'  '」 半角スペース2つを指定必須。<br>※信用新規と信用返済は、指定不要。
           |定義値|説明|
           |-|-|
           |(半角スペース2つ)|現物売の場合|
@@ -1068,7 +1068,7 @@ definitions:
         example: 100
       ClosePositionOrder:
         description: |-
-          決済順序<br>※信用取引の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。
+          決済順序<br>※信用返済の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。
           |定義値|説明|
           |-|-|
           |0|日付（古い順）、損益（高い順）|
@@ -1083,7 +1083,7 @@ definitions:
         format: "int32"
         example: null
       ClosePositions:
-        description: "返済建玉指定<br>※信用取引の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。<br>※信用一括返済の場合、各建玉IDと返済したい数量を入力してください。<br>※建玉IDは「E」から始まる番号です。"
+        description: "返済建玉指定<br>※信用返済の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。<br>※信用一括返済の場合、各建玉IDと返済したい数量を入力してください。<br>※建玉IDは「E」から始まる番号です。"
         type: "array"
         items:
           $ref: "#/definitions/Positions"
