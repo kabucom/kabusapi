@@ -70,39 +70,39 @@ paths:
         "400":
           description: "BadRequest"
           schema:
-            $ref: "#/definitions/AuthErrorResponse"
+            $ref: "#/definitions/ErrorResponse"
         "401":
           description: "Unauthorized"
           schema:
-            $ref: "#/definitions/AuthErrorResponse"
+            $ref: "#/definitions/ErrorResponse"
         "403":
           description: "Forbidden"
           schema:
-            $ref: "#/definitions/AuthErrorResponse"
+            $ref: "#/definitions/ErrorResponse"
         "404":
           description: "NotFound"
           schema:
-            $ref: "#/definitions/AuthErrorResponse"
+            $ref: "#/definitions/ErrorResponse"
         "405":
           description: "MethodNotAllowed"
           schema:
-            $ref: "#/definitions/AuthErrorResponse"
+            $ref: "#/definitions/ErrorResponse"
         "413":
           description: "RequestEntityTooLarge"
           schema:
-            $ref: "#/definitions/AuthErrorResponse"
+            $ref: "#/definitions/ErrorResponse"
         "415":
           description: "UnsupportedMediaType"
           schema:
-            $ref: "#/definitions/AuthErrorResponse"
+            $ref: "#/definitions/ErrorResponse"
         "429":
           description: "TooManyRequests"
           schema:
-            $ref: "#/definitions/AuthErrorResponse"
+            $ref: "#/definitions/ErrorResponse"
         "500":
           description: "InternalServerError"
           schema:
-            $ref: "#/definitions/AuthErrorResponse"
+            $ref: "#/definitions/ErrorResponse"
   /sendorder:
     post:
       tags:
@@ -2046,6 +2046,7 @@ definitions:
               |2|寄り|
               |3|引け|
               |4|不成|
+              |6|IOC|
             type: "integer"
             format: "int32"
             example: 1
@@ -2210,6 +2211,7 @@ definitions:
                     |2|寄り|
                     |3|引け|
                     |4|不成|
+                    |6|IOC|
                   type: "integer"
                   format: "int32"
                   example: 1
@@ -2371,7 +2373,7 @@ definitions:
             format: "double"
             example: 41.12215909090909
 #APIエラー結果
-  AuthErrorResponse:
+  ErrorResponse:
       type: "object"
       properties:
         Code:
@@ -2429,61 +2431,3 @@ definitions:
             |4004002|取消不可|
           type: "string"
           example: "内部エラー"
-  ErrorResponse:
-    type: "object"
-    properties:
-      Code:
-        description: "エラーコード"
-        type: "integer"
-        format: "int32"
-        example: 4001001
-      Message:
-        description: |-
-          エラーメッセージ
-          |エラーコード|エラーメッセージ|
-          |-|-|
-          |4001001|内部エラー|
-          |4001002|トリガキー生成エラー|
-          |4001003|エラー：Uターン|
-          |4001004|トリガ生成エラー|
-          |4001005|パラメータ変換エラー|
-          |4001006|API実行回数エラー|
-          |4001007|ログイン認証エラー|
-          |4001008|API利用不可|
-          |4001009|APIキー不一致|
-          |4001010|クエリ文字列不正|
-          |4001011|リクエスト文字列不正|
-          |4001012|リクエスト不正|
-          |4001013|トークン取得失敗|
-          |4001014|許可されていないHTTPメソッド|
-          |4001015|ContentLength超過|
-          |4001016|サポートされていないメディアタイプ|
-          |4001017|ローカル以外からのリクエストは許可されない|
-          |4001018|銘柄が登録できませんでした|
-          |4001019|一部の銘柄が登録できませんでした|
-          |4001020|銘柄が解除できませんでした|
-          |4001021|一部の銘柄が解除できませんでした|
-          |4002001|銘柄が見つからない|
-          |4002002|執行条件エラー|
-          |4002003|執行条件エラー|
-          |4002004|トリガチェックエラー - 詳細はkabuSログファイルを確認してください|
-          |4002005|商品エラー|
-          |4002006|レジスト数エラー|
-          |4002007|パラメータ不正：AccountType - 詳細はkabuSログファイルを確認してください|
-          |4002008|パラメータ不正：Side - 詳細はkabuSログファイルを確認してください|
-          |4002009|パラメータ不正：CashMargin - 詳細はkabuSログファイルを確認してください|
-          |4002010|パラメータ不正：DelivType - 詳細はkabuSログファイルを確認してください|
-          |4002011|パラメータ不正：FundType - 詳細はkabuSログファイルを確認してください|
-          |4002012|パラメータ不正：FrontOrderType - 詳細はkabuSログファイルを確認してください|
-          |4002013|パラメータ不正：MarginTradeType - 詳細はkabuSログファイルを確認してください|
-          |4002014|パラメータ不正：TimeInForce - 詳細はkabuSログファイルを確認してください|
-          |4002015|パラメータ不正：返済順指定と返済指定は同時に設定できない|
-          |4002016|パラメータ不正：DelivType - 詳細はkabuSログファイルを確認してください|
-          |4002017|パラメータ不正：値段指定エラー|
-          |4002018|パラメータ不正：IOC対象銘柄ではない - 詳細はkabuSログファイルを確認してください|
-          |4003001|ワンショット：金額エラー|
-          |4003002|ワンショット：数量エラー|
-          |4004001|該当注文なしエラー|
-          |4004002|取消不可|
-        type: "string"
-        example: "内部エラー"
