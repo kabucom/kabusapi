@@ -5,7 +5,7 @@ using ExcelDna.Integration;
 
 namespace KabuSuteAddin.Elements
 {
-    public class PositionsResult
+    public class PositionsElement
     {
         [DataMember(Name = "ExecutionID")]
         public string ExecutionID { get; set; }
@@ -71,14 +71,13 @@ namespace KabuSuteAddin.Elements
         public double ProfitLossRate { get; set; }
     }
 
-    public class Positions
+    public class PositionsResult
     {
         private const int PositionCol = 21;
-        private static object PositionToArray(string str)
+        private static object PositionToArray(dynamic objectJson)
         {
-            var objectJson = DynamicJson.Parse(str);
 
-            List<PositionsResult> PositionList = (List<PositionsResult>)objectJson;
+            List<PositionsElement> PositionList = (List<PositionsElement>)objectJson;
 
             int PositionRows = PositionList.Count;
             if (PositionRows == 0)
@@ -117,7 +116,7 @@ namespace KabuSuteAddin.Elements
         }
 
         [ExcelFunction(IsHidden = true)]
-        public static object PositionsResultCheck(string value)
+        public static object PositionCheck(string value)
         {
             var objectJson = DynamicJson.Parse(value);
             object ret;
@@ -133,7 +132,7 @@ namespace KabuSuteAddin.Elements
             }
 
             // multidimensional arrays
-            ret = PositionToArray(value);
+            ret = PositionToArray(objectJson);
             return ret;
         }
     }

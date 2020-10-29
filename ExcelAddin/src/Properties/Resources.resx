@@ -118,28 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="kabuSTATIONAPI_ExcelToken_本番_LOGIN状態_32x32_透過" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\kabustationapi_exceltoken_本番_login状態_32x32_透過.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="order_NG_64x64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\order_ng_64x64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="kabuSTATIONAPI_ExcelToken_本番_通常状態_32x32_透過" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\kabustationapi_exceltoken_本番_通常状態_32x32_透過.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="order_OK_64x64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\order_ok_64x64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="kabuSTATIONAPI_ExcelToken_検証_LOGIN状態_32x32_透過" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\kabustationapi_exceltoken_検証_login状態_32x32_透過.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="production_Lock_64x64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\production_lock_64x64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="kabuSTATIONAPI_ExcelToken_検証_通常状態_32x32_透過" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\kabustationapi_exceltoken_検証_通常状態_32x32_透過.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="production_Unlock_64x64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\production_unlock_64x64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="更新NG_32x32_透過" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\更新ng_32x32_透過.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="reload_NG_64x64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\reload_ng_64x64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="更新OK_32x32_透過" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\更新ok_32x32_透過.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="reload_OK_64x64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\reload_ok_64x64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="注文NG_32x32_透過" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\注文ng_32x32_透過.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="verification_Lock_64x64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\verification_lock_64x64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="注文OK_32x32_透過" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\注文ok_32x32_透過.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="verification_Unlock_64x64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\verification_unlock_64x64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

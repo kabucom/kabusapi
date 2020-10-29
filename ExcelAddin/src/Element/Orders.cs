@@ -123,9 +123,8 @@ namespace KabuSuteAddin.Elements
         private const int OrdersCol = 33;
 
         [ExcelFunction(IsHidden = true)]
-        public static object OrdersDataToArray(string value)
+        public static object OrdersDataToArray(dynamic objectJson)
         {
-            var objectJson = DynamicJson.Parse(value);
             List<OrdersResultModel> OrdersArray = (List<OrdersResultModel>)objectJson;
 
             if (OrdersArray.Count == 0)
@@ -166,7 +165,8 @@ namespace KabuSuteAddin.Elements
                 {
                     if (j > 0)
                     {
-                        // 2列名以降の前半は空データを表示（nullだとエクセルに0が表示される）
+                        // 2列目以降の前半は空データを表示
+                        // 配列数式の変換処理を行うとnullの場合エクセルに0が表示されるため
                         for (int col = 0; col < 19; col++)
                         {
                             array[row, col] = "";
@@ -209,8 +209,7 @@ namespace KabuSuteAddin.Elements
                 return 0;
             }
 
-            // multidimensional arrays to 2D array
-            ret = OrdersDataToArray(value);
+            ret = OrdersDataToArray(objectJson);
 
             return ret;
         }

@@ -63,9 +63,9 @@ namespace KabuSuteAddin.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap kabuSTATIONAPI_ExcelToken_本番_LOGIN状態_32x32_透過 {
+        internal static System.Drawing.Bitmap order_NG_64x64 {
             get {
-                object obj = ResourceManager.GetObject("kabuSTATIONAPI_ExcelToken_本番_LOGIN状態_32x32_透過", resourceCulture);
+                object obj = ResourceManager.GetObject("order_NG_64x64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace KabuSuteAddin.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap kabuSTATIONAPI_ExcelToken_本番_通常状態_32x32_透過 {
+        internal static System.Drawing.Bitmap order_OK_64x64 {
             get {
-                object obj = ResourceManager.GetObject("kabuSTATIONAPI_ExcelToken_本番_通常状態_32x32_透過", resourceCulture);
+                object obj = ResourceManager.GetObject("order_OK_64x64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace KabuSuteAddin.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap kabuSTATIONAPI_ExcelToken_検証_LOGIN状態_32x32_透過 {
+        internal static System.Drawing.Bitmap production_Lock_64x64 {
             get {
-                object obj = ResourceManager.GetObject("kabuSTATIONAPI_ExcelToken_検証_LOGIN状態_32x32_透過", resourceCulture);
+                object obj = ResourceManager.GetObject("production_Lock_64x64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace KabuSuteAddin.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap kabuSTATIONAPI_ExcelToken_検証_通常状態_32x32_透過 {
+        internal static System.Drawing.Bitmap production_Unlock_64x64 {
             get {
-                object obj = ResourceManager.GetObject("kabuSTATIONAPI_ExcelToken_検証_通常状態_32x32_透過", resourceCulture);
+                object obj = ResourceManager.GetObject("production_Unlock_64x64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace KabuSuteAddin.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap 更新NG_32x32_透過 {
+        internal static System.Drawing.Bitmap reload_NG_64x64 {
             get {
-                object obj = ResourceManager.GetObject("更新NG_32x32_透過", resourceCulture);
+                object obj = ResourceManager.GetObject("reload_NG_64x64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace KabuSuteAddin.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap 更新OK_32x32_透過 {
+        internal static System.Drawing.Bitmap reload_OK_64x64 {
             get {
-                object obj = ResourceManager.GetObject("更新OK_32x32_透過", resourceCulture);
+                object obj = ResourceManager.GetObject("reload_OK_64x64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +123,9 @@ namespace KabuSuteAddin.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap 注文NG_32x32_透過 {
+        internal static System.Drawing.Bitmap verification_Lock_64x64 {
             get {
-                object obj = ResourceManager.GetObject("注文NG_32x32_透過", resourceCulture);
+                object obj = ResourceManager.GetObject("verification_Lock_64x64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +133,9 @@ namespace KabuSuteAddin.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap 注文OK_32x32_透過 {
+        internal static System.Drawing.Bitmap verification_Unlock_64x64 {
             get {
-                object obj = ResourceManager.GetObject("注文OK_32x32_透過", resourceCulture);
+                object obj = ResourceManager.GetObject("verification_Unlock_64x64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  version: "1.0"
+  version: "1.5"
   title: "kabuステーションAPI"
   contact:
     url: "../ptal/index.html"
@@ -107,7 +107,7 @@ paths:
     post:
       tags:
       - "order"
-      summary: "注文発注"
+      summary: "注文発注（現物・信用）"
       description: |-
         注文を発注します。<br>
         同一の銘柄に対しての注文は同時に5件ほどを上限としてご利用ください。
@@ -133,6 +133,138 @@ paths:
             $ref: "#/definitions/OrderSuccess"
         "400":
           description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /sendorder/future:
+    post:
+      tags:
+      - "order"
+      summary: "注文発注（先物）"
+      description: |-
+        先物銘柄の注文を発注します。<br>
+        同一の銘柄に対しての注文は同時に5件ほどを上限としてご利用ください。
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "req"
+        required: true
+        schema:
+          $ref: "#/definitions/RequestSendOrderDeriv"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/OrderSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /sendorder/option:
+    post:
+      tags:
+      - "order"
+      summary: "注文発注（オプション）"
+      description: |-
+        オプション銘柄の注文を発注します。<br>
+        同一の銘柄に対しての注文は同時に5件ほどを上限としてご利用ください。
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "req"
+        required: true
+        schema:
+          $ref: "#/definitions/RequestSendOrderDeriv"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/OrderSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
           schema:
             $ref: "#/definitions/ErrorResponse"
         "403":
@@ -193,6 +325,10 @@ paths:
           description: "BadRequest"
           schema:
             $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
         "403":
           description: "Forbidden"
           schema:
@@ -244,6 +380,10 @@ paths:
             $ref: "#/definitions/WalletCashSuccess"
         "400":
           description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
           schema:
             $ref: "#/definitions/ErrorResponse"
         "403":
@@ -310,6 +450,7 @@ paths:
           - 3
           - 5
           - 6
+          - 9
         required: true
         type: "string"
       responses:
@@ -319,6 +460,10 @@ paths:
             $ref: "#/definitions/WalletCashSuccess"
         "400":
           description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
           schema:
             $ref: "#/definitions/ErrorResponse"
         "403":
@@ -372,6 +517,10 @@ paths:
             $ref: "#/definitions/WalletMarginSuccess"
         "400":
           description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
           schema:
             $ref: "#/definitions/ErrorResponse"
         "403":
@@ -431,13 +580,10 @@ paths:
           |-|-|
           |1|東証|
           |3|名証|
-          |5|福証|
-          |6|札証|
         enum:
           - 1
           - 3
-          - 5
-          - 6
+          - 9
         required: true
         type: "string"
       responses:
@@ -447,6 +593,278 @@ paths:
             $ref: "#/definitions/WalletMarginSuccess"
         "400":
           description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /wallet/future:
+    get:
+      tags:
+      - "wallet"
+      summary: "取引余力（先物）"
+      description: "口座の取引余力（先物）を取得します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/WalletFutureSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /wallet/future/{symbol}@{exchange}:
+    get:
+      tags:
+      - "wallet"
+      summary: "取引余力（先物）（銘柄指定）"
+      description: "指定した銘柄の取引余力（先物）を取得します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      - name: "symbol"
+        in: "path"
+        description: "銘柄コード"
+        required: true
+        type: "string"
+      - name: "exchange"
+        in: "path"
+        description: |-
+          市場コード
+          |定義値|説明|
+          |-|-|
+          |2|日通し|
+          |23|日中|
+          |24|夜間|
+        enum:
+          - 2
+          - 23
+          - 24
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/WalletFutureSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /wallet/option:
+    get:
+      tags:
+      - "wallet"
+      summary: "取引余力（オプション）"
+      description: "口座の取引余力（オプション）を取得します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/WalletOptionSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /wallet/option/{symbol}@{exchange}:
+    get:
+      tags:
+      - "wallet"
+      summary: "取引余力（オプション）（銘柄指定）"
+      description: "指定した銘柄の取引余力（オプション）を取得します"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      - name: "symbol"
+        in: "path"
+        description: "銘柄コード"
+        required: true
+        type: "string"
+      - name: "exchange"
+        in: "path"
+        description: |-
+          市場コード
+          |定義値|説明|
+          |-|-|
+          |2|日通し|
+          |23|日中|
+          |24|夜間|
+        enum:
+          - 2
+          - 23
+          - 24
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/WalletOptionSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
           schema:
             $ref: "#/definitions/ErrorResponse"
         "403":
@@ -508,11 +926,17 @@ paths:
           |3|名証|
           |5|福証|
           |6|札証|
+          |2|日通し|
+          |23|日中|
+          |24|夜間|
         enum:
           - 1
           - 3
           - 5
           - 6
+          - 2
+          - 23
+          - 24
         required: true
         type: "string"
       responses:
@@ -522,6 +946,10 @@ paths:
             $ref: "#/definitions/BoardSuccess"
         "400":
           description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
           schema:
             $ref: "#/definitions/ErrorResponse"
         "403":
@@ -584,11 +1012,17 @@ paths:
           |3|名証|
           |5|福証|
           |6|札証|
+          |2|日通し|
+          |23|日中|
+          |24|夜間|
         enum:
           - 1
           - 3
           - 5
           - 6
+          - 2
+          - 23
+          - 24
         required: true
         type: "string"
         format: ""
@@ -599,6 +1033,10 @@ paths:
             $ref: "#/definitions/SymbolSuccess"
         "400":
           description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
           schema:
             $ref: "#/definitions/ErrorResponse"
         "403":
@@ -654,10 +1092,14 @@ paths:
           |0|すべて|
           |1|現物|
           |2|信用|
+          |3|先物|
+          |4|OP|
         enum:
           - "0"
           - "1"
           - "2"
+          - "3"
+          - "4"
         required: false
         type: "string"
       responses:
@@ -667,6 +1109,10 @@ paths:
             $ref: "#/definitions/OrdersSuccess"
         "400":
           description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
           schema:
             $ref: "#/definitions/ErrorResponse"
         "403":
@@ -722,10 +1168,14 @@ paths:
           |0|すべて|
           |1|現物|
           |2|信用|
+          |3|先物|
+          |4|OP|
         enum:
           - "0"
           - "1"
           - "2"
+          - "3"
+          - "4"
         required: false
         type: "string"
       responses:
@@ -735,6 +1185,10 @@ paths:
             $ref: "#/definitions/PositionsSuccess"
         "400":
           description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
           schema:
             $ref: "#/definitions/ErrorResponse"
         "403":
@@ -796,6 +1250,10 @@ paths:
           description: "BadRequest"
           schema:
             $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
         "403":
           description: "Forbidden"
           schema:
@@ -855,6 +1313,10 @@ paths:
           description: "BadRequest"
           schema:
             $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
         "403":
           description: "Forbidden"
           schema:
@@ -908,6 +1370,170 @@ paths:
           description: "BadRequest"
           schema:
             $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /symbolname/future:
+    get:
+      tags:
+      - "info"
+      summary: "先物銘柄コード取得"
+      description: "先物銘柄コード取得"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      - name: "FutureCode"
+        in: "query"
+        description: |-
+          先物コード<br>※大文字小文字は区別しません。
+          |定義値|説明|
+          |-|-|
+          |NK225|日経平均先物|
+          |NK225mini|日経225mini先物|
+          |TOPIX|TOPIX先物|
+          |TOPIXmini|ミニTOPIX先物|
+          |MOTHERS|東証マザーズ先物|
+          |JPX400|JPX日経400先物|
+          |DOW|NYダウ先物|
+          |VI|日経平均VI先物|
+          |Core30|TOPIX Core30先物|
+          |REIT|東証REIT指数先物|
+        required: true
+        type: "string"
+      - name: "DerivMonth"
+        in: "query"
+        description: "限月<br>※限月はyyyyMM形式で指定します。0を指定した場合、直近限月となります。"
+        required: true
+        type: "integer"
+        format: "int32"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/SymbolNameSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: "NotFound"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "405":
+          description: "MethodNotAllowed"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "413":
+          description: "RequestEntityTooLarge"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "415":
+          description: "UnsupportedMediaType"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "429":
+          description: "TooManyRequests"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "InternalServerError"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /symbolname/option:
+    get:
+      tags:
+      - "info"
+      summary: "オプション銘柄コード取得"
+      description: "オプション銘柄コード取得"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-API-KEY"
+        in: "header"
+        description: "トークン発行メソッドで取得した文字列"
+        required: true
+        type: "string"
+      - name: "DerivMonth"
+        in: "query"
+        description: "限月<br>※限月はyyyyMM形式で指定します。0を指定した場合、直近限月となります。"
+        required: true
+        type: "integer"
+        format: "int32"
+      - name: "PutOrCall"
+        in: "query"
+        description: |-
+          コール or プット<br>※大文字小文字は区別しません。
+          |定義値|説明|
+          |-|-|
+          |P|PUT|
+          |C|CALL|
+        required: true
+        type: "string"
+      - name: "StrikePrice"
+        in: "query"
+        description: "権利行使価格<br>※0を指定した場合、APIを実行した時点でのATMとなります。"
+        required: true
+        type: "integer"
+        format: "int32"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/SymbolNameSuccess"
+        "400":
+          description: "BadRequest"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
         "403":
           description: "Forbidden"
           schema:
@@ -956,13 +1582,9 @@ definitions:
       - SecurityType
       - Side
       - CashMargin
-      - MarginTradeType
       - DelivType
-      - FundType
       - AccountType
       - Qty
-      - ClosePositionOrder
-      - ClosePositions
       - Price
       - ExpireDay
       - FrontOrderType
@@ -974,7 +1596,7 @@ definitions:
       Symbol:
         description: "銘柄コード"
         type: "string"
-        example: "3997"
+        example: "9433"
       Exchange:
         description: |-
           市場コード
@@ -1004,21 +1626,21 @@ definitions:
           |1|売|
           |2|買|
         type: "string"
-        example: "2"
+        example: "1"
       CashMargin:
         description: |-
-          現物信用区分
+          信用区分
           |定義値|説明|
           |-|-|
           |1|現物|
-          |2|信用新規|
-          |3|信用返済|
+          |2|新規|
+          |3|返済|
         type: "integer"
         format: "int32"
-        example: 1
+        example: 3
       MarginTradeType:
         description: |-
-          信用取引区分<br>※現物取引の場合は省略可。<br>※信用取引の場合、必須。
+          信用取引区分<br>※現物取引の場合は指定不要。<br>※信用取引の場合、必須。
           |定義値|説明|
           |-|-|
           |1|制度信用|
@@ -1040,16 +1662,15 @@ definitions:
         example: 2
       FundType:
         description: |-
-          資産区分 (預り区分)<br>※現物買は、指定必須。<br>※現物売は、「'  '」 半角スペース2つを指定必須。<br>※信用新規と信用返済は、指定不要。
+          資産区分<br>※現物買は、指定必須。<br>※現物売は、「'  '」 半角スペース2つを指定必須。<br>※信用新規と信用返済は、指定不要。
           |定義値|説明|
           |-|-|
           |(半角スペース2つ)|現物売の場合|
           |02|保護|
           |AA|信用代用|
-          |BB|証拠金代用|
           |11|信用取引|
         type: "string"
-        example: "AA"
+        example: "11"
       AccountType:
         description: |-
           口座種別
@@ -1060,15 +1681,15 @@ definitions:
           |12|法人|
         type: "integer"
         format: "int32"
-        example: 2
+        example: 4
       Qty:
         description: "注文数量<br>※信用一括返済の場合、返済したい合計数量を入力してください。"
         type: "integer"
         format: "int32"
-        example: 100
+        example: 500
       ClosePositionOrder:
         description: |-
-          決済順序<br>※信用返済の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。
+          決済順序<br>※信用取引の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。
           |定義値|説明|
           |-|-|
           |0|日付（古い順）、損益（高い順）|
@@ -1083,15 +1704,37 @@ definitions:
         format: "int32"
         example: null
       ClosePositions:
-        description: "返済建玉指定<br>※信用返済の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。<br>※信用一括返済の場合、各建玉IDと返済したい数量を入力してください。<br>※建玉IDは「E」から始まる番号です。"
+        description: "返済建玉指定<br>※信用取引の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。<br>※信用一括返済の場合、各建玉IDと返済したい数量を入力してください。<br>※建玉IDは「E」から始まる番号です。"
         type: "array"
         items:
           $ref: "#/definitions/Positions"
-      Price:
-        description: "注文価格<br>※FrontOrderTypeで成行を指定した場合、0を指定する。"
+      FrontOrderType:
+        description: |-
+          執行条件<br>
+          |定義値|説明|”Price"の指定|
+          |-|-|-|
+          |10|成行|0|
+          |13|寄成（前場）|0|
+          |14|寄成（後場）|0|
+          |15|引成（前場）|0|
+          |16|引成（後場）|0|
+          |17|IOC成行|0|
+          |20|指値|発注したい金額|
+          |21|寄指（前場）|発注したい金額|
+          |22|寄指（後場）|発注したい金額|
+          |23|引指（前場）|発注したい金額|
+          |24|引指（後場）|発注したい金額|
+          |25|不成（前場）|発注したい金額|
+          |26|不成（後場）|発注したい金額|
+          |27|IOC指値|発注したい金額|
         type: "integer"
         format: "int32"
-        example: 2000
+        example: 10
+      Price:
+        description: "注文価格<br>※FrontOrderTypeで成行を指定した場合、0を指定する。<br>※詳細について、”FrontOrderType”をご確認ください。"
+        type: "integer"
+        format: "int32"
+        example: 0
       ExpireDay:
         description: |-
           注文有効期限<br>
@@ -1104,41 +1747,151 @@ definitions:
           ※ 日替わりはkabuステーションが日付変更通知を受信したタイミングです。
         type: "integer"
         format: "int32"
-        example: 20200716
+        example: 20200903
+  RequestSendOrderDeriv:
+    type: "object"
+    required:
+      - Password
+      - Symbol
+      - Exchange
+      - TradeType
+      - TimeInForce
+      - Side
+      - Qty
+      - Price
+      - ExpireDay
+      - FrontOrderType
+    properties:
+      Password:
+        description: "注文パスワード"
+        type: "string"
+        example: "xxxxxx"
+      Symbol:
+        description: "銘柄コード"
+        type: "string"
+        example: "165120019"
+      Exchange:
+        description: |-
+          市場コード
+          |定義値|説明|
+          |-|-|
+          |2|日通し|
+          |23|日中|
+          |24|夜間|
+        type: "integer"
+        format: "int32"
+        example: 23
+      TradeType:
+        description: |-
+          取引区分
+          |定義値|説明|
+          |-|-|
+          |1|新規|
+          |2|返済|
+        type: "integer"
+        format: "int32"
+        example: 2
+      TimeInForce:
+        description: |-
+          有効期間条件
+          |定義値|説明|
+          |-|-|
+          |1|FAS<br>※FASを指定した場合、FrontOrderTypeは指値(20)のみ指定可能。|
+          |2|FAK<br>※FAKを指定した場合、Exchangeは日中(23)、夜間(24)のみ指定可能。|
+          |3|FOK<br>※FOKを指定した場合、Exchangeは日中(23)、夜間(24)のみ指定可能。|
+        type: "integer"
+        format: "int32"
+        example: 2
+      Side:
+        description: |-
+          売買区分
+          |定義値|説明|
+          |-|-|
+          |1|売|
+          |2|買|
+        type: "string"
+        example: "1"
+      Qty:
+        description: "注文数量"
+        type: "integer"
+        format: "int32"
+        example: 1
+      ClosePositionOrder:
+        description: |-
+          決済順序<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。
+          |定義値|説明|
+          |-|-|
+          |0|日付（古い順）、損益（高い順）|
+          |1|日付（古い順）、損益（低い順）|
+          |2|日付（新しい順）、損益（高い順）|
+          |3|日付（新しい順）、損益（低い順）|
+          |4|損益（高い順）、日付（古い順）|
+          |5|損益（高い順）、日付（新しい順）|
+          |6|損益（低い順）、日付（古い順）|
+          |7|損益（低い順）、日付（新しい順）|
+        type: "integer"
+        format: "int32"
+        example: null
+      ClosePositions:
+        description: "返済建玉指定<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。"
+        type: "array"
+        items:
+          $ref: "#/definitions/PositionsDeriv"
       FrontOrderType:
         description: |-
           執行条件
-          |定義値|説明|
-          |-|-|
-          |10|成行|
-          |13|寄成（前場）|
-          |14|寄成（後場）|
-          |15|引成（前場）|
-          |16|引成（後場）|
-          |17|IOC成行|
-          |20|指値|
-          |21|寄指（前場）|
-          |22|寄指（後場）|
-          |23|引指（前場）|
-          |24|引指（後場）|
-          |25|不成（前場）|
-          |26|不成（後場）|
-          |27|IOC指値|
+          |定義値|説明|”Price”の指定|
+          |-|-|-|
+          |18|引成（派生）<br>※TimeInForceは、「FAK」のみ有効|0|
+          |20|指値|発注したい金額|
+          |28|引指（派生）<br>※TimeInForceは、「FAS」のみ有効|発注したい金額|
+          |120|成行（マーケットオーダー）|0|
         type: "integer"
         format: "int32"
-        example: 20
+        example: 120
+      Price:
+        description: "注文価格<br>※FrontOrderTypeで成行を指定した場合、0を指定する。<br>※詳細について、”FrontOrderType”をご確認ください。"
+        type: "integer"
+        format: "int32"
+        example: 0
+      ExpireDay:
+        description: |-
+          注文有効期限<br>
+          yyyyMMdd形式。<br>
+          「0」を指定すると、kabuステーション上の発注画面の「本日」に対応する日付として扱います。<br>
+          「本日」は直近の注文可能日となり、以下のように設定されます。<br>
+          その市場の引けまでの間 : 当日<br>
+          その市場の引け後       : 翌取引所営業日<br>
+          その市場の休前日       : 休日明けの取引所営業日<br>
+          ※ 日替わりはkabuステーションが日付変更通知を受信したタイミングです。<br>
+          ※ 日通しの場合、夜間取引の引け後に日付が更新されます。
+        type: "integer"
+        format: "int32"
+        example: 20200903
   Positions:
     type: "object"
     properties:
       HoldID:
         description: "返済建玉ID"
         type: "string"
-        example: "20200715E02N04738464"
+        example: "20200702E01N04699739"
       Qty:
         description: "返済建玉数量"
         type: "integer"
         format: "int32"
-        example: 100
+        example: 500
+  PositionsDeriv:
+    type: "object"
+    properties:
+      HoldID:
+        description: "返済建玉ID"
+        type: "string"
+        example: "20200903E01N04773904"
+      Qty:
+        description: "返済建玉数量"
+        type: "integer"
+        format: "int32"
+        example: 1
   RequestCancelOrder:
     type: "object"
     required:
@@ -1174,6 +1927,9 @@ definitions:
                 |3|名証|
                 |5|福証|
                 |6|札証|
+                |2|日通し|
+                |23|日中|
+                |24|夜間|
               type: "integer"
               format: "int32"
               example: 1
@@ -1223,12 +1979,43 @@ definitions:
         format: "double"
         example: null
       ConsignmentDepositRate:
-        description: "委託保証金率<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、Noneを返す。"
+        description: "委託保証金率<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、空を返す。"
         type: "number"
         format: "double"
         example: null
       CashOfConsignmentDepositRate:
-        description: "現金委託保証金率<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、Noneを返す。"
+        description: "現金委託保証金率<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、空を返す。"
+        type: "number"
+        format: "double"
+        example: null
+  WalletFutureSuccess:
+    type: "object"
+    properties:
+      FutureTradeLimit:
+        description: "新規建玉可能額"
+        type: "number"
+        format: "double"
+        example: null
+      MarginRequirement:
+        description: "必要証拠金額<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、空を返す。"
+        type: "number"
+        format: "double"
+        example: null
+  WalletOptionSuccess:
+    type: "object"
+    properties:
+      OptionBuyTradeLimit:
+        description: "買新規建玉可能額"
+        type: "number"
+        format: "double"
+        example: null
+      OptionSellTradeLimit:
+        description: "売新規建玉可能額"
+        type: "number"
+        format: "double"
+        example: null
+      MarginRequirement:
+        description: "必要証拠金額<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、空を返す。"
         type: "number"
         format: "double"
         example: null
@@ -1245,18 +2032,21 @@ definitions:
         example: "新日鐵住金"
       Exchange:
         description: |-
-          市場コード
+          市場コード<br>※株式・先物・オプション銘柄の場合のみ
           |定義値|説明|
           |-|-|
           |1|東証|
           |3|名証|
           |5|福証|
           |6|札証|
+          |2|日通し|
+          |23|日中|
+          |24|夜間|
         type: "integer"
         format: "int32"
         example: 1
       ExchangeName:
-        description: "市場名称"
+        description: "市場名称<br>※株式・先物・オプション銘柄の場合のみ"
         type: "string"
         example: "東証１部"
       CurrentPrice:
@@ -1378,43 +2168,43 @@ definitions:
         format: "date-time"
         example: "2020-07-22T10:00:04+09:00"
       TradingVolume:
-        description: "売買高"
+        description: "売買高<br>※株式・先物・オプション銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 4571500.0
       TradingVolumeTime:
-        description: "売買高時刻"
+        description: "売買高時刻<br>※株式・先物・オプション銘柄の場合のみ"
         type: "string"
         format: "date-time"
         example: "2020-07-22T15:00:00+09:00"
       VWAP:
-        description: "売買高加重平均価格（VWAP）"
+        description: "売買高加重平均価格（VWAP）<br>※株式・先物・オプション銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 2394.4262
       TradingValue:
-        description: "売買代金"
+        description: "売買代金<br>※株式・先物・オプション銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 10946119350.0
       BidQty:
-        description: "最良売気配数量"
+        description: "最良売気配数量<br>※株式・先物・オプション銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 100.0
       BidPrice:
-        description: "最良売気配値段"
+        description: "最良売気配値段<br>※株式・先物・オプション銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 2408.5000
       BidTime:
-        description: "最良売気配時刻"
+        description: "最良売気配時刻<br>※株式銘柄の場合のみ"
         type: "string"
         format: "date-time"
         example: "2020-07-22T14:59:59+09:00"
       BidSign:
         description: |-
-          最良売気配フラグ
+          最良売気配フラグ<br>※株式・先物・オプション銘柄の場合のみ
           |定義値|説明|
           |-|-|
           |0000|事象なし|
@@ -1432,7 +2222,7 @@ definitions:
         type: "string"
         example: "0101"
       MarketOrderSellQty:
-        description: "売成行数量"
+        description: "売成行数量<br>※株式銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 0.0
@@ -1441,13 +2231,13 @@ definitions:
         type: "object"
         properties:
           Time:
-            description: "時刻"
+            description: "時刻<br>※株式銘柄の場合のみ"
             type: "string"
             format: "date-time"
             example: "2020-07-22T14:59:59+09:00"
           Sign:
             description: |-
-              気配フラグ
+              気配フラグ<br>※株式・先物・オプション銘柄の場合のみ
               |定義値|説明|
               |-|-|
               |0000|事象なし|
@@ -1465,12 +2255,12 @@ definitions:
             type: "string"
             example: "0101"
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2408.5000
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 100.0
@@ -1479,12 +2269,12 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2409.0
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 800.0
@@ -1493,12 +2283,12 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2409.5000
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2100.0
@@ -1507,12 +2297,12 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2410.0
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 800.0
@@ -1521,12 +2311,12 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2410.5000
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 500.0
@@ -1535,12 +2325,12 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2411.0
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 8400.0
@@ -1549,12 +2339,12 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2411.5000
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 1200.0
@@ -1563,12 +2353,12 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2412.0
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 27200.0
@@ -1577,12 +2367,12 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2412.5000
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 400.0
@@ -1591,33 +2381,33 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2413.0
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 16400.0
       AskQty:
-        description: "最良買気配数量"
+        description: "最良買気配数量<br>※株式・先物・オプション銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 200.0
       AskPrice:
-        description: "最良買気配値段"
+        description: "最良買気配値段<br>※株式・先物・オプション銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 2407.5000
       AskTime:
-        description: "最良買気配時刻"
+        description: "最良買気配時刻<br>※株式銘柄の場合のみ"
         type: "string"
         format: "date-time"
         example: "2020-07-22T14:59:59+09:00"
       AskSign:
         description: |-
-          最良買気配フラグ
+          最良買気配フラグ<br>※株式・先物・オプション銘柄の場合のみ
           |定義値|説明|
           |-|-|
           |0000|事象なし|
@@ -1635,7 +2425,7 @@ definitions:
         type: "string"
         example: "0101"
       MarketOrderBuyQty:
-        description: "買成行数量"
+        description: "買成行数量<br>※株式銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 0.0
@@ -1644,13 +2434,13 @@ definitions:
         type: "object"
         properties:
           Time:
-            description: "時刻"
+            description: "時刻<br>※株式銘柄の場合のみ"
             type: "string"
             format: "date-time"
             example: "2020-07-22T14:59:59+09:00"
           Sign:
             description: |-
-              気配フラグ
+              気配フラグ<br>※株式・先物・オプション銘柄の場合のみ
               |定義値|説明|
               |-|-|
               |0000|事象なし|
@@ -1668,12 +2458,12 @@ definitions:
             type: "string"
             example: "0101"
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2407.5000
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 200.0
@@ -1682,12 +2472,12 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2407.0
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 400.0
@@ -1696,12 +2486,12 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2406.5000
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 1000.0
@@ -1710,12 +2500,12 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2406.0
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 5800.0
@@ -1724,12 +2514,12 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2405.5000
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 7500.0
@@ -1738,12 +2528,12 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2405.0
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2200.0
@@ -1752,12 +2542,12 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2404.5000
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 16700.0
@@ -1766,12 +2556,12 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2404.0
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 30100.0
@@ -1780,12 +2570,12 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2403.5000
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 1300.0
@@ -1794,30 +2584,60 @@ definitions:
         type: "object"
         properties:
           Price:
-            description: "値段"
+            description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 2403.0
           Qty:
-            description: "数量"
+            description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
             type: "number"
             format: "double"
             example: 3000.0
       OverSellQty:
-        description: "OVER気配数量"
+        description: "OVER気配数量<br>※株式銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 974900.0
       UnderBuyQty:
-        description: "UNDER気配数量"
+        description: "UNDER気配数量<br>※株式銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 756000.0
       TotalMarketValue:
-        description: "時価総額"
+        description: "時価総額<br>※株式銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 3266254659361.4
+      ClearingPrice:
+        description: "清算値<br>※先物銘柄の場合のみ"
+        type: "number"
+        format: "double"
+        example: 23000
+      IV:
+        description: "インプライド・ボラティリティ<br>※オプション銘柄かつ日通しの場合のみ"
+        type: "number"
+        format: "double"
+        example: 22.11
+      Gamma:
+        description: "ガンマ<br>※オプション銘柄かつ日通しの場合のみ"
+        type: "number"
+        format: "double"
+        example: 0.000183
+      Theta:
+        description: "セータ<br>※オプション銘柄かつ日通しの場合のみ"
+        type: "number"
+        format: "double"
+        example: -6.5073
+      Vega:
+        description: "ベガ<br>※オプション銘柄かつ日通しの場合のみ"
+        type: "number"
+        format: "double"
+        example: 39.3109
+      Delta:
+        description: "デルタ<br>※オプション銘柄かつ日通しの場合のみ"
+        type: "number"
+        format: "double"
+        example: 0.4794
   RegistSuccess:
     type: "object"
     properties:
@@ -1840,6 +2660,9 @@ definitions:
                   |3|名証|
                   |5|福証|
                   |6|札証|
+                  |2|日通し|
+                  |23|日中|
+                  |24|夜間|
                 type: "integer"
                 format: "int32"
                 example: 1
@@ -1862,28 +2685,31 @@ definitions:
         type: "string"
         example: "ＫＤＤＩ"
       DisplayName:
-        description: "銘柄略称"
+        description: "銘柄略称<br>※株式・先物・オプション銘柄の場合のみ"
         type: "string"
         example: "ＫＤＤＩ"
       Exchange:
         description: |-
-          市場コード
+          市場コード<br>※株式・先物・オプション銘柄の場合のみ
           |定義値|説明|
           |-|-|
           |1|東証|
           |3|名証|
           |5|福証|
           |6|札証|
+          |2|日通し|
+          |23|日中|
+          |24|夜間|
         type: "integer"
         format: "int32"
         example: 1
       ExchangeName:
-        description: "市場名称"
+        description: "市場名称<br>※株式・先物・オプション銘柄の場合のみ"
         type: "string"
         example: "東証１部"
       BisCategory:
         description: |-
-          業種コード名
+          業種コード名<br>※株式銘柄の場合のみ
           |定義値|説明|
           |-|-|
           |0050      |水産・農林業|
@@ -1923,28 +2749,28 @@ definitions:
         type: "string"
         example: "5250      "
       TotalMarketValue:
-        description: "時価総額"
+        description: "時価総額<br>※株式銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 7654484465100
       TotalStocks:
-        description: "発行済み株式数（千株）"
+        description: "発行済み株式数（千株）<br>※株式銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 4484
       TradingUnit:
-        description: "売買単位"
+        description: "売買単位<br>※株式・先物・オプション銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 100
       FiscalYearEndBasic:
-        description: "決算期日"
+        description: "決算期日<br>※株式銘柄の場合のみ"
         type: "integer"
         format: "int32"
         example: 20210331
       PriceRangeGroup:
         description: |-
-          呼値グループ
+          呼値グループ<br>※株式・先物・オプション銘柄の場合のみ
           |呼値コード|値段の水準|呼値単位|
           |-|-|-|
           |10000|3000円以下|1
@@ -1970,38 +2796,101 @@ definitions:
           |10003|30000000円以下|5000
           |10003|50000000円以下|10000
           |10003|50000000円超|10000
+          |10118|-|10
+          |10119|-|5
+          |10318|100円以下|1
+          |10318|1000円以下|5
+          |10318|1000円超|10
+          |10706|-|0.25
+          |10718|-|0.5
+          |12122|-|5
+          |14473|-|1
+          |14515|-|0.05
+          |15411|-|1
+          |15569|-|0.5
+          |17163|-|0.5
         type: "string"
         example: "10003"
       KCMarginBuy:
-        description: "一般信用買建フラグ<br>※trueのとき一般信用買建可能"
+        description: "一般信用買建フラグ<br>※trueのとき一般信用買建可能<br>※株式銘柄の場合のみ"
         type: "boolean"
         format: ""
         example: true
       KCMarginSell:
-        description: "一般信用売建フラグ<br>※trueのとき一般信用売建可能"
+        description: "一般信用売建フラグ<br>※trueのとき一般信用売建可能<br>※株式銘柄の場合のみ"
         type: "boolean"
         format: ""
         example: true
       MarginBuy:
-        description: "制度信用買建フラグ<br>※trueのとき制度信用買建可能"
+        description: "制度信用買建フラグ<br>※trueのとき制度信用買建可能<br>※株式銘柄の場合のみ"
         type: "boolean"
         format: ""
         example: true
       MarginSell:
-        description: "制度信用売建フラグ<br>※trueのとき制度信用売建可能"
+        description: "制度信用売建フラグ<br>※trueのとき制度信用売建可能<br>※株式銘柄の場合のみ"
         type: "boolean"
         format: ""
         example: true
       UpperLimit:
-        description: "値幅上限"
+        description: "値幅上限<br>※株式・先物・オプション銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 4041
       LowerLimit:
-        description: "値幅下限"
+        description: "値幅下限<br>※株式・先物・オプション銘柄の場合のみ"
         type: "number"
         format: "double"
         example: 2641
+      Underlyer:
+        description: |-
+          原資産コード<br>※先物・オプション銘柄の場合のみ
+          |定義値|説明|
+          |-|-|
+          |NK225|日経225|
+          |NK300|日経300|
+          |MOTHERS|東証マザーズ|
+          |JPX400|JPX日経400|
+          |TOPIX|TOPIX|
+          |NKVI|日経平均VI|
+          |DJIA|NYダウ|
+          |TSEREITINDEX|東証REIT指数|
+          |TOPIXCORE30|TOPIX Core30|
+        type: "string"
+        example: "NK225"
+      DerivMonth:
+        description: "限月-年月<br>※「限月-年月」は「年(yyyy)/月(MM)」で表示します。<br>※先物・オプション銘柄の場合のみ"
+        type: "string"
+        example: "2020/12"
+      TradeStart:
+        description: "取引開始日<br>※先物・オプション銘柄の場合のみ"
+        type: "integer"
+        format: "int32"
+        example: 20151211
+      TradeEnd:
+        description: "取引終了日<br>※先物・オプション銘柄の場合のみ"
+        type: "integer"
+        format: "int32"
+        example: 20201210
+      StrikePrice:
+        description: "権利行使価格<br>※オプション銘柄の場合のみ"
+        type: "number"
+        format: "double"
+        example: 23250.0
+      PutOrCall:
+        description: |-
+          プット/コール区分<br>※オプション銘柄の場合のみ
+          |定義値|説明|
+          |-|-|
+          |1|プット|
+          |2|コール|
+        type: "integer"
+        format: "int32"
+        example: 2
+      ClearingPrice:
+        description: "清算値<br>※先物銘柄の場合のみ"
+        type: "number"
+        format: "double"
+        example: 23000
   OrdersSuccess:
     type: "array"
     items:
@@ -2046,7 +2935,7 @@ definitions:
               |2|寄り|
               |3|引け|
               |4|不成|
-              |6|IOC|
+              |5|対当指値|
             type: "integer"
             format: "int32"
             example: 1
@@ -2071,6 +2960,10 @@ definitions:
               |3|名証|
               |5|福証|
               |6|札証|
+              |9|SOR|
+              |2|日通し|
+              |23|日中|
+              |24|夜間|
             type: "integer"
             format: "int32"
             example: 1
@@ -2078,6 +2971,17 @@ definitions:
             description: "市場名"
             type: "string"
             example: "東証１部"
+          TimeInForce:
+            description: |-
+              有効期間条件<br>※先物・オプション銘柄の場合のみ
+              |定義値|説明|
+              |-|-|
+              |1|FAS|
+              |2|FAK|
+              |3|FOK|
+            type: "integer"
+            format: "int32"
+            example: 1
           Price:
             description: "値段"
             type: "number"
@@ -2104,12 +3008,11 @@ definitions:
             example: "1"
           CashMargin:
             description: |-
-              現物信用区分
+              取引区分
               |定義値|説明|
               |-|-|
-              |1|現物|
-              |2|信用新規|
-              |3|信用返済|
+              |2|新規|
+              |3|返済|
             type: "integer"
             format: "int32"
             example: 2
@@ -2211,7 +3114,7 @@ definitions:
                     |2|寄り|
                     |3|引け|
                     |4|不成|
-                    |6|IOC|
+                    |5|対当指値|
                   type: "integer"
                   format: "int32"
                   example: 1
@@ -2231,6 +3134,7 @@ definitions:
                   example: ""
                 ExecutionDay:
                   description: "約定日時"
+                  type: "string"
                   format: "date-time"
                   example: "2020-07-02T18:02:00+09:00"
                 DelivDay:
@@ -2285,6 +3189,9 @@ definitions:
               |3|名証|
               |5|福証|
               |6|札証|
+              |2|日通し|
+              |23|日中|
+              |24|夜間|
             type: "integer"
             format: "int32"
             example: 1
@@ -2292,8 +3199,13 @@ definitions:
             description: "市場名"
             type: "string"
             example: "東証１部"
+          SecurityType:
+            description: "銘柄種別<br>※先物・オプション銘柄の場合のみ"
+            type: "integer"
+            format: "int32"
+            example: 101
           ExecutionDay:
-            description: "約定日（建玉日）<br>※現物取引では、nullが返ります。"
+            description: "約定日（建玉日）<br>※信用・先物・オプションの場合のみ<br>※現物取引では、nullが返ります。"
             type: "integer"
             format: "int32"
             example: 20200702
@@ -2322,28 +3234,28 @@ definitions:
             type: "string"
             example: "1"
           Expenses:
-            description: "諸経費"
+            description: "諸経費<br>※信用・先物・オプションの場合のみ"
             type: "number"
             format: "double"
             example: 0
           Commission:
-            description: "手数料"
+            description: "手数料<br>※信用・先物・オプションの場合のみ"
             type: "number"
             format: "double"
             example: 1620
           CommissionTax:
-            description: "手数料消費税"
+            description: "手数料消費税<br>※信用・先物・オプションの場合のみ"
             type: "number"
             format: "double"
             example: 162
           ExpireDay:
-            description: "返済期日"
+            description: "返済期日<br>※信用・先物・オプションの場合のみ"
             type: "integer"
             format: "int32"
             example: 20201229
           MarginTradeType:
             description: |-
-              信用取引区分
+              信用取引区分<br>※信用の場合のみ
               |定義値|説明|
               |-|-|
               |1|制度信用|
@@ -2372,6 +3284,17 @@ definitions:
             type: "number"
             format: "double"
             example: 41.12215909090909
+  SymbolNameSuccess:
+    type: "object"
+    properties:
+      Symbol:
+        description: "銘柄コード"
+        type: "string"
+        example: "165120018"
+      SymbolName:
+        description: "銘柄名称"
+        type: "string"
+        example: "日経平均先物 20/12"
 #APIエラー結果
   ErrorResponse:
       type: "object"
@@ -2384,50 +3307,51 @@ definitions:
         Message:
           description: |-
             エラーメッセージ
-            |エラーコード|エラーメッセージ|
-            |-|-|
-            |4001001|内部エラー|
-            |4001002|トリガキー生成エラー|
-            |4001003|エラー：Uターン|
-            |4001004|トリガ生成エラー|
-            |4001005|パラメータ変換エラー|
-            |4001006|API実行回数エラー|
-            |4001007|ログイン認証エラー|
-            |4001008|API利用不可|
-            |4001009|APIキー不一致|
-            |4001010|クエリ文字列不正|
-            |4001011|リクエスト文字列不正|
-            |4001012|リクエスト不正|
-            |4001013|トークン取得失敗：kabuステーションがログインしている状態で、APIパスワードが不正|
-            |4001014|許可されていないHTTPメソッド|
-            |4001015|ContentLength超過|
-            |4001016|サポートされていないメディアタイプ|
-            |4001017|ログイン認証エラー：kabuSステーション未ログイン状態。|
-            |4001018|銘柄が登録できませんでした|
-            |4001019|一部の銘柄が登録できませんでした|
-            |4001020|銘柄が解除できませんでした|
-            |4001021|一部の銘柄が解除できませんでした|
-            |4002001|銘柄が見つからない|
-            |4002002|執行条件エラー|
-            |4002003|執行条件エラー|
-            |4002004|トリガチェックエラー - 詳細はkabuSログファイルを確認してください|
-            |4002005|商品エラー|
-            |4002006|レジスト数エラー|
-            |4002007|パラメータ不正：AccountType - 詳細はkabuSログファイルを確認してください|
-            |4002008|パラメータ不正：Side - 詳細はkabuSログファイルを確認してください|
-            |4002009|パラメータ不正：CashMargin - 詳細はkabuSログファイルを確認してください|
-            |4002010|パラメータ不正：DelivType - 詳細はkabuSログファイルを確認してください|
-            |4002011|パラメータ不正：FundType - 詳細はkabuSログファイルを確認してください|
-            |4002012|パラメータ不正：FrontOrderType - 詳細はkabuSログファイルを確認してください|
-            |4002013|パラメータ不正：MarginTradeType - 詳細はkabuSログファイルを確認してください|
-            |4002014|パラメータ不正：TimeInForce - 詳細はkabuSログファイルを確認してください|
-            |4002015|パラメータ不正：返済順指定と返済指定は同時に設定できない|
-            |4002016|パラメータ不正：DelivType - 詳細はkabuSログファイルを確認してください|
-            |4002017|パラメータ不正：値段指定エラー|
-            |4002018|パラメータ不正：IOC対象銘柄ではない - 詳細はkabuSログファイルを確認してください|
-            |4003001|ワンショット：金額エラー|
-            |4003002|ワンショット：数量エラー|
-            |4004001|該当注文なしエラー|
-            |4004002|取消不可|
+            |エラーコード|エラーメッセージ|説明|
+            |-|-|-|
+            |4001001|内部エラー|kabuSログファイルを確認<br>してください。|
+            |4001002|トリガキー生成<br>エラー|kabuSログファイルを確認<br>してください。|
+            |4001003|エラー：Uターン|kabuSログファイルを確認<br>してください。|
+            |4001004|トリガ生成エラー|kabuSログファイルを確認<br>してください。|
+            |4001005|パラメータ変換<br>エラー|設定したパラメータはkabu<br>ステーション「システム設<br>定」「注文１」の設定内容<br>と相違がないかを確認して<br>ください。|
+            |4001006|API実行回数エラー||
+            |4001007|ログイン認証エラー|kabuステーションにログイン<br>しているかを確認し<br>てください。|
+            |4001008|API利用不可|API利用設定が完了して<br>いるかを確認してください。|
+            |4001009|APIキー不一致||
+            |4001010|クエリ文字列不正||
+            |4001011|リクエスト文字列不正||
+            |4001012|リクエスト不正||
+            |4001013|トークン取得失敗：<br>kabuステーションが<br>ログインして<br>いる状態で、API<br>パスワードが不正||
+            |4001014|許可されていない<br>HTTPメソッド||
+            |4001015|ContentLength超過||
+            |4001016|サポートされていない<br>メディアタイプ||
+            |4001017|ログイン認証<br>エラー：kabuS<br>ステーション未<br>ログイン状態。||
+            |4001018|銘柄が登録<br>できませんでした|登録銘柄上限数（50銘柄）<br>以上の銘柄をリクエスト<br>していないかを確認して<br>ください。|
+            |4001019|一部の銘柄が登録<br>できませんでした|登録銘柄上限数（50銘柄）<br>以上の銘柄をリクエスト<br>していないかを確認して<br>ください。|
+            |4001020|銘柄が解除<br>できませんでした|銘柄が登録されているかを確認して<br>ください。|
+            |4001021|一部の銘柄が解除<br>できませんでした|登録銘柄上限数（50銘柄）<br>以上の銘柄をリクエスト<br>していないかを確認して<br>ください。|
+            |4002001|銘柄が見つから<br>ない||
+            |4002002|執行条件エラー|FrontOrderTypeを確認して<br>ください。|
+            |4002003|執行条件エラー|FrontOrderTypeを確認して<br>ください。|
+            |4002004|トリガチェック<br>エラー - 詳細はkabuS<br>ログファイルを確認<br>してください||
+            |4002005|商品エラー||
+            |4002006|レジスト数エラー|登録銘柄上限数（50銘柄）<br>以上の銘柄をリクエスト<br>していないかを確認し<br>てください。|
+            |4002007|パラメータ不正：<br>AccountType -<br> 詳細はkabuS<br>ログファイルを<br>確認してください||
+            |4002008|パラメータ不正：<br>Side -<br> 詳細はkabuS<br>ログファイルを<br>確認してください||
+            |4002009|パラメータ不正：<br>CashMargin -<br> 詳細はkabuS<br>ログファイルを<br>確認してください||
+            |4002010|パラメータ不正：<br>DelivType -<br> 詳細はkabuS<br>ログファイルを<br>確認してください||
+            |4002011|パラメータ不正：<br>FundType -<br> 詳細はkabuS<br>ログファイルを<br>確認してください||
+            |4002012|パラメータ不正：<br>FrontOrderType -<br> 詳細はkabuS<br>ログファイルを<br>確認してください||
+            |4002013|パラメータ不正：<br>MarginTradeType -<br> 詳細はkabuS<br>ログファイルを<br>確認してください||
+            |4002014|パラメータ不正：<br>TimeInForce -<br> 詳細はkabuS<br>ログファイルを確認<br>してください||
+            |4002015|パラメータ不正：<br>返済順指定と返済<br>指定は同時に設定<br>できない||
+            |4002016|パラメータ不正：<br>DelivType -<br> 詳細はkabuS<br>ログファイルを確認<br>してください||
+            |4002017|パラメータ不正：<br>値段指定エラー||
+            |4002018|パラメータ不正：<br>IOC対象銘柄では<br>ない - 詳細はkabuS<br>ログファイルを<br>確認してください||
+            |4002021|取引期日を過ぎた<br>取引であるか、<br>有効な銘柄ではない<br>ため取引できません||
+            |4003001|ワンショット：金額エラー||
+            |4003002|ワンショット：数量エラー||
+            |4004001|該当注文なしエラー||
+            |4004002|取消不可||
           type: "string"
           example: "内部エラー"

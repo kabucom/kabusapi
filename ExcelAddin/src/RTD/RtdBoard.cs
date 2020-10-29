@@ -12,7 +12,7 @@ namespace KabuSuteAddin
     public class RtdBoard : ExcelRtdServer
     {
         public const string WebApiRequestServerProgId = "KabuSuteAddin.ExcelService";
-        const int MinInterval = 250;
+        const int MinInterval = 500;
         const int MaxInterval = 10_000;
 
         private Timer _timer;
@@ -26,7 +26,6 @@ namespace KabuSuteAddin
 
             Application xlApp = (Application)ExcelDnaUtil.Application;
             var callbackInterval = xlApp.RTD.ThrottleInterval / 2;
-
             if (callbackInterval < MinInterval)
                 callbackInterval = MinInterval;
 

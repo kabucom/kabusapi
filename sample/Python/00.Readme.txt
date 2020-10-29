@@ -1,0 +1,96 @@
+【前提】
+・PCにpython3がインストールされていること。
+・PUSH配信(websocket)をするには、python3のインストール後にコマンドプロンプトにて以下のコマンドを実行する。
+コマンド：py -m pip install websocket-client
+
+【注意】
+「token.py」ファイル名は、pythonで予約とされているため使用できません。
+
+【kabuステAPI実行方法】
+コマンドプロンプトから、各コマンドを実行する。
+
+【ファイルリスト】
+１．トークン発行
+コマンド：python kabusapi_token.py
+※１で発行したtokenを２以降の各ファイル内の「X-API-KEY」に指定する
+
+２．注文発注（現物）
+（１）買
+コマンド：python kabusapi_sendorder_cash_buy.py
+（２）売
+コマンド：python kabusapi_sendorder_cash_sell.py
+
+３．注文発注（信用）
+（１）新規
+コマンド：python kabusapi_sendorder_margin_new.py
+（２）返済（決済順序）
+コマンド：python kabusapi_sendorder_margin_pay_ClosePositionOrder.py
+（３）返済（返済建玉指定）
+コマンド：python kabusapi_sendorder_margin_pay_ClosePositions.py
+
+４．注文発注（先物）
+（１）新規
+コマンド：python kabusapi_sendorder_future_new.py
+（２）返済（決済順序）
+コマンド：python kabusapi_sendorder_future_pay_ClosePositionOrder.py
+（３）返済（返済建玉指定）
+コマンド：python kabusapi_sendorder_future_pay_ClosePositions.py
+
+５．注文発注（OP）
+（１）新規
+コマンド：python kabusapi_sendorder_option_new.py
+（２）返済（決済順序）
+コマンド：python kabusapi_sendorder_option_pay_ClosePositionOrder.py
+（３）返済（返済建玉指定）
+コマンド：python kabusapi_sendorder_option_pay_ClosePositions.py
+
+６．注文取消
+コマンド：python kabusapi_cancelorder.py
+
+７．取引余力（現物）
+コマンド：python kabusapi_cash.py
+
+８．取引余力（信用）
+コマンド：python kabusapi_margin.py
+
+９．取引余力（先物）
+コマンド：python kabusapi_wallet_future.py
+
+10．取引余力（OP）
+コマンド：python kabusapi_wallet_option.py
+
+11．時価情報・板情報
+コマンド：python kabusapi_board.py
+
+12．銘柄情報
+コマンド：python kabusapi_symbol.py
+
+13．注文約定照会
+コマンド：python kabusapi_orders.py
+
+14．残高照会
+コマンド：python kabusapi_positions.py
+
+15．先物銘柄コード取得
+コマンド：python kabusapi_symbolname_future.py
+
+16．オプション銘柄コード取得
+コマンド：python kabusapi_symbolname_option.py
+
+17．PUSH配信開始
+コマンド：python kabusapi_websocket.py
+
+18．銘柄登録
+コマンド：python kabusapi_register.py
+
+19．銘柄登録解除
+コマンド：python kabusapi_unregister.py
+
+20．銘柄登録全解除
+コマンド：python kabusapi_unregisterall.py
+
+
+// ライセンスについて
+Copyright (c) 2020 au Kabucom Securities Co., Ltd.
+Released under the MIT license
+https://opensource.org/licenses/mit-license.php

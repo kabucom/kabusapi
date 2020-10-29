@@ -43,7 +43,7 @@ namespace KabuSuteAddin
                 if (exception.InnerException == null)
                     return exception.Message;
                 else
-                    return exception.InnerException.Message.ToString();
+                    return exception.InnerException.Message;
             }
 
         }
@@ -92,7 +92,7 @@ namespace KabuSuteAddin
                 if (exception.InnerException == null)
                     return exception.Message;
                 else
-                    return exception.InnerException.Message.ToString();
+                    return exception.InnerException.Message;
             }
 
         }
@@ -100,31 +100,31 @@ namespace KabuSuteAddin
         /// <summary>
         /// 取引余力（現物）取得
         /// </summary>
-        private static Dictionary<string, Tuple<DateTime, string>> _walletCashOrderCache = new Dictionary<string, Tuple<DateTime, string>>();
+        private static Dictionary<string, Tuple<DateTime, string>> _walletCash = new Dictionary<string, Tuple<DateTime, string>>();
         [ExcelFunction(Name = "WALLET.CASH", Category = "kabuSTATIONアドイン", Description = "取引余力（現物）を取得する.", IsHidden = false)]
         public static object WALLET_CASH(
-            [ExcelArgument(Description = "の取引余力（現物）を取得する", Name = "銘柄コード")] string SymbolCode,
-            [ExcelArgument(Description = "の取引余力（現物）を取得する", Name = "市場コード")] string MarketCode)
+            [ExcelArgument(Description = "の取引余力（現物）を取得する", Name = "銘柄コード")] string Symbol,
+            [ExcelArgument(Description = "の取引余力（現物）を取得する", Name = "市場コード")] string Exchange)
         {
             string ret = null;
             try
             {
 
-                string ResultMessage = Validate.ValidateRequired2(SymbolCode, MarketCode);
+                string ResultMessage = Validate.ValidateRequired2(Symbol, Exchange);
                 if (!string.IsNullOrEmpty(ResultMessage))
                     return ResultMessage;
 
                 Tuple<DateTime, string> tpl;
-                var tplKey = SymbolCode + "-" + MarketCode;
-                if (_walletCashOrderCache.TryGetValue(tplKey, out tpl))
+                var tplKey = Symbol + "-" + Exchange;
+                if (_walletCash.TryGetValue(tplKey, out tpl))
                 {
-                    if ((DateTime.Now - tpl.Item1).Seconds < 1)
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
                         ret = tpl.Item2;
                 }
                 if (String.IsNullOrEmpty(ret))
                 {
-                    ret = middleware.GetWalletCash(SymbolCode, MarketCode);
-                    _walletCashOrderCache[tplKey] = Tuple.Create(DateTime.Now, ret);
+                    ret = middleware.GetWalletCash(Symbol, Exchange);
+                    _walletCash[tplKey] = Tuple.Create(DateTime.Now, ret);
                 }
 
                 var arr = Util.SingleDimToArray(ret);
@@ -136,7 +136,7 @@ namespace KabuSuteAddin
                 if (exception.InnerException == null)
                     return exception.Message;
                 else
-                    return exception.InnerException.Message.ToString();
+                    return exception.InnerException.Message;
             }
 
         }
@@ -144,34 +144,34 @@ namespace KabuSuteAddin
         /// <summary>
         /// 取引余力（信用）取得
         /// </summary>
-        private static Dictionary<string, Tuple<DateTime, string>> _walletMarginOrderCache = new Dictionary<string, Tuple<DateTime, string>>();
+        private static Dictionary<string, Tuple<DateTime, string>> _walletMarginCache = new Dictionary<string, Tuple<DateTime, string>>();
         [ExcelFunction(Name = "WALLET.MARGIN", Category = "kabuSTATIONアドイン", Description = "取引余力（信用）を取得する.", IsHidden = false)]
         public static object WALLET_MARGIN(
-            [ExcelArgument(Description = "の取引余力（現物）を取得する", Name = "銘柄コード")] string SymbolCode,
-            [ExcelArgument(Description = "の取引余力（現物）を取得する", Name = "市場コード")] string MarketCode)
+            [ExcelArgument(Description = "の取引余力（信用）を取得する", Name = "銘柄コード")] string Symbol,
+            [ExcelArgument(Description = "の取引余力（信用）を取得する", Name = "市場コード")] string Exchange)
         {
             string ret = null;
             try
             {
-                string ResultMessage = Validate.ValidateRequired2(SymbolCode, MarketCode);
+                string ResultMessage = Validate.ValidateRequired2(Symbol, Exchange);
                 if (!string.IsNullOrEmpty(ResultMessage))
                     return ResultMessage;
 
                 Tuple<DateTime, string> tpl;
-                var tplKey = SymbolCode + "-" + MarketCode;
-                if (_walletMarginOrderCache.TryGetValue(tplKey, out tpl))
+                var tplKey = Symbol + "-" + Exchange;
+                if (_walletMarginCache.TryGetValue(tplKey, out tpl))
                 {
-                    if ((DateTime.Now - tpl.Item1).Seconds < 1)
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
                         ret = tpl.Item2;
                 }
                 if (String.IsNullOrEmpty(ret))
                 {
-                    ret = middleware.GetWalletMargin(SymbolCode, MarketCode);
-                    _walletMarginOrderCache[tplKey] = Tuple.Create(DateTime.Now, ret);
+                    ret = middleware.GetWalletMargin(Symbol, Exchange);
+                    _walletMarginCache[tplKey] = Tuple.Create(DateTime.Now, ret);
                 }
 
                 object array;
-                array = WalletMargin.WalletMargineResultCheck(ret);
+                array = WalletResult.WalletCheck(ret, WALLET.MARGIN);
 
                 return XlCall.Excel(XlCall.xlUDF, "Resize", array);
 
@@ -181,7 +181,96 @@ namespace KabuSuteAddin
                 if (exception.InnerException == null)
                     return exception.Message;
                 else
-                    return exception.InnerException.Message.ToString();
+                    return exception.InnerException.Message;
+            }
+
+        }
+
+        /// <summary>
+        /// 取引余力（先物）取得
+        /// </summary>
+        private static Dictionary<string, Tuple<DateTime, string>> _walletFutureCache = new Dictionary<string, Tuple<DateTime, string>>();
+        [ExcelFunction(Name = "WALLET.FUTURE", Category = "kabuSTATIONアドイン", Description = "取引余力（先物）を取得する.", IsHidden = false)]
+        public static object WALLET_FUTURE(
+            [ExcelArgument(Description = "の取引余力（先物）を取得する", Name = "銘柄コード")] string Symbol,
+            [ExcelArgument(Description = "の取引余力（先物）を取得する", Name = "市場コード")] string Exchange)
+        {
+            string ret = null;
+            try
+            {
+                string ResultMessage = Validate.ValidateRequired2(Symbol, Exchange);
+                if (!string.IsNullOrEmpty(ResultMessage))
+                    return ResultMessage;
+
+                Tuple<DateTime, string> tpl;
+                var tplKey = Symbol + "-" + Exchange;
+                if (_walletFutureCache.TryGetValue(tplKey, out tpl))
+                {
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
+                        ret = tpl.Item2;
+                }
+                if (String.IsNullOrEmpty(ret))
+                {
+                    ret = middleware.GetWalletFuture(Symbol, Exchange);
+                    _walletFutureCache[tplKey] = Tuple.Create(DateTime.Now, ret);
+                }
+
+                object array;
+                array = WalletResult.WalletCheck(ret, WALLET.FUTURE);
+
+                return XlCall.Excel(XlCall.xlUDF, "Resize", array);
+
+            }
+            catch (Exception exception)
+            {
+                if (exception.InnerException == null)
+                    return exception.Message;
+                else
+                    return exception.InnerException.Message;
+            }
+        }
+
+        /// <summary>
+        /// 取引余力（オプション）取得
+        /// </summary>
+        private static Dictionary<string, Tuple<DateTime, string>> _walletOptionCache = new Dictionary<string, Tuple<DateTime, string>>();
+        [ExcelFunction(Name = "WALLET.OPTION", Category = "kabuSTATIONアドイン", Description = "取引余力（オプション）を取得する.", IsHidden = false)]
+        public static object WALLET_OPTION(
+            [ExcelArgument(Description = "の取引余力（オプション）を取得する", Name = "銘柄コード")] string Symbol,
+            [ExcelArgument(Description = "の取引余力（オプション）を取得する", Name = "市場コード")] string Exchange)
+        {
+            string ret = null;
+            try
+            {
+                string ResultMessage = Validate.ValidateRequired2(Symbol, Exchange);
+                if (!string.IsNullOrEmpty(ResultMessage))
+                    return ResultMessage;
+
+                Tuple<DateTime, string> tpl;
+                var tplKey = Symbol + "-" + Exchange;
+                if (_walletOptionCache.TryGetValue(tplKey, out tpl))
+                {
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
+                        ret = tpl.Item2;
+                }
+                if (String.IsNullOrEmpty(ret))
+                {
+                    ret = middleware.GetWalletOption(Symbol, Exchange);
+                    _walletOptionCache[tplKey] = Tuple.Create(DateTime.Now, ret);
+                }
+
+                object array;
+                array = WalletResult.WalletCheck(ret, WALLET.OPTION);
+
+                return XlCall.Excel(XlCall.xlUDF, "Resize", array);
+
+            }
+            catch (Exception exception)
+            {
+                if (exception.InnerException == null)
+                    return exception.Message;
+                else
+                    return exception.InnerException.Message;
             }
 
         }
@@ -192,32 +281,33 @@ namespace KabuSuteAddin
         private static Dictionary<string, Tuple<DateTime, string>> _boardCache = new Dictionary<string, Tuple<DateTime, string>>();
         [ExcelFunction(Name = "BOARD", Category = "kabuSTATIONアドイン", Description = "指定した銘柄の時価情報・板情報を取得する.", IsHidden = false)]
         public static object BOARD(
-            [ExcelArgument(Description = "の時価情報を取得する", Name = "銘柄コード")] string SymbolCode,
-            [ExcelArgument(Description = "の時価情報を取得する", Name = "市場コード")] string MarketCode)
+            [ExcelArgument(Description = "の時価情報を取得する", Name = "銘柄コード")] string Symbol,
+            [ExcelArgument(Description = "の時価情報を取得する", Name = "市場コード")] string Exchange)
         {
             string ret = null;
             try
             {
 
-                string ResultMessage = Validate.ValidateRequired(SymbolCode, MarketCode);
+                string ResultMessage = Validate.ValidateRequired(Symbol, Exchange);
                 if (!string.IsNullOrEmpty(ResultMessage))
                     return ResultMessage;
 
                 Tuple<DateTime, string> tpl;
-                var tplKey = SymbolCode + "-" + MarketCode;
+                var tplKey = Symbol + "-" + Exchange;
                 if (_boardCache.TryGetValue(tplKey, out tpl))
                 {
-                    if ((DateTime.Now - tpl.Item1).Seconds < 1)
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
                         ret = tpl.Item2;
+
                 }
                 if (String.IsNullOrEmpty(ret))
                 {
-                    ret = middleware.GetBoard(SymbolCode, MarketCode);
+                    ret = middleware.GetBoard(Symbol, Exchange);
                     _boardCache[tplKey] = Tuple.Create(DateTime.Now, ret);
                 }
 
                 object array;
-                array = Board.BoardResultCheck(ret);
+                array = BoardResult.BoadCheck(ret);
 
                 return XlCall.Excel(XlCall.xlUDF, "Resize", array);
 
@@ -227,7 +317,7 @@ namespace KabuSuteAddin
                 if (exception.InnerException == null)
                     return exception.Message;
                 else
-                    return exception.InnerException.Message.ToString();
+                    return exception.InnerException.Message;
             }
 
         }
@@ -238,31 +328,31 @@ namespace KabuSuteAddin
         private static Dictionary<string, Tuple<DateTime, string>> _symbolCache = new Dictionary<string, Tuple<DateTime, string>>();
         [ExcelFunction(Name = "SYMBOL", Category = "kabuSTATIONアドイン", Description = "指定した銘柄情報を取得する.", IsHidden = false)]
         public static object SYMBOL(
-            [ExcelArgument(Description = "の銘柄情報を取得する", Name = "銘柄コード")] string SymbolCode,
-            [ExcelArgument(Description = "の銘柄情報を取得する", Name = "市場コード")] string MarketCode)
+            [ExcelArgument(Description = "の銘柄情報を取得する", Name = "銘柄コード")] string Symbol,
+            [ExcelArgument(Description = "の銘柄情報を取得する", Name = "市場コード")] string Exchange)
         {
             string ret = null;
             try
             {
-                string ResultMessage = Validate.ValidateRequired(SymbolCode, MarketCode);
+                string ResultMessage = Validate.ValidateRequired(Symbol, Exchange);
                 if (!string.IsNullOrEmpty(ResultMessage))
                     return ResultMessage;
 
                 Tuple<DateTime, string> tpl;
-                var tplKey = SymbolCode + "-" + MarketCode;
+                var tplKey = Symbol + "-" + Exchange;
                 if (_symbolCache.TryGetValue(tplKey, out tpl))
                 {
-                    if ((DateTime.Now - tpl.Item1).Seconds < 1)
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
                         ret = tpl.Item2;
                 }
                 if (String.IsNullOrEmpty(ret))
                 {
-                    ret = middleware.GetSymbol(SymbolCode, MarketCode);
+                    ret = middleware.GetSymbol(Symbol, Exchange);
                     _symbolCache[tplKey] = Tuple.Create(DateTime.Now, ret);
                 }
 
                 object array;
-                array = Symbol.SymbolResultCheck(ret);
+                array = SymbolResult.SymbolCheck(ret);
 
                 return XlCall.Excel(XlCall.xlUDF, "Resize", array);
 
@@ -272,7 +362,7 @@ namespace KabuSuteAddin
                 if (exception.InnerException == null)
                     return exception.Message;
                 else
-                    return exception.InnerException.Message.ToString();
+                    return exception.InnerException.Message;
             }
 
         }
@@ -297,7 +387,7 @@ namespace KabuSuteAddin
                 var tplKey = SecurityType;
                 if (_ordersCache.TryGetValue(tplKey, out tpl))
                 {
-                    if ((DateTime.Now - tpl.Item1).Seconds < 1)
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
                         ret = tpl.Item2;
                 }
                 if (String.IsNullOrEmpty(ret))
@@ -320,7 +410,7 @@ namespace KabuSuteAddin
                 if (exception.InnerException == null)
                     return exception.Message;
                 else
-                    return exception.InnerException.Message.ToString();
+                    return exception.InnerException.Message;
             }
 
         }
@@ -345,7 +435,7 @@ namespace KabuSuteAddin
                 var tplKey = SecurityType;
                 if (_positionsCache.TryGetValue(tplKey, out tpl))
                 {
-                    if ((DateTime.Now - tpl.Item1).Seconds < 1)
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
                         ret = tpl.Item2;
                 }
                 if (String.IsNullOrEmpty(ret))
@@ -355,7 +445,7 @@ namespace KabuSuteAddin
                 }
 
                 object array;
-                array = Positions.PositionsResultCheck(ret);
+                array = PositionsResult.PositionCheck(ret);
                 if (array == null)
                     // 検証用でAPI実行結果がエラーではない場合
                     return 0;
@@ -368,7 +458,7 @@ namespace KabuSuteAddin
                 if (exception.InnerException == null)
                     return exception.Message;
                 else
-                    return exception.InnerException.Message.ToString();
+                    return exception.InnerException.Message;
             }
 
         }
@@ -393,7 +483,7 @@ namespace KabuSuteAddin
                 var tplKey = Util.ArrayToText(symboldata);
                 if (_registerCache.TryGetValue(tplKey, out tpl))
                 {
-                    if ((DateTime.Now - tpl.Item1).Seconds < 1)
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
                         ret = tpl.Item2;
                 }
                 if (String.IsNullOrEmpty(ret))
@@ -403,7 +493,7 @@ namespace KabuSuteAddin
                 }
 
                 object array;
-                array = Register.RegisterResultCheck(ret);
+                array = RegisterResult.RegisterCheck(ret);
 
                 if (array == null)
                     // 検証用でAPI実行結果がエラーではない場合
@@ -418,7 +508,7 @@ namespace KabuSuteAddin
                 if (exception.InnerException == null)
                     return exception.Message;
                 else
-                    return exception.InnerException.Message.ToString();
+                    return exception.InnerException.Message;
             }
 
         }
@@ -443,7 +533,7 @@ namespace KabuSuteAddin
                 var tplKey = Util.ArrayToText(symboldata);
                 if (_unRegisterCache.TryGetValue(tplKey, out tpl))
                 {
-                    if ((DateTime.Now - tpl.Item1).Seconds < 1)
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
                         ret = tpl.Item2;
                 }
                 if (String.IsNullOrEmpty(ret))
@@ -453,7 +543,7 @@ namespace KabuSuteAddin
                 }
 
                 object array;
-                array = Register.RegisterResultCheck(ret);
+                array = RegisterResult.RegisterCheck(ret);
                 if (array == null)
                     // 検証用でAPI実行結果がエラーではない場合
                     return 0;
@@ -466,7 +556,7 @@ namespace KabuSuteAddin
                 if (exception.InnerException == null)
                     return exception.Message;
                 else
-                    return exception.InnerException.Message.ToString();
+                    return exception.InnerException.Message;
             }
 
         }
@@ -489,7 +579,7 @@ namespace KabuSuteAddin
                 var tplKey = "UNREGISTER_ALL";
                 if (_unregisterAllCache.TryGetValue(tplKey, out tpl))
                 {
-                    if ((DateTime.Now - tpl.Item1).Seconds < 1)
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
                         ret = tpl.Item2;
                 }
                 if (String.IsNullOrEmpty(ret))
@@ -499,7 +589,7 @@ namespace KabuSuteAddin
                 }
 
                 object array;
-                array = Register.RegisterResultCheck(ret);
+                array = RegisterResult.RegisterCheck(ret);
                 if (!CustomRibbon._env)
                     return 0;
 
@@ -510,7 +600,7 @@ namespace KabuSuteAddin
                 if (exception.InnerException == null)
                     return exception.Message;
                 else
-                    return exception.InnerException.Message.ToString();
+                    return exception.InnerException.Message;
             }
             
         }
@@ -527,7 +617,7 @@ namespace KabuSuteAddin
         /// PUSH配信
         /// </summary>
         private static readonly object lockWebsocketData = new object();
-        public static Dictionary<string, Tuple<DateTime, string>> _websocketCache = new Dictionary<string, Tuple<DateTime, string>>();
+        public static Dictionary<string, Tuple<DateTime, BoardElement>> _websocketCache = new Dictionary<string, Tuple<DateTime, BoardElement>>();
         [ExcelFunction(Description = "指定した銘柄のPUSH配信を開始する.", Name = "WEBSOCKET", Category = "kabuSTATIONアドイン")]
         public static object WEBSOCKET(
             [ExcelArgument(Description = "", Name = "銘柄コード")] string symbol,
@@ -536,6 +626,7 @@ namespace KabuSuteAddin
         {
             try
             {
+
                 string ResultMessage = Validate.ValidateRtdBoard(_websocketStream, symbol, exchange, itemName);
                 if (!string.IsNullOrEmpty(ResultMessage))
                     return ResultMessage;
@@ -547,16 +638,30 @@ namespace KabuSuteAddin
                 if (CustomRibbon._updatePressed)
                     ret = XlCall.RTD(RtdBoard.WebApiRequestServerProgId, null, "WEBSOCKET");
 
-                Dictionary<string, Tuple<DateTime, string>> _Cache = _websocketCache;
+                if (!CustomRibbon._env)
+                    return 0;
+
+                Dictionary<string, Tuple<DateTime, BoardElement>> _Cache = _websocketCache;
                 object returnData = "";
 
                 if (_Cache.Count > 0)
                 {
                     var tplKey = symbol + "-" + exchange;
-                    Tuple<DateTime, string> tpl;
+                    Tuple<DateTime, BoardElement> tpl;
                     if (_Cache.TryGetValue(tplKey, out tpl))
                     {
-                        returnData = Board.RtdBoardResultCheck(tpl.Item2, symbol, int.Parse(exchange), itemName, false);
+                        returnData = BoardResult.GetBoardItem(tpl.Item2, symbol, int.Parse(exchange), itemName, false);
+                    }
+
+                    // 銘柄コード、市場コードのキーでキャッシュに該当データが無い場合、指数としてキャッシュをチェック
+                    if (string.IsNullOrEmpty(returnData.ToString()))
+                    {
+                        // Nullの場合、キャッシュには"0"で登録されるため、市場コ－ド"0"でキャッシュをチェック
+                        tplKey = symbol + "-" + "0";
+                        if (_Cache.TryGetValue(tplKey, out tpl))
+                        {
+                            returnData = BoardResult.GetBoardItem(tpl.Item2, symbol, int.Parse(exchange), itemName, false);
+                        }
                     }
 
                 }
@@ -569,10 +674,110 @@ namespace KabuSuteAddin
                 if (exception.InnerException == null)
                     return exception.Message;
                 else
-                    return exception.InnerException.Message.ToString();
+                    return exception.InnerException.Message;
             }
         }
 
+        // key : 先物コード-限月、value : Tuple<Tupleを作成した日時, APIからの戻り値>
+        private static Dictionary<string, Tuple<DateTime, string>> _symbolNameFutureCache = new Dictionary<string, Tuple<DateTime, string>>();
+        /// <summary>
+        /// 先物銘柄コード取得
+        /// </summary>
+        [ExcelFunction(Name = "SYMBOLNAME.FUTURE", Category = "kabuSTATIONアドイン", Description = "先物銘柄コードを取得する.（先物コードは\"で囲んで文字列としてください）", IsHidden = false)]
+        public static object SYMBOLNAME_FUTURE(
+            [ExcelArgument(Description = "に対応する先物銘柄コードを取得する", Name = "先物コード")] string FutureCode,
+            [ExcelArgument(Description = "に対応する先物銘柄コードを取得する", Name = "限月")] string DerivMonth)
+        {
+            string json = null;
+            try
+            {
+                string ResultMessage = Validate.ValidateRequired(FutureCode, DerivMonth);
+                if (!string.IsNullOrEmpty(ResultMessage)) return ResultMessage;
+                
+                Tuple<DateTime, string> tpl;
+                var tplKey = FutureCode + "-" + DerivMonth;
+                if (_symbolNameFutureCache.TryGetValue(tplKey, out tpl))
+                {
+                    // ArrayResizerで3回元の関数が呼び出されるので、キャッシュでAPIの呼び出し回数を抑える
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
+                    {
+                        json = tpl.Item2;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(json))
+                {
+                    json = middleware.GetSymbolNameFuture(FutureCode, DerivMonth);
+                    _symbolNameFutureCache[tplKey] = Tuple.Create(DateTime.Now, json);
+                }
+
+                object[] array = SymbolName.SymbolNameCheck(json);
+
+                return XlCall.Excel(XlCall.xlUDF, "Resize", array);
+            }
+            catch (Exception exception)
+            {
+                if (exception.InnerException == null)
+                {
+                    return exception.Message;
+                }
+                else
+                {
+                    return exception.InnerException.Message;
+                }
+            }
+        }
+
+        // key : 限月-プット／コール区分-権利行使価格、value : Tuple<Tupleを作成した日時, APIからの戻り値>
+        private static Dictionary<string, Tuple<DateTime, string>> _symbolNameOptionCache = new Dictionary<string, Tuple<DateTime, string>>();
+        /// <summary>
+        /// オプション銘柄コード取得
+        /// </summary>
+        [ExcelFunction(Name = "SYMBOLNAME.OPTION", Category = "kabuSTATIONアドイン", Description = "オプション銘柄コードを取得する.（プット／コール区分は\"で囲んで文字列としてください）", IsHidden = false)]
+        public static object SYMBOLNAME_OPTION(
+            [ExcelArgument(Description = "に対応するオプション銘柄コードを取得する", Name = "限月")] string DerivMonth,
+            [ExcelArgument(Description = "に対応するオプション銘柄コードを取得する", Name = "プット／コール区分")] string PutOrCall,
+            [ExcelArgument(Description = "に対応するオプション銘柄コードを取得する", Name = "権利行使価格")] string StrikePrice)
+        {
+            string json = null;
+            try
+            {
+                string ResultMessage = Validate.ValidateRequiredAll(DerivMonth, PutOrCall, StrikePrice);
+                if (!string.IsNullOrEmpty(ResultMessage)) return ResultMessage;
+
+                Tuple<DateTime, string> tpl;
+                var tplKey = string.Format("{0}-{1}-{2}", DerivMonth, PutOrCall, StrikePrice);
+                if (_symbolNameOptionCache.TryGetValue(tplKey, out tpl))
+                {
+                    // ArrayResizerで3回元の関数が呼び出されるので、キャッシュでAPIの呼び出し回数を抑える
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
+                    {
+                        json = tpl.Item2;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(json))
+                {
+                    json = middleware.GetSymbolNameOption(DerivMonth, PutOrCall, StrikePrice);
+                    _symbolNameOptionCache[tplKey] = Tuple.Create(DateTime.Now, json);
+                }
+
+                object[] array = SymbolName.SymbolNameCheck(json);
+
+                return XlCall.Excel(XlCall.xlUDF, "Resize", array);
+            }
+            catch (Exception exception)
+            {
+                if (exception.InnerException == null)
+                {
+                    return exception.Message;
+                }
+                else
+                {
+                    return exception.InnerException.Message;
+                }
+            }
+        }
     }
 
 
@@ -650,41 +855,11 @@ namespace KabuSuteAddin
         }
 
         //----------------------------------
-        // 可能額取得
-        internal string GetKanougaku(string SymbolCode)
-        {
-
-            var param = new KanougakuParam
-            {
-                SymbolCode = SymbolCode,
-            };
-
-            var json = "";
-            using (var stream = new MemoryStream())
-            {
-                var serializer = new DataContractJsonSerializer(typeof(SymbolParam));
-                json = Encoding.UTF8.GetString(stream.ToArray());
-            }
-
-            string url = domain + CustomRibbon._port + "/kabusapi/accountwallet/" + SymbolCode;
-
-            var request = new HttpRequestMessage(HttpMethod.Get, url);
-
-            request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
-
-            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = client.SendAsync(request).Result;
-
-            return response.Content.ReadAsStringAsync().Result;
-        }
-
-
-        //----------------------------------
         // 時価情報取得
-        internal string GetBoard(string SymbolCode, string MarketCode)
+        internal string GetBoard(string Symbol, string Exchange)
         {
 
-            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/board/" + SymbolCode + "@" + MarketCode);
+            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/board/" + Symbol + "@" + Exchange);
             request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
 
             HttpResponseMessage response = client.SendAsync(request).Result;
@@ -694,17 +869,17 @@ namespace KabuSuteAddin
 
         //----------------------------------
         // 取引余力（現物）
-        internal string GetWalletCash(string SymbolCode, string MarketCode)
+        internal string GetWalletCash(string Symbol, string Exchange)
         {
 
-            var symbol = "";
+            var requestString = "";
 
-            if (!string.IsNullOrEmpty(SymbolCode) || !string.IsNullOrEmpty(MarketCode))
+            if (!string.IsNullOrEmpty(Symbol) || !string.IsNullOrEmpty(Exchange))
             {
-                symbol = "/" + SymbolCode + "@" + MarketCode;
+                requestString = "/" + Symbol + "@" + Exchange;
             }
 
-            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/wallet/cash" + symbol);
+            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/wallet/cash" + requestString);
             request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
 
             HttpResponseMessage response = client.SendAsync(request).Result;
@@ -714,17 +889,57 @@ namespace KabuSuteAddin
 
         //----------------------------------
         // 取引余力（信用）
-        internal string GetWalletMargin(string SymbolCode, string MarketCode)
+        internal string GetWalletMargin(string Symbol, string Exchange)
         {
 
-            var symbol = "";
+            var requestString = "";
 
-            if (!string.IsNullOrEmpty(SymbolCode) || !string.IsNullOrEmpty(MarketCode))
+            if (!string.IsNullOrEmpty(Symbol) || !string.IsNullOrEmpty(Exchange))
             {
-                symbol = "/" + SymbolCode + "@" + MarketCode;
+                requestString = "/" + Symbol + "@" + Exchange;
             }
 
-            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/wallet/margin" + symbol);
+            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/wallet/margin" + requestString);
+            request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
+
+            HttpResponseMessage response = client.SendAsync(request).Result;
+
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        //----------------------------------
+        // 取引余力（先物）
+        internal string GetWalletFuture(string Symbol, string Exchange)
+        {
+
+            var requestString = "";
+
+            if (!string.IsNullOrEmpty(Symbol) || !string.IsNullOrEmpty(Exchange))
+            {
+                requestString = "/" + Symbol + "@" + Exchange;
+            }
+
+            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/wallet/future" + requestString);
+            request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
+
+            HttpResponseMessage response = client.SendAsync(request).Result;
+
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        //----------------------------------
+        // 取引余力（OP）
+        internal string GetWalletOption(string Symbol, string Exchange)
+        {
+
+            var requestString = "";
+
+            if (!string.IsNullOrEmpty(Symbol) || !string.IsNullOrEmpty(Exchange))
+            {
+                requestString = "/" + Symbol + "@" + Exchange;
+            }
+
+            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/wallet/option" + requestString);
             request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
 
             HttpResponseMessage response = client.SendAsync(request).Result;
@@ -734,10 +949,10 @@ namespace KabuSuteAddin
 
         //----------------------------------
         // 銘柄情報取得x
-        internal string GetSymbol(string SymbolCode, string MarketCode)
+        internal string GetSymbol(string Symbol, string Exchange)
         {
 
-            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/symbol/" + SymbolCode + "@" + MarketCode);
+            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/symbol/" + Symbol + "@" + Exchange);
 
             request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
 
@@ -851,6 +1066,7 @@ namespace KabuSuteAddin
         private void RecvWebScoketData(ClientWebSocket ws)
         {
             // 受信バッファ
+            // 1回のメッセージを受信できるのに十分な大きさ
             var buffer = new byte[4096];
 
             // websocket情報格納用の配列
@@ -864,7 +1080,6 @@ namespace KabuSuteAddin
                 {
                     ws.CloseAsync(WebSocketCloseStatus.NormalClosure, "ユーザーによる更新停止", CancellationToken.None);
                     ExcelFunctionController._websocketStream = false;
-
                 }
                 else
                 {
@@ -873,24 +1088,27 @@ namespace KabuSuteAddin
 
                     try
                     {
-                        // 受信した最新MessageをlastRecvMessage、キャッシュへ登録
+                        // 受信したメッセージをキャッシュへ格納
                         lock (lockLastRecvMessage)
                         {
                             lastRecvMessage = message;
                             if (resultTask.Result.EndOfMessage)
                             { 
-                                if (!(lastRecvMessage == null) && !(lastRecvMessage.ToString() == "0") && !(lastRecvMessage.ToString() == "ExcelErrorNA"))
+                                if (lastRecvMessage != null && lastRecvMessage != "0" && lastRecvMessage != "ExcelErrorNA")
                                 {
-                                    object[] array = Board.BoardResultArray(lastRecvMessage);
-                                    var tplKey = array[0].ToString() + "-" + array[2].ToString();
-                                    ExcelFunctionController._websocketCache[tplKey] = Tuple.Create(DateTime.Now, lastRecvMessage);
+                                    var objectJson = DynamicJson.Parse(lastRecvMessage);
+                                    BoardElement boardData = (BoardElement)objectJson;
+                                    var tplKey = boardData.Symbol + "-" + boardData.Exchange;
+                                    ExcelFunctionController._websocketCache[tplKey] = Tuple.Create(DateTime.Now, boardData);
+
                                 }
                             }
                         }
                     }
                     catch (Exception exception)
                     {
-                        System.Diagnostics.Trace.WriteLine(exception.Message.ToString());
+                        // キャッシュに登録できない場合、何もしない（JSON変換できない場合など）
+                        System.Diagnostics.Trace.WriteLine(exception.Message);
                     }
 
                 }
@@ -910,5 +1128,24 @@ namespace KabuSuteAddin
             return ret;
         }
 
+        //----------------------------------
+        // 先物銘柄コード取得
+        internal string GetSymbolNameFuture(string FutureCode, string DerivMonth)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/symbolname/future?FutureCode=" + FutureCode + "&DerivMonth=" + DerivMonth);
+            request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
+            HttpResponseMessage response = client.SendAsync(request).Result;
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        //----------------------------------
+        // オプション銘柄コード取得
+        internal string GetSymbolNameOption(string DerivMonth, string PutOrCall, string StrikePrice)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/symbolname/option?DerivMonth=" + DerivMonth + "&PutOrCall=" + PutOrCall + "&StrikePrice=" + StrikePrice);
+            request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
+            HttpResponseMessage response = client.SendAsync(request).Result;
+            return response.Content.ReadAsStringAsync().Result;
+        }
     }
 }

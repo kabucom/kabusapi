@@ -5,7 +5,7 @@ import pprint
 url = 'http://localhost:18080/kabusapi/board/5401@1'
 req = urllib.request.Request(url, method='GET')
 req.add_header('Content-Type', 'application/json')
-req.add_header('X-API-KEY', 'e629f7e6073b40488d0d134dae4e60ac')
+req.add_header('X-API-KEY', 'ed94b0d34f9441c3931621e55230e402')
 
 try:
     with urllib.request.urlopen(req) as res:

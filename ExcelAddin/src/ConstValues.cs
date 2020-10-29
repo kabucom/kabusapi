@@ -83,6 +83,23 @@ namespace KabuSuteAddin
     }
     #endregion
 
+    #region 取引余力
+    public class WALLET
+    {
+        /// <summary>現物</summary>
+        public const string CASH = "cash";
+
+        /// <summary>信用</summary>
+        public const string MARGIN = "margin";
+
+        /// <summary>先物</summary>
+        public const string FUTURE = "future";
+
+        /// <summary>オプション</summary>
+        public const string OPTION = "option";
+
+    }
+    #endregion
 
     #region メッセージ
     public class ResultMessage

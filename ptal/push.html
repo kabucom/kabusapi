@@ -12,6 +12,20 @@
     <link rel="stylesheet" type="text/css" href="content/css/guide.css">
     <link rel="stylesheet" type="text/css" href="content/css/common.css">
     <link rel="stylesheet" type="text/css" href="content/css/index.css">
+    <style>
+        .dash-cell {
+            text-align: center;
+            background-color: #cccccc5c;
+        }
+        
+        .circle-cell {
+            text-align: center;
+        }
+        
+        .blank-cell {
+            background-color: #cccccc5c;
+        }
+    </style>
 </head>
 
 <body>
@@ -59,613 +73,1020 @@
 
                         <h4>４．レスポンス</h4>
                         <p>各フィールドのコード値についてはRESTの<a href="../reference/index.html#tag/info%2Fpaths%2F~1board~1%7Bsymbol%7D%40%7Bexchange%7D%2Fget">「時価情報・板情報」</a>をご参照ください。</p>
-
                         <table class="main-table">
                             <tr>
-                                <th>No.</th>
-                                <th>フィールド</th>
-                                <th>型</th>
-                                <th>内容</th>
+                                <th rowspan="2">No.</th>
+                                <th rowspan="2">フィールド</th>
+                                <th rowspan="2">型</th>
+                                <th rowspan="2">内容</th>
+                                <th colspan="4" style="text-align: center;">商品</th>
+                            </tr>
+                            <tr style="text-align: center;">
+                                <th style="width: 2em;">株式</th>
+                                <th style="width: 2em;">先物</th>
+                                <th style="width: 2em;">OP </th>
+                                <th style="width: 2em;">指数</th>
                             </tr>
                             <tr>
                                 <td>1</td>
                                 <td>Symbol</td>
                                 <td>文字列</td>
                                 <td>銘柄コード</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>SymbolName</td>
                                 <td>文字列</td>
                                 <td>銘柄名</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td>Exchange</td>
                                 <td>数値</td>
                                 <td>市場コード</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>4</td>
                                 <td>ExchangeName</td>
                                 <td>文字列</td>
                                 <td>市場名称</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>5</td>
                                 <td>CurrentPrice</td>
                                 <td>数値</td>
                                 <td>現値</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
                             </tr>
                             <tr>
                                 <td>6</td>
                                 <td>CurrentPriceTime</td>
                                 <td>文字列</td>
                                 <td>現値時刻</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
                             </tr>
                             <tr>
                                 <td>7</td>
                                 <td>CurrentPriceChangeStatus</td>
                                 <td>文字列</td>
                                 <td>現値前値比較</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
                             </tr>
                             <tr>
                                 <td>8</td>
                                 <td>CurrentPriceStatus</td>
                                 <td>数値</td>
                                 <td>現値ステータス</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
                             </tr>
                             <tr>
                                 <td>9</td>
                                 <td>CalcPrice</td>
                                 <td>数値</td>
                                 <td>計算用現値</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
                             </tr>
                             <tr>
                                 <td>10</td>
                                 <td>PreviousClose</td>
                                 <td>数値</td>
                                 <td>前日終値</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
                             </tr>
                             <tr>
                                 <td>11</td>
                                 <td>PreviousCloseTime</td>
                                 <td>文字列</td>
                                 <td>前日終値日付</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
                             </tr>
                             <tr>
                                 <td>12</td>
                                 <td>ChangePreviousClose</td>
                                 <td>数値</td>
                                 <td>前日比</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
                             </tr>
                             <tr>
                                 <td>13</td>
                                 <td>ChangePreviousClosePer</td>
                                 <td>数値</td>
                                 <td>騰落率</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
                             </tr>
                             <tr>
                                 <td>14</td>
                                 <td>OpeningPrice</td>
                                 <td>数値</td>
                                 <td>始値</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
                             </tr>
                             <tr>
                                 <td>15</td>
                                 <td>OpeningPriceTime</td>
                                 <td>文字列</td>
                                 <td>始値時刻</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
                             </tr>
                             <tr>
                                 <td>16</td>
                                 <td>HighPrice</td>
                                 <td>数値</td>
                                 <td>高値</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
                             </tr>
                             <tr>
                                 <td>17</td>
                                 <td>HighPriceTime</td>
                                 <td>文字列</td>
                                 <td>高値時刻</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
                             </tr>
                             <tr>
                                 <td>18</td>
                                 <td>LowPrice</td>
                                 <td>数値</td>
                                 <td>安値</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
                             </tr>
                             <tr>
                                 <td>19</td>
                                 <td>LowPriceTime</td>
                                 <td>文字列</td>
                                 <td>安値時刻</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>20</td>
                                 <td>TradingVolume</td>
                                 <td>数値</td>
                                 <td>売買高</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>21</td>
                                 <td>TradingVolumeTime</td>
                                 <td>文字列</td>
                                 <td>売買高時刻</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>22</td>
                                 <td>VWAP</td>
                                 <td>数値</td>
                                 <td>売買高加重平均価格(VWAP)</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>23</td>
                                 <td>TradingValue</td>
                                 <td>数値</td>
                                 <td>売買代金</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>24</td>
                                 <td>BidQty</td>
                                 <td>数値</td>
                                 <td>最良売気配数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>25</td>
                                 <td>BidPrice</td>
                                 <td>数値</td>
                                 <td>最良売気配値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>26</td>
                                 <td>BidTime</td>
                                 <td>文字列</td>
                                 <td>最良売気配時刻</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>27</td>
                                 <td>BidSign</td>
                                 <td>文字列</td>
                                 <td>最良売気配フラグ</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>28</td>
                                 <td>MarketOrderSellQty</td>
                                 <td>数値</td>
                                 <td>売成行数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>29</td>
                                 <td>Sell1</td>
                                 <td>リスト</td>
                                 <td>売気配数量1本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>29-1</td>
                                 <td> Time</td>
                                 <td>文字列</td>
                                 <td>時刻</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>29-2</td>
                                 <td> Sign</td>
                                 <td>文字列</td>
                                 <td>気配フラグ</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>29-3</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>29-4</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>30</td>
                                 <td>Sell2</td>
                                 <td>リスト</td>
                                 <td>売気配数量2本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>30-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>30-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>31</td>
                                 <td>Sell3</td>
                                 <td>リスト</td>
                                 <td>売気配数量3本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>31-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>31-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>32</td>
                                 <td>Sell4</td>
                                 <td>リスト</td>
                                 <td>売気配数量4本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>32-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>32-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>33</td>
                                 <td>Sell5</td>
                                 <td>リスト</td>
                                 <td>売気配数量5本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>33-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>33-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>34</td>
                                 <td>Sell6</td>
                                 <td>リスト</td>
                                 <td>売気配数量6本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>34-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>34-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>35</td>
                                 <td>Sell7</td>
                                 <td>リスト</td>
                                 <td>売気配数量7本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>35-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>35-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>36</td>
                                 <td>Sell8</td>
                                 <td>リスト</td>
                                 <td>売気配数量8本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>36-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>36-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>37</td>
                                 <td>Sell9</td>
                                 <td>リスト</td>
                                 <td>売気配数量9本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>37-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>37-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>38</td>
                                 <td>Sell10</td>
                                 <td>リスト</td>
                                 <td>売気配数量10本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>38-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>38-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>39</td>
                                 <td>AskQty</td>
                                 <td>数値</td>
                                 <td>最良買気配数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>40</td>
                                 <td>AskPrice</td>
                                 <td>数値</td>
                                 <td>最良買気配値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>41</td>
                                 <td>AskTime</td>
                                 <td>文字列</td>
                                 <td>最良買気配時刻</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>42</td>
                                 <td>AskSign</td>
                                 <td>文字列</td>
                                 <td>最良買気配フラグ</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>43</td>
                                 <td>MarketOrderBuyQty</td>
                                 <td>数値</td>
                                 <td>買成行数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>44</td>
                                 <td>Buy1</td>
                                 <td>リスト</td>
                                 <td>買気配数量1本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>44-1</td>
                                 <td> Time</td>
                                 <td>文字列</td>
                                 <td>時刻</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+
                             </tr>
                             <tr>
                                 <td>44-2</td>
                                 <td> Sign</td>
                                 <td>文字列</td>
                                 <td>気配フラグ</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>44-3</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>44-4</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>45</td>
                                 <td>Buy2</td>
                                 <td>リスト</td>
                                 <td>買気配数量2本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>45-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>45-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>46</td>
                                 <td>Buy3</td>
                                 <td>リスト</td>
                                 <td>買気配数量3本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>46-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>46-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>47</td>
                                 <td>Buy4</td>
                                 <td>リスト</td>
                                 <td>買気配数量4本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>47-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>47-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>48</td>
                                 <td>Buy5</td>
                                 <td>リスト</td>
                                 <td>買気配数量5本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>48-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>48-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>49</td>
                                 <td>Buy6</td>
                                 <td>リスト</td>
                                 <td>買気配数量6本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>49-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>49-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>50</td>
                                 <td>Buy7</td>
                                 <td>リスト</td>
                                 <td>買気配数量7本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>50-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>50-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>51</td>
                                 <td>Buy8</td>
                                 <td>リスト</td>
                                 <td>買気配数量8本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>51-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>51-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>52</td>
                                 <td>Buy9</td>
                                 <td>リスト</td>
                                 <td>買気配数量9本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>52-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>52-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>53</td>
                                 <td>Buy10</td>
                                 <td>リスト</td>
                                 <td>買気配数量10本目</td>
+                                <td colspan="4" class="blank-cell"></td>
                             </tr>
                             <tr>
                                 <td>53-1</td>
                                 <td> Price</td>
                                 <td>数値</td>
                                 <td>値段</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>53-2</td>
                                 <td> Qty</td>
                                 <td>数値</td>
                                 <td>数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>54</td>
                                 <td>OverSellQty</td>
                                 <td>数値</td>
                                 <td>OVER気配数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>55</td>
                                 <td>UnderBuyQty</td>
                                 <td>数値</td>
                                 <td>UNDER気配数量</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                             <tr>
                                 <td>56</td>
                                 <td>TotalMarketValue</td>
                                 <td>数値</td>
                                 <td>時価総額</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+                            </tr>
+                            <tr>
+                                <td>57</td>
+                                <td>SettlementPrice</td>
+                                <td>数値</td>
+                                <td>清算値</td>
+                                <td class="dash-cell">-</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+                            </tr>
+                            <tr>
+                                <td>58</td>
+                                <td>IV</td>
+                                <td>数値</td>
+                                <td>インプライド・ボラティリティ(IV)</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
+                            </tr>
+                            <tr>
+                                <td>59</td>
+                                <td>Gamma</td>
+                                <td>数値</td>
+                                <td>ガンマ</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
+                            </tr>
+                            <tr>
+                                <td>60</td>
+                                <td>Theta</td>
+                                <td>数値</td>
+                                <td>セータ</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
+                            </tr>
+                            <tr>
+                                <td>61</td>
+                                <td>Vega</td>
+                                <td>数値</td>
+                                <td>ベガ</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
+                            </tr>
+                            <tr>
+                                <td>62</td>
+                                <td>Delta</td>
+                                <td>数値</td>
+                                <td>デルタ</td>
+                                <td class="dash-cell">-</td>
+                                <td class="dash-cell">-</td>
+                                <td class="circle-cell">〇</td>
+                                <td class="dash-cell">-</td>
                             </tr>
                         </table>
 

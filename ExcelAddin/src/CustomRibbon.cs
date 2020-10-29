@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using Codeplex.Data;
 using ExcelDna.Integration;
 using ExcelDna.Integration.CustomUI;
+using Application = NetOffice.ExcelApi.Application;
 
 namespace KabuSuteAddin
 {
@@ -107,6 +108,7 @@ namespace KabuSuteAddin
             _thisRibbon = ribbon ?? throw new ArgumentNullException(nameof(ribbon));
 
             settingUpdate("ApiToken", "");
+
         }
 
         private void OnInvalidateRibbon(object obj)
@@ -122,16 +124,16 @@ namespace KabuSuteAddin
             switch (control.Id)
             {
                 case RibbonItem.発注制御ボタン:
-                    return _orderPressed ? new Bitmap(Properties.Resources.注文OK_32x32_透過): new Bitmap(Properties.Resources.注文NG_32x32_透過);
+                    return _orderPressed ? new Bitmap(Properties.Resources.order_OK_64x64) : new Bitmap(Properties.Resources.order_NG_64x64);
 
                 case RibbonItem.更新制御ボタン:
-                    return _updatePressed ? new Bitmap(Properties.Resources.更新OK_32x32_透過) : new Bitmap(Properties.Resources.更新NG_32x32_透過);
+                    return _updatePressed ? new Bitmap(Properties.Resources.reload_OK_64x64) : new Bitmap(Properties.Resources.reload_NG_64x64);
 
                 case RibbonItem.本番用トークン取得ボタン:
-                    return _tokenProd ? new Bitmap(Properties.Resources.kabuSTATIONAPI_ExcelToken_本番_LOGIN状態_32x32_透過) : new Bitmap(Properties.Resources.kabuSTATIONAPI_ExcelToken_本番_通常状態_32x32_透過);
+                    return _tokenProd ? new Bitmap(Properties.Resources.production_Unlock_64x64) : new Bitmap(Properties.Resources.production_Lock_64x64);
 
                 case RibbonItem.検証用トークン取得ボタン:
-                    return _tokenDev ? new Bitmap(Properties.Resources.kabuSTATIONAPI_ExcelToken_検証_LOGIN状態_32x32_透過) : new Bitmap(Properties.Resources.kabuSTATIONAPI_ExcelToken_検証_通常状態_32x32_透過);
+                    return _tokenDev ? new Bitmap(Properties.Resources.verification_Unlock_64x64) : new Bitmap(Properties.Resources.verification_Lock_64x64);
 
                 default: return null;
             }
@@ -153,6 +155,7 @@ namespace KabuSuteAddin
                 case RibbonItem.更新制御ボタン:
                     _updatePressed = pressed;
                     _thisRibbon.InvalidateControl(RibbonItem.更新制御ボタン);
+                    ExcelFunctionController._websocketStream = false;
                     break;
 
                 default: break;
@@ -280,11 +283,13 @@ namespace KabuSuteAddin
                 case RibbonItem.本番用トークン:
                     _token = _prodToken;
                     _env = true;
+                    ExcelFunctionController._websocketStream = false;
                     break;
 
                 case RibbonItem.検証用トークン:
                     _token = _devToken;
                     _env = false;
+                    ExcelFunctionController._websocketStream = false;
                     break;
 
                 default:
@@ -350,8 +355,6 @@ namespace KabuSuteAddin
             IEnumerable<XElement> infos = from item in xml.Elements("setting1")
                                           select item;
 
-            //if (!string.IsNullOrEmpty(val))
-            //{
             foreach (XElement info in infos)
             {
                 if (!string.IsNullOrEmpty(val))
@@ -360,7 +363,7 @@ namespace KabuSuteAddin
                 else
                     info.Element(control).Value = "";
             }
-            //}
+
             xml.Save(xmlPath);
         }
 

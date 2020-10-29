@@ -32,27 +32,8 @@ namespace KabuSuteAddin.Utils
         }
 
         [ExcelFunction(IsHidden = true)]
-        public static object[] SingleDimToArray2(string str)
+        public static object[] ObjectJsonToArray(dynamic objectJson)
         {
-            var objectJson = DynamicJson.Parse(str);
-            var jsonarr = (dynamic[])objectJson;
-
-            object[] array = new object[jsonarr.Length];
-            int col = 0;
-
-            foreach (KeyValuePair<string, object> item in objectJson)
-            {
-                array[col] = item.Value;
-                col++;
-            }
-
-            return array;
-        }
-
-        [ExcelFunction(IsHidden = true)]
-        public static object MultipleDimToArray(string str)
-        {
-            var objectJson = DynamicJson.Parse(str);
             var jsonarr = (dynamic[])objectJson;
 
             object[] array = new object[jsonarr.Length];
@@ -79,7 +60,7 @@ namespace KabuSuteAddin.Utils
                 }
             }
 
-            return val.ToString();
+            return val;
         }
 
         [ExcelFunction(IsHidden = true)]

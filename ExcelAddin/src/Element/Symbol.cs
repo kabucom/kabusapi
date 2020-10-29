@@ -5,7 +5,7 @@ using ExcelDna.Integration;
 namespace KabuSuteAddin.Elements
 {
     [DataContract]
-    public class SymbolResult
+    public class SymbolElements
     {
         [DataMember(Name = "Symbol")]
         public string Symbol { get; set; }
@@ -61,8 +61,8 @@ namespace KabuSuteAddin.Elements
         [DataMember(Name = "Underlyer")]
         public string Underlyer { get; set; }
 
-        [DataMember(Name = "DeriveryYearMonth")]
-        public string DeriveryYearMonth { get; set; }
+        [DataMember(Name = "DerivMonth")]
+        public string DerivMonth { get; set; }
 
         [DataMember(Name = "TradeStart")]
         public int TradeStart { get; set; }
@@ -80,14 +80,13 @@ namespace KabuSuteAddin.Elements
         public decimal ClearingPrice { get; set; }
 
     }
-    public class Symbol
+    public class SymbolResult
     {
         private const int SymbolCol = 24;
-        private static object SymbolToArray(string str)
+        private static object SymbolToArray(dynamic objectJson)
         {
-            var objectJson = DynamicJson.Parse(str);
 
-            SymbolResult SymbolData = (SymbolResult)objectJson;
+            SymbolElements SymbolData = (SymbolElements)objectJson;
 
             object[] array = new object[SymbolCol];
             array[0] = SymbolData.Symbol;
@@ -108,7 +107,7 @@ namespace KabuSuteAddin.Elements
             array[15] = SymbolData.UpperLimit;
             array[16] = SymbolData.LowerLimit;
             array[17] = SymbolData.Underlyer;
-            array[18] = SymbolData.DeriveryYearMonth;
+            array[18] = SymbolData.DerivMonth;
             array[19] = SymbolData.TradeStart;
             array[20] = SymbolData.TradeEnd;
             array[21] = SymbolData.StrikePrice;
@@ -119,7 +118,7 @@ namespace KabuSuteAddin.Elements
         }
 
         [ExcelFunction(IsHidden = true)]
-        public static object SymbolResultCheck(string value)
+        public static object SymbolCheck(string value)
         {
             var objectJson = DynamicJson.Parse(value);
             object ret;
@@ -131,7 +130,7 @@ namespace KabuSuteAddin.Elements
             }
 
             // multidimensional arrays
-            ret = SymbolToArray(value);
+            ret = SymbolToArray(objectJson);
             return ret;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using ExcelDna.Integration;
+using System;
 
 namespace KabuSuteAddin.Utils
 {
@@ -31,30 +32,12 @@ namespace KabuSuteAddin.Utils
         }
 
         /// <summary>
-        /// 文字列長チェック
-        /// </summary>
-        [ExcelFunction(IsHidden = true)]
-        public int ValidateString(string value, int Length)
-        {
-
-
-            if (string.IsNullOrEmpty(value.ToString()))
-                return ResultCode.EmptyData;
-
-            if (Length > 0 && value.ToString().Length != Length)
-                return ResultCode.OutofRangeLength;
-
-            return ResultCode.OK;
-        }
-
-        /// <summary>
-        /// 入力チェック
+        /// 発注制御チェック
         /// </summary>
         [ExcelFunction(IsHidden = true)]
         public static string ValidateOrderCancel(string value1, string value2)
         {
 
-            // 発注制御チェック
             if (!(CustomRibbon._orderPressed))
                 return ResultMessage.OrderIsNotValid;
 
@@ -73,7 +56,7 @@ namespace KabuSuteAddin.Utils
         }
 
         /// <summary>
-        /// 両方入力されている場合のみOK
+        /// 引数が両方入力されている場合のみOK
         /// </summary>
         [ExcelFunction(IsHidden = true)]
         public static string ValidateRequired(string value1, string value2)    
@@ -89,7 +72,7 @@ namespace KabuSuteAddin.Utils
         }
 
         /// <summary>
-        /// 両方Nullまたは両方入力されている場合のみOK
+        /// 引数が両方Nullまたは両方入力されている場合のみOK
         /// </summary>
         [ExcelFunction(IsHidden = true)]
         public static string ValidateRequired2(string value1, string value2)
@@ -101,6 +84,29 @@ namespace KabuSuteAddin.Utils
                 if (string.IsNullOrEmpty(value1.ToString()) ^ string.IsNullOrEmpty(value2.ToString()))
                     return ResultMessage.BadRequest;
 
+
+            return result;
+        }
+
+        /// <summary>
+        /// 引数がすべて入力されている場合のみOK（入力が正しい場合はnullを返す）
+        /// ※params string[] は Excel-DNA で実行時エラーになるので、代わりに params object[] としている
+        /// Initialization [Error] Method not registered - unsupported signature, abstract or generic:
+        /// </summary>
+        [ExcelFunction(IsHidden = true)]
+        public static string ValidateRequiredAll(params object[] values)
+        {
+            // ValidateCommon()の結果がnullではない → チェックでエラー発生
+            string result = ValidateCommon();
+            if (!string.IsNullOrEmpty(result)) return result;
+
+            foreach (var v in values)
+            {
+                if (v == null || v.ToString() == "")
+                {
+                    return ResultMessage.BadRequest;
+                }
+            }
 
             return result;
         }
@@ -130,7 +136,7 @@ namespace KabuSuteAddin.Utils
         }
 
         /// <summary>
-        /// 入力チェック（範囲選択）
+        /// REGISTER系の範囲選択チェック
         /// </summary>
         [ExcelFunction(IsHidden = true)]
         public static string ValidateRegister(object[,] array)
@@ -164,7 +170,7 @@ namespace KabuSuteAddin.Utils
         }
 
         /// <summary>
-        /// 入力チェック（PUSH配信）
+        /// PUSH配信チェック
         /// </summary>
         [ExcelFunction(IsHidden = true)]
         public static string ValidateRtdBoard(bool WebsocketStart, string symbol, string exchange, string itemName)
