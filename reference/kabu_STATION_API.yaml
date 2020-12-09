@@ -189,7 +189,7 @@ paths:
         name: "req"
         required: true
         schema:
-          $ref: "#/definitions/RequestSendOrderDeriv"
+          $ref: "#/definitions/RequestSendOrderDerivFuture"
       responses:
         "200":
           description: "OK"
@@ -253,7 +253,7 @@ paths:
         name: "req"
         required: true
         schema:
-          $ref: "#/definitions/RequestSendOrderDeriv"
+          $ref: "#/definitions/RequestSendOrderDerivOption"
       responses:
         "200":
           description: "OK"
@@ -1438,7 +1438,7 @@ paths:
         type: "string"
       - name: "DerivMonth"
         in: "query"
-        description: "限月<br>※限月はyyyyMM形式で指定します。0を指定した場合、直近限月となります。"
+        description: "限月<br>※限月はyyyyMM形式で指定します。0を指定した場合、直近限月となります。<br>※取引最終日に「0」（直近限月）を指定した場合、日中・夜間の時間帯に関わらず、取引最終日を迎える限月の銘柄コードを返します。取引最終日を迎える銘柄の取引は日中取引をもって終了となりますので、ご注意ください。"
         required: true
         type: "integer"
         format: "int32"
@@ -1501,7 +1501,7 @@ paths:
         type: "string"
       - name: "DerivMonth"
         in: "query"
-        description: "限月<br>※限月はyyyyMM形式で指定します。0を指定した場合、直近限月となります。"
+        description: "限月<br>※限月はyyyyMM形式で指定します。0を指定した場合、直近限月となります。<br>※取引最終日に「0」（直近限月）を指定した場合、日中・夜間の時間帯に関わらず、取引最終日を迎える限月の銘柄コードを返します。取引最終日を迎える銘柄の取引は日中取引をもって終了となりますので、ご注意ください。"
         required: true
         type: "integer"
         format: "int32"
@@ -1748,7 +1748,7 @@ definitions:
         type: "integer"
         format: "int32"
         example: 20200903
-  RequestSendOrderDeriv:
+  RequestSendOrderDerivFuture:
     type: "object"
     required:
       - Password
@@ -1767,7 +1767,7 @@ definitions:
         type: "string"
         example: "xxxxxx"
       Symbol:
-        description: "銘柄コード"
+        description: "銘柄コード<br>※取引最終日に「先物銘柄コード取得」でDerivMonthに0（直近限月）を指定した場合、日中・夜間の時間帯に関わらず、取引最終日を迎える限月の銘柄コードを返します。取引最終日を迎える銘柄の取引は日中取引をもって終了となりますので、ご注意ください。"
         type: "string"
         example: "165120019"
       Exchange:
@@ -1868,6 +1868,127 @@ definitions:
         type: "integer"
         format: "int32"
         example: 20200903
+  RequestSendOrderDerivOption:
+    type: "object"
+    required:
+      - Password
+      - Symbol
+      - Exchange
+      - TradeType
+      - TimeInForce
+      - Side
+      - Qty
+      - Price
+      - ExpireDay
+      - FrontOrderType
+    properties:
+      Password:
+        description: "注文パスワード"
+        type: "string"
+        example: "xxxxxx"
+      Symbol:
+        description: "銘柄コード<br>※取引最終日に「オプション銘柄コード取得」でDerivMonthに0（直近限月）を指定した場合、日中・夜間の時間帯に関わらず、取引最終日を迎える限月の銘柄コードを返します。取引最終日を迎える銘柄の取引は日中取引をもって終了となりますので、ご注意ください。"
+        type: "string"
+        example: "165120019"
+      Exchange:
+        description: |-
+          市場コード
+          |定義値|説明|
+          |-|-|
+          |2|日通し|
+          |23|日中|
+          |24|夜間|
+        type: "integer"
+        format: "int32"
+        example: 23
+      TradeType:
+        description: |-
+          取引区分
+          |定義値|説明|
+          |-|-|
+          |1|新規|
+          |2|返済|
+        type: "integer"
+        format: "int32"
+        example: 2
+      TimeInForce:
+        description: |-
+          有効期間条件
+          |定義値|説明|
+          |-|-|
+          |1|FAS<br>※FASを指定した場合、FrontOrderTypeは指値(20)のみ指定可能。|
+          |2|FAK<br>※FAKを指定した場合、Exchangeは日中(23)、夜間(24)のみ指定可能。|
+          |3|FOK<br>※FOKを指定した場合、Exchangeは日中(23)、夜間(24)のみ指定可能。|
+        type: "integer"
+        format: "int32"
+        example: 2
+      Side:
+        description: |-
+          売買区分
+          |定義値|説明|
+          |-|-|
+          |1|売|
+          |2|買|
+        type: "string"
+        example: "1"
+      Qty:
+        description: "注文数量"
+        type: "integer"
+        format: "int32"
+        example: 1
+      ClosePositionOrder:
+        description: |-
+          決済順序<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。
+          |定義値|説明|
+          |-|-|
+          |0|日付（古い順）、損益（高い順）|
+          |1|日付（古い順）、損益（低い順）|
+          |2|日付（新しい順）、損益（高い順）|
+          |3|日付（新しい順）、損益（低い順）|
+          |4|損益（高い順）、日付（古い順）|
+          |5|損益（高い順）、日付（新しい順）|
+          |6|損益（低い順）、日付（古い順）|
+          |7|損益（低い順）、日付（新しい順）|
+        type: "integer"
+        format: "int32"
+        example: null
+      ClosePositions:
+        description: "返済建玉指定<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。"
+        type: "array"
+        items:
+          $ref: "#/definitions/PositionsDeriv"
+      FrontOrderType:
+        description: |-
+          執行条件
+          |定義値|説明|”Price”の指定|
+          |-|-|-|
+          |18|引成（派生）<br>※TimeInForceは、「FAK」のみ有効|0|
+          |20|指値|発注したい金額|
+          |28|引指（派生）<br>※TimeInForceは、「FAS」のみ有効|発注したい金額|
+          |120|成行（マーケットオーダー）|0|
+        type: "integer"
+        format: "int32"
+        example: 120
+      Price:
+        description: "注文価格<br>※FrontOrderTypeで成行を指定した場合、0を指定する。<br>※詳細について、”FrontOrderType”をご確認ください。"
+        type: "integer"
+        format: "int32"
+        example: 0
+      ExpireDay:
+        description: |-
+          注文有効期限<br>
+          yyyyMMdd形式。<br>
+          「0」を指定すると、kabuステーション上の発注画面の「本日」に対応する日付として扱います。<br>
+          「本日」は直近の注文可能日となり、以下のように設定されます。<br>
+          その市場の引けまでの間 : 当日<br>
+          その市場の引け後       : 翌取引所営業日<br>
+          その市場の休前日       : 休日明けの取引所営業日<br>
+          ※ 日替わりはkabuステーションが日付変更通知を受信したタイミングです。<br>
+          ※ 日通しの場合、夜間取引の引け後に日付が更新されます。
+        type: "integer"
+        format: "int32"
+        example: 20200903
+  
   Positions:
     type: "object"
     properties:
