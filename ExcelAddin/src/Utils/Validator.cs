@@ -1,5 +1,6 @@
 ﻿using ExcelDna.Integration;
 using System;
+using System.Linq;
 
 namespace KabuSuteAddin.Utils
 {
@@ -115,20 +116,13 @@ namespace KabuSuteAddin.Utils
         /// 入力チェック（単項目）
         /// </summary>
         [ExcelFunction(IsHidden = true)]
-        public static string ValidateSingle(string value)
+        public static string ValidateMultiple(object[] values)
         {
             string result = ValidateCommon();
 
             if (string.IsNullOrEmpty(result))
-            { 
-
-                if (string.IsNullOrEmpty(value.ToString()))
-                return ResultMessage.BadRequest;
-
-                else if (value.ToString() == "ExcelDna.Integration.ExcelMissing")
-                    return ResultMessage.BadRequest;
-
-                else if (value.ToString() == "ExcelDna.Integration.ExcelEmpty")
+            {
+                if (values.All(x => string.IsNullOrEmpty(x.ToString())))
                     return ResultMessage.BadRequest;
             }
 

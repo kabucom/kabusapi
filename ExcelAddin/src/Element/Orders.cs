@@ -3,6 +3,7 @@ using ExcelDna.Integration;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Linq;
 
 namespace KabuSuteAddin.Elements
 {
@@ -120,23 +121,26 @@ namespace KabuSuteAddin.Elements
 
     public class Orders
     {
-        private const int OrdersCol = 33;
+        private const int OrdersColDetails = 33;
+        private const int OrdersColNoDetails = 19;
 
         [ExcelFunction(IsHidden = true)]
         public static object OrdersDataToArray(dynamic objectJson)
         {
             List<OrdersResultModel> OrdersArray = (List<OrdersResultModel>)objectJson;
-
+            
             if (OrdersArray.Count == 0)
                 return null;
-
+            
             int DetailRows = 0;
+
             for (int i = 0; i < OrdersArray.Count; i++)
             {
                 DetailRows += OrdersArray[i].Details.Count;
             }
 
-            object[,] array = new object[DetailRows, OrdersCol];
+            object[,] array = DetailRows == 0 ? new object[OrdersArray.Count, OrdersColNoDetails] : new object[DetailRows, OrdersColDetails];
+            
             int row = 0;
 
             for (int i = 0; i < OrdersArray.Count; i++)
@@ -161,34 +165,46 @@ namespace KabuSuteAddin.Elements
                 array[row, 17] = OrdersArray[i].ExpireDay;
                 array[row, 18] = OrdersArray[i].MarginTradeType;
 
-                for (int j = 0; j < OrdersArray[i].Details.Count; j++)
+                if (DetailRows != 0)
                 {
-                    if (j > 0)
+                    
+                    for (int j = 0; j < OrdersArray[i].Details.Count; j++)
                     {
-                        // 2列目以降の前半は空データを表示
-                        // 配列数式の変換処理を行うとnullの場合エクセルに0が表示されるため
-                        for (int col = 0; col < 19; col++)
+                        if (j > 0)
                         {
-                            array[row, col] = "";
+                            // 2列目以降の前半は空データを表示
+                            // 配列数式の変換処理を行うとnullの場合エクセルに0が表示されるため
+                            for (int col = 0; col < 19; col++)
+                            {
+                                array[row, col] = "";
+                            }
                         }
+                        array[row, 19] = OrdersArray[i].Details[j].SeqNum;
+                        array[row, 20] = OrdersArray[i].Details[j].ID ?? "";
+                        array[row, 21] = OrdersArray[i].Details[j].RecType;
+                        array[row, 22] = OrdersArray[i].Details[j].ExchangeID ?? "";
+                        array[row, 23] = OrdersArray[i].Details[j].State;
+                        array[row, 24] = OrdersArray[i].Details[j].TransactTime ?? "";
+                        array[row, 25] = OrdersArray[i].Details[j].OrdType;
+                        array[row, 26] = OrdersArray[i].Details[j].Price;
+                        array[row, 27] = OrdersArray[i].Details[j].Qty;
+                        array[row, 28] = OrdersArray[i].Details[j].ExecutionID ?? "";
+                        array[row, 29] = OrdersArray[i].Details[j].ExecutionDay ?? "";
+                        array[row, 30] = OrdersArray[i].Details[j].DelivDay;
+                        array[row, 31] = OrdersArray[i].Details[j].Commission;
+                        array[row, 32] = OrdersArray[i].Details[j].CommissionTax;
+                        row++;
                     }
-                    array[row, 19] = OrdersArray[i].Details[j].SeqNum;
-                    array[row, 20] = OrdersArray[i].Details[j].ID ?? "";
-                    array[row, 21] = OrdersArray[i].Details[j].RecType;
-                    array[row, 22] = OrdersArray[i].Details[j].ExchangeID ?? "";
-                    array[row, 23] = OrdersArray[i].Details[j].State;
-                    array[row, 24] = OrdersArray[i].Details[j].TransactTime ?? "";
-                    array[row, 25] = OrdersArray[i].Details[j].OrdType;
-                    array[row, 26] = OrdersArray[i].Details[j].Price;
-                    array[row, 27] = OrdersArray[i].Details[j].Qty;
-                    array[row, 28] = OrdersArray[i].Details[j].ExecutionID ?? "";
-                    array[row, 29] = OrdersArray[i].Details[j].ExecutionDay ?? "";
-                    array[row, 30] = OrdersArray[i].Details[j].DelivDay;
-                    array[row, 31] = OrdersArray[i].Details[j].Commission;
-                    array[row, 32] = OrdersArray[i].Details[j].CommissionTax;
+                }
+                else
+                {
                     row++;
                 }
+
+
             }
+            
+            
 
             return array;
         }

@@ -450,7 +450,6 @@ paths:
           - 3
           - 5
           - 6
-          - 9
         required: true
         type: "string"
       responses:
@@ -583,7 +582,6 @@ paths:
         enum:
           - 1
           - 3
-          - 9
         required: true
         type: "string"
       responses:
@@ -1072,7 +1070,7 @@ paths:
       tags:
       - "info"
       summary: "注文約定照会"
-      description: "注文一覧を取得します"
+      description: "注文一覧を取得します。<br>※下記Queryパラメータは任意設定となります。"
       consumes:
       - "application/json"
       produces:
@@ -1102,6 +1100,79 @@ paths:
           - "4"
         required: false
         type: "string"
+      - name: "id"
+        in: "query"
+        description: "注文番号<br>※指定された注文番号と一致する注文のみレスポンスします。<br>※指定された注文番号との比較では大文字小文字を区別しません。<br>※複数の注文番号を指定することはできません。"
+        required: false
+        type: "string"
+      - name: "updtime"
+        in: "query"
+        description: "更新日時<br>※形式：yyyyMMddHHmmss （例：20201201123456）<br>※指定された更新日時以降（指定日時含む）に更新された注文のみレスポンスします。<br>※複数の更新日時を指定することはできません。"
+        required: false
+        type: "string"
+      - name: "details"
+        in: "query"
+        description: |-
+          注文詳細抑止
+          |定義値|説明|
+          |-|-|
+          |true|注文詳細を出力する（デフォルト）|
+          |false|注文詳細の出力しない|
+        required: false
+        type: "string"
+      - name: "symbol"
+        in: "query"
+        description: "銘柄コード<br>※指定された銘柄コードと一致する注文のみレスポンスします。<br>※複数の銘柄コードを指定することができません。"
+        required: false
+        type: "string"
+      - name: "state"
+        in: "query"
+        description: |-
+          状態
+          <br>※指定された状態と一致する注文のみレスポンスします。<br>※フィルタには数字の入力のみ受け付けます。<br>※複数の状態を指定することはできません。
+          |定義値|説明|
+          |-|-|
+          |1|待機（発注待機）|
+          |2|処理中（発注送信中）|
+          |3|処理済（発注済・訂正済）|
+          |4|訂正取消送信中|
+          |5|終了（発注エラー・取消済・全約定・失効・期限切れ）|
+        enum:
+          - "1"
+          - "2"
+          - "3"
+          - "4"
+          - "5"
+        required: false
+        type: "string"
+      - name: "side"
+        in: "query"
+        description: |-
+          売買区分
+          <br>※指定された売買区分と一致する注文のみレスポンスします。<br>※フィルタには数字の入力のみ受け付けます。<br>※複数の売買区分を指定することができません。
+          |定義値|説明|
+          |-|-|
+          |1|売|
+          |2|買|
+        required: false
+        type: "string"
+        enum:
+          - "1"
+          - "2"
+      - name: "cashmargin"
+        in: "query"
+        description: |-
+          取引区分
+          <br>※指定された取引区分と一致する注文のみレスポンスします。<br>※フィルタには数字の入力のみ受け付けます。<br>※複数の取引区分を指定することができません。
+          |定義値|説明|
+          |-|-|
+          |2|新規|
+          |3|返済|
+        required: false
+        type: "string"
+        enum:
+          - "2"
+          - "3"
       responses:
         "200":
           description: "OK"
@@ -1148,7 +1219,7 @@ paths:
       tags:
       - "info"
       summary: "残高照会"
-      description: "残高一覧を取得します"
+      description: "残高一覧を取得します。<br>※下記Queryパラメータは任意設定となります。"
       consumes:
       - "application/json"
       produces:
@@ -1176,6 +1247,11 @@ paths:
           - "2"
           - "3"
           - "4"
+        required: false
+        type: "string"
+      - name: "symbol"
+        in: "query"
+        description: "銘柄コード<br>※指定された銘柄コードと一致するポジションのみレスポンスします。<br>※複数の銘柄コードを指定することはできません。"
         required: false
         type: "string"
       responses:
@@ -1662,7 +1738,7 @@ definitions:
         example: 2
       FundType:
         description: |-
-          資産区分<br>※現物買は、指定必須。<br>※現物売は、「'  '」 半角スペース2つを指定必須。<br>※信用新規と信用返済は、指定不要。
+          資産区分（預り区分）<br>※現物買は、指定必須。<br>※現物売は、「'  '」 半角スペース2つを指定必須。<br>※信用新規と信用返済は、指定不要。
           |定義値|説明|
           |-|-|
           |(半角スペース2つ)|現物売の場合|
@@ -1689,7 +1765,7 @@ definitions:
         example: 500
       ClosePositionOrder:
         description: |-
-          決済順序<br>※信用取引の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。
+          決済順序<br>※信用返済の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。
           |定義値|説明|
           |-|-|
           |0|日付（古い順）、損益（高い順）|
@@ -1704,7 +1780,7 @@ definitions:
         format: "int32"
         example: null
       ClosePositions:
-        description: "返済建玉指定<br>※信用取引の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。<br>※信用一括返済の場合、各建玉IDと返済したい数量を入力してください。<br>※建玉IDは「E」から始まる番号です。"
+        description: "返済建玉指定<br>※信用返済の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。<br>※信用一括返済の場合、各建玉IDと返済したい数量を入力してください。<br>※建玉IDは「E」から始まる番号です。"
         type: "array"
         items:
           $ref: "#/definitions/Positions"
@@ -1732,8 +1808,8 @@ definitions:
         example: 10
       Price:
         description: "注文価格<br>※FrontOrderTypeで成行を指定した場合、0を指定する。<br>※詳細について、”FrontOrderType”をご確認ください。"
-        type: "integer"
-        format: "int32"
+        type: "number"
+        format: "double"
         example: 0
       ExpireDay:
         description: |-
@@ -2100,12 +2176,12 @@ definitions:
         format: "double"
         example: null
       ConsignmentDepositRate:
-        description: "委託保証金率<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、空を返す。"
+        description: "委託保証金率<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、Noneを返す。"
         type: "number"
         format: "double"
         example: null
       CashOfConsignmentDepositRate:
-        description: "現金委託保証金率<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、空を返す。"
+        description: "現金委託保証金率<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、Noneを返す。"
         type: "number"
         format: "double"
         example: null
@@ -2141,6 +2217,7 @@ definitions:
         format: "double"
         example: null
   BoardSuccess:
+    description: "下記にあるBIDとASKとは、トレーダー目線から見た場合の値であるため、BidPrice=Sell1のPrice、AskPrice=Buy1のPriceという数値となります。"
     type: "object"
     properties:
       Symbol:
@@ -3057,6 +3134,7 @@ definitions:
               |3|引け|
               |4|不成|
               |5|対当指値|
+              |6|IOC|
             type: "integer"
             format: "int32"
             example: 1

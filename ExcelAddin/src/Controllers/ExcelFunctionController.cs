@@ -1,6 +1,7 @@
 ﻿using ExcelDna.Integration;
 using System;
 using System.Text;
+using System.Web;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Collections.Generic;
@@ -373,13 +374,24 @@ namespace KabuSuteAddin
         private static Dictionary<string, Tuple<DateTime, string>> _ordersCache = new Dictionary<string, Tuple<DateTime, string>>();
         [ExcelFunction(Name = "ORDERS", Category = "kabuSTATIONアドイン", Description = "注文一覧を取得する.", IsHidden = false)]
         public static object ORDERS(
-            [ExcelArgument(Description = "の注文情報を取得する", Name = "商品種別")] string SecurityType)
+            [ExcelArgument(Description = "の注文情報を取得する", Name = "商品種別")] string SecurityType,
+            [ExcelArgument(Description = "の注文情報を取得する", Name = "注文番号")] string ID,
+            [ExcelArgument(Description = "の注文情報を取得する", Name = "更新日時")] string UpdTime,
+            [ExcelArgument(Description = "の注文情報を取得する", Name = "注文詳細抑止")] string Details,
+            [ExcelArgument(Description = "の注文情報を取得する", Name = "銘柄コード")] string Symbol,
+            [ExcelArgument(Description = "の注文情報を取得する", Name = "状態")] string State,
+            [ExcelArgument(Description = "の注文情報を取得する", Name = "売買区分")] string Side,
+            [ExcelArgument(Description = "の注文情報を取得する", Name = "取引区分")] string CashMargin
+            )
         {
-
             string ret = null;
+            string[] Params = { SecurityType, ID, UpdTime, Details, Symbol, State, Side, CashMargin };
+            
+
             try
             {
-                string ResultMessage = Validate.ValidateSingle(SecurityType);
+                string ResultMessage = Validate.ValidateMultiple(Params);
+                
                 if (!string.IsNullOrEmpty(ResultMessage))
                     return ResultMessage;
 
@@ -392,7 +404,7 @@ namespace KabuSuteAddin
                 }
                 if (String.IsNullOrEmpty(ret))
                 {
-                    ret = middleware.GetOrders(SecurityType);
+                    ret = middleware.GetOrders(SecurityType,ID,UpdTime,Details,Symbol,State,Side,CashMargin);
                     _ordersCache[tplKey] = Tuple.Create(DateTime.Now, ret);
                 }
 
@@ -421,13 +433,15 @@ namespace KabuSuteAddin
         private static Dictionary<string, Tuple<DateTime, string>> _positionsCache = new Dictionary<string, Tuple<DateTime, string>>();
         [ExcelFunction(Name = "POSITIONS", Category = "kabuSTATIONアドイン", Description = "残高一覧を取得する.", IsHidden = false)]
         public static object POSITIONS(
-            [ExcelArgument(Description = "の注文情報を取得する", Name = "商品種別")] string SecurityType)
+            [ExcelArgument(Description = "の注文情報を取得する", Name = "商品種別")] string SecurityType,
+            [ExcelArgument(Description = "の注文情報を取得する", Name = "銘柄コード")] string Symbol)
         {
-
+            
             string ret = null;
+            string[] Params = { SecurityType, Symbol };
             try
             {
-                string ResultMessage = Validate.ValidateSingle(SecurityType);
+                string ResultMessage = Validate.ValidateMultiple(Params);
                 if (!string.IsNullOrEmpty(ResultMessage))
                     return ResultMessage;
 
@@ -440,7 +454,7 @@ namespace KabuSuteAddin
                 }
                 if (String.IsNullOrEmpty(ret))
                 {
-                    ret = middleware.GetPositions(SecurityType);
+                    ret = middleware.GetPositions(SecurityType, Symbol);
                     _positionsCache[tplKey] = Tuple.Create(DateTime.Now, ret);
                 }
 
@@ -963,10 +977,47 @@ namespace KabuSuteAddin
 
         //----------------------------------
         // 注文約定照会取得
-        internal string GetOrders(string Product)
+        internal string GetOrders(string product, string id, string updTime, string details, string symbol,string state, string side, string cashMargin)
         {
+            var builder = new UriBuilder(domain + CustomRibbon._port + "/kabusapi/orders");
+            var param = HttpUtility.ParseQueryString(builder.Query);
+            if (!string.IsNullOrEmpty(product))
+            {
+                param["Product"] = product;
+            }
+            if (!string.IsNullOrEmpty(id))
+            {
+                param["id"] = id;
+            }
+            if (!string.IsNullOrEmpty(updTime))
+            {
+                param["updtime"] = updTime;
+            }
+            if (!string.IsNullOrEmpty(details))
+            {
+                param["details"] = details;
+            }
+            if (!string.IsNullOrEmpty(symbol))
+            {
+                param["symbol"] = symbol;
+            }
+            if (!string.IsNullOrEmpty(state))
+            {
+                param["state"] = state;
+            }
+            if (!string.IsNullOrEmpty(side))
+            {
+                param["side"] = side;
+            }
+            if (!string.IsNullOrEmpty(cashMargin))
+            {
+                param["cashmargin"] = cashMargin;
+            }
+            builder.Query = param.ToString();
 
-            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/orders?product=" + Product);
+            string url = builder.ToString();
+
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
 
             request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
 
@@ -978,10 +1029,24 @@ namespace KabuSuteAddin
 
         //----------------------------------
         // 注文約定照会取得
-        internal string GetPositions(string Product)
+        internal string GetPositions(string Product, string Symbol)
         {
+            
+            var builder = new UriBuilder(domain + CustomRibbon._port + "/kabusapi/positions");
+            var param = HttpUtility.ParseQueryString(builder.Query);
+            if (!string.IsNullOrEmpty(Product))
+            {
+                param["product"] = Product;
+            }
+            if (!string.IsNullOrEmpty(Symbol))
+            {
+                param["symbol"] = Symbol;
+            }
+            builder.Query = param.ToString();
 
-            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/positions?product=" + Product);
+            string url = builder.ToString();
+
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
 
             request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
 
