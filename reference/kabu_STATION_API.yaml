@@ -2836,41 +2836,42 @@ definitions:
         type: "number"
         format: "double"
         example: 0.4794
+  RegistList:
+    description: "現在登録されている銘柄のリスト"
+    type: "array"
+    items:
+        type: "object"
+        properties:
+          Symbol:
+            description: "銘柄コード"
+            type: "string"
+            example: "9433"
+          Exchange:
+            description: |-
+              市場コード
+              |定義値|説明|
+              |-|-|
+              |1|東証|
+              |3|名証|
+              |5|福証|
+              |6|札証|
+              |2|日通し|
+              |23|日中|
+              |24|夜間|
+            type: "integer"
+            format: "int32"
+            example: 1
   RegistSuccess:
     type: "object"
     properties:
       RegistList:
-        description: "現在登録されている銘柄のリスト"
-        type: "array"
-        items:
-            type: "object"
-            properties:
-              Symbol:
-                description: "銘柄コード"
-                type: "string"
-                example: "9433"
-              Exchange:
-                description: |-
-                  市場コード
-                  |定義値|説明|
-                  |-|-|
-                  |1|東証|
-                  |3|名証|
-                  |5|福証|
-                  |6|札証|
-                  |2|日通し|
-                  |23|日中|
-                  |24|夜間|
-                type: "integer"
-                format: "int32"
-                example: 1
+        $ref: "#/definitions/RegistList"
   UnregisterAllSuccess:
+    description: "※RegistListは銘柄登録解除が正常に行われれば、空リストを返します。<br>　登録解除でエラー等が発生した場合、現在登録されている銘柄のリストを返します"
     type: "object"
     properties:
       RegistList:
-        description: "現在登録されている銘柄のリスト<br>※銘柄登録解除が正常に行われれば、空リストを返します。<br>　登録解除でエラー等が発生した場合、現在登録されている銘柄のリストを返します"
-        type: "object"
-        example: []
+        $ref: "#/definitions/RegistList"
   SymbolSuccess:
     type: "object"
     properties:
