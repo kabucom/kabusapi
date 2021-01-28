@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using KabuSuteAddin.Utils;
 using KabuSuteAddin.Elements;
 using Codeplex.Data;
+using System.Diagnostics;
 
 namespace KabuSuteAddin
 {
@@ -433,8 +434,8 @@ namespace KabuSuteAddin
         private static Dictionary<string, Tuple<DateTime, string>> _positionsCache = new Dictionary<string, Tuple<DateTime, string>>();
         [ExcelFunction(Name = "POSITIONS", Category = "kabuSTATIONアドイン", Description = "残高一覧を取得する.", IsHidden = false)]
         public static object POSITIONS(
-            [ExcelArgument(Description = "の注文情報を取得する", Name = "商品種別")] string SecurityType,
-            [ExcelArgument(Description = "の注文情報を取得する", Name = "銘柄コード")] string Symbol)
+            [ExcelArgument(Description = "の残高情報を取得する​", Name = "商品種別")] string SecurityType,
+            [ExcelArgument(Description = "の残高情報を取得する​", Name = "銘柄コード")] string Symbol)
         {
             
             string ret = null;
@@ -792,8 +793,55 @@ namespace KabuSuteAddin
                 }
             }
         }
+
+        private static Dictionary<string, Tuple<DateTime, string>> _rankingCache = new Dictionary<string, Tuple<DateTime, string>>();
+        [ExcelFunction(Name = "RANKING", Category = "kabuSTATIONアドイン", Description = "詳細ランキングを取得する。", IsHidden = false)]
+        public static object RANKING(
+            [ExcelArgument(Description = "の詳細ランキングを取得する", Name = "種別")] string Type,
+            [ExcelArgument(Description = "の詳細ランキングを取得する", Name = "市場")] string ExchangeDivision
+            )
+        {
+            string json = null;
+            try
+            {
+                string ResultMessage = Validate.ValidateRequired2(Type, ExchangeDivision);
+                if (!string.IsNullOrEmpty(ResultMessage)) return ResultMessage;
+
+                Tuple<DateTime, string> tpl;
+                var tplKey = string.Format("{0}-{1}", Type, ExchangeDivision);
+                if (_rankingCache.TryGetValue(tplKey, out tpl))
+                {
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
+                    {
+                        json = tpl.Item2;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(json))
+                {
+                    json = middleware.GetRanking(Type, ExchangeDivision);
+                    _rankingCache[tplKey] = Tuple.Create(DateTime.Now, json);
+                }
+
+                object array = RankingResult.RankingCheck(json,Type);
+
+                return XlCall.Excel(XlCall.xlUDF, "Resize", array);
+
+            }catch(Exception ex)
+            {
+                if(ex.InnerException == null)
+                {
+                    return ex.Message;
+                }
+                else
+                {
+                    return ex.InnerException.Message;
+                }
+            }
+        }
     }
 
+    
 
     internal class ExcelFunctionMiddleware
     {
@@ -1210,6 +1258,23 @@ namespace KabuSuteAddin
             var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/symbolname/option?DerivMonth=" + DerivMonth + "&PutOrCall=" + PutOrCall + "&StrikePrice=" + StrikePrice);
             request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
             HttpResponseMessage response = client.SendAsync(request).Result;
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        internal string GetRanking(string Type, string ExchangeDivision)
+        {
+            var requestString = "";
+
+            if (!string.IsNullOrEmpty(Type) || !string.IsNullOrEmpty(ExchangeDivision))
+            {
+                requestString = "?Type=" + Type + "&ExchangeDivision=" + ExchangeDivision;
+            }
+            string url = domain + CustomRibbon._port + "/kabusapi/ranking" + requestString;
+            Debug.WriteLine(url);
+            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/ranking" + requestString);
+            request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
+            HttpResponseMessage response = client.SendAsync(request).Result;
+            Debug.WriteLine(response.Content.ReadAsStringAsync().Result);
             return response.Content.ReadAsStringAsync().Result;
         }
     }

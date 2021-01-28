@@ -74,6 +74,7 @@
     <Compile Include="Element\CancelOrder.cs" />
     <Compile Include="Element\Orders.cs" />
     <Compile Include="Element\Positions.cs" />
+    <Compile Include="Element\Ranking.cs" />
     <Compile Include="Element\Register.cs" />
     <Compile Include="Element\Symbol.cs" />
     <Compile Include="Element\SymbolName.cs" />

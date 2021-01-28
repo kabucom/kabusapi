@@ -128,5 +128,71 @@ namespace KabuSuteAddin
     }
     #endregion
 
+    #region 種別
+    public class TYPE
+    {
+        /// <summary>
+        /// 値上がり率（デフォルト）
+        /// </summary>
+        public const string PriceIncreaseRate = "1";
+        /// <summary>
+        /// 値下がり率
+        /// </summary>
+        public const string PriceDropRate = "2";
+        /// <summary>
+        /// 売買高上位
+        /// </summary>
+        public const string TopTradingVolume = "3";
+        /// <summary>
+        /// 売買代金
+        /// /// </summary>
+        public const string TradingPrice = "4";
+        /// <summary>
+        /// TICK回数
+        /// /// </summary>
+        public const string TickCount = "5";
+        /// <summary>
+        /// 売買高急増
+        /// /// </summary>
+        public const string RapidIncreaseInTradingVolume = "6";
+        /// <summary>
+        /// 売買代金急増
+        /// /// </summary>
+        public const string RapidIncreaseInTradingValue = "7";
+        /// <summary>
+        /// 信用売残増
+        /// /// </summary>
+        public const string IncreasedCreditSales = "8";
+        /// <summary>
+        /// 信用売残減
+        /// /// </summary>
+        public const string CreditSalesLoss = "9";
+        /// <summary>
+        /// 信用買残増
+        /// /// </summary>
+        public const string IncreasedCreditPurchase = "10";
+        /// <summary>
+        /// 信用買残減
+        /// /// </summary>
+        public const string CreditPurchaseBalanceReduction = "11";
+        /// <summary>
+        /// 信用高倍率
+        /// /// </summary>
+        public const string CreditHighMagnification = "12";
+        /// <summary>
+        /// 信用低倍率
+        /// /// </summary>
+        public const string CreditLowMagnification = "13";
+        /// <summary>
+        /// 業種別値上がり率
+        /// /// </summary>
+        public const string PriceIncreaseRateByCategory = "14";
+        /// <summary>
+        /// 業種別値下がり率
+        /// /// </summary>
+        public const string PriceReductionRateByCategory = "15";
+
+    }
+    #endregion
 
 }
