@@ -1270,11 +1270,9 @@ namespace KabuSuteAddin
                 requestString = "?Type=" + Type + "&ExchangeDivision=" + ExchangeDivision;
             }
             string url = domain + CustomRibbon._port + "/kabusapi/ranking" + requestString;
-            Debug.WriteLine(url);
             var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/ranking" + requestString);
             request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
             HttpResponseMessage response = client.SendAsync(request).Result;
-            Debug.WriteLine(response.Content.ReadAsStringAsync().Result);
             return response.Content.ReadAsStringAsync().Result;
         }
     }

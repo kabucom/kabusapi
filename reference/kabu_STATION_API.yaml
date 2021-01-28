@@ -8,9 +8,9 @@ info:
     url: ../ptal/content/image/common/logo.png
   termsOfService: https://kabucom.github.io/kabusapi/ptal/guide.html
 servers:
-  - url: http://localhost:8080/kabusapi
+  - url: http://localhost:18080/kabusapi
     description: 本番用
-  - url: http://localhost:8081/kabusapi
+  - url: http://localhost:18081/kabusapi
     description: 検証用
 tags:
   - name: auth
@@ -1398,18 +1398,13 @@ paths:
             <tr><th>定義値</th><th>説明</th></tr>
             </thead>
             <tbody>
-            <tr><td>0</td><td>すべて </td></tr>       <!-- ALL --> 
-            <tr><td>1</td><td>現物</td></tr>          <!-- Cash --> 
-            <tr><td>2</td><td>信用</td></tr>          <!-- Margin -->
-            <tr><td>3</td><td>先物</td></tr>          <!-- Future --> 
-            <tr><td>4</td><td>OP</td></tr>            <!-- Option --> 
+            <tr><td>0</td><td>すべて </td></tr>     
+            <tr><td>1</td><td>現物</td></tr>         
+            <tr><td>2</td><td>信用</td></tr>        
+            <tr><td>3</td><td>先物</td></tr>        
+            <tr><td>4</td><td>OP</td></tr>           
             </tbody>
             </table>
-          # 0 : すべて | ALL
-          # 1 : 現物 | Cash
-          # 2 : 信用 | Margin
-          # 3 : 先物 | Future
-          # 4 : OP | Option
         - in : query
           name: id
           description: "注文番号<br>※指定された注文番号と一致する注文のみレスポンスします。<br>※指定された注文番号との比較では大文字小文字を区別しません。<br>※複数の注文番号を指定することはできません。"
