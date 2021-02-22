@@ -3,7 +3,7 @@ info:
   version: "1.5"
   title: "kabuステーションAPI"
   contact:
-    url: ../ptal/index.html
+    url: https://kabucom.github.io/kabusapi/ptal/index.html
   x-logo:
     url: ../ptal/content/image/common/logo.png
   termsOfService: https://kabucom.github.io/kabusapi/ptal/guide.html
@@ -43,6 +43,7 @@ tags:
 paths:
   /token:
     post:
+      operationId: tokenPost
       tags:
         - "auth"
       summary: "トークン発行"
@@ -125,6 +126,7 @@ paths:
     post:
       tags:
         - "order"
+      operationId: sendorderPost
       summary: "注文発注（現物・信用）"
       description: |-
         注文を発注します。<br>
@@ -207,6 +209,7 @@ paths:
     post:
       tags:
         - "order"
+      operationId: sendoderFuturePost
       summary: "注文発注（先物）"
       description: |-
         先物銘柄の注文を発注します。<br>
@@ -289,6 +292,7 @@ paths:
     post:
       tags:
         - "order"
+      operationId: sendorderOptionPost
       summary: "注文発注（オプション）"
       description: |-
         オプション銘柄の注文を発注します。<br>
@@ -371,6 +375,7 @@ paths:
     put:
       tags:
         - "order"
+      operationId: cancelorderPut
       summary: "注文取消"
       description: "注文を取消します"
       parameters:
@@ -451,6 +456,7 @@ paths:
     get:
       tags:
         - "wallet"
+      operationId: walletCashGet
       summary: "取引余力（現物）"
       description: "口座の取引余力（現物）を取得します"
       parameters:
@@ -521,7 +527,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /wallet/cash/{symbol}@{exchange}:
+  /wallet/cash/{symbol}:
     get:
       tags:
         - "wallet"
@@ -536,31 +542,33 @@ paths:
           required: true
         - in: path
           name: symbol
-          description: 銘柄コード
           schema:
             type: string
           required: true
-        - in: path
-          name: exchange
           description: |-
-            市場コード
+            銘柄コード <br>
+            ※次の形式で入力してください。<br>
+            [銘柄コード]@[市場コード]<br>
+            ※市場コードは下記の定義値から選択してください。
+
+            <b>市場コード</b>
             <table>
               <thead>
-                  <tr>
-                      <th>定義値</th>
-                      <th>説明</th>
-                  </tr>
+                <tr>
+                  <th>定義値</th>
+                  <th>説明</th>
+                </tr>
               </thead>
               <tbody>
-                  <tr>
-                      <td>1</td>
-                      <td>東証</td>
-                  </tr>
-                  <tr>
-                      <td>3</td>
-                      <td>名証</td>
-                  </tr>
-                  <tr>
+                <tr>
+                  <td>1</td>
+                  <td>東証</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>名証</td>
+                </tr>
+                <tr>
                       <td>5</td>
                       <td>福証</td>
                   </tr>
@@ -570,14 +578,6 @@ paths:
                   </tr>
               </tbody>
             </table>
-          schema:
-            type: string
-            enum:
-              - 1
-              - 3
-              - 5
-              - 6
-          required: true
       responses:
         "200":
           description: OK
@@ -643,6 +643,7 @@ paths:
     get:
       tags:
         - "wallet"
+      operationId: walletMarginGet
       summary: "取引余力（信用）"
       description: "口座の取引余力（信用）を取得します"
       parameters:
@@ -713,7 +714,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /wallet/margin/{symbol}@{exchange}:
+  /wallet/margin/{symbol}:
     get:
       tags:
         - "wallet"
@@ -728,15 +729,16 @@ paths:
           required: true
         - in: path
           name: symbol
-          description: 銘柄コード
           schema:
             type: string
           required: true
-        - in: path
-          name: exchange
-          required: true
           description: |-
-            市場コード
+            銘柄コード <br>
+            ※次の形式で入力してください。<br>
+            [銘柄コード]@[市場コード]<br>
+            ※市場コードは下記の定義値から選択してください。
+
+            <b>市場コード</b>
             <table>
               <thead>
                 <tr>
@@ -755,12 +757,6 @@ paths:
                 </tr>
               </tbody>
             </table>
-          schema:
-            type: string
-            enum:
-              - 1
-              - 3
-
       responses:
         "200":
           description: OK
@@ -826,6 +822,7 @@ paths:
     get:
       tags:
         - "wallet"
+      operationId: walletFutureGet
       summary: "取引余力（先物）"
       description: "口座の取引余力（先物）を取得します"
       parameters:
@@ -896,7 +893,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /wallet/future/{symbol}@{exchange}:
+  /wallet/future/{symbol}:
     get:
       tags:
         - "wallet"
@@ -911,21 +908,16 @@ paths:
           required: true
         - in: path
           name: symbol
-          description: 銘柄コード
           schema:
             type: string
           required: true
-        - in: path
-          name: exchange
-          required: true
-          schema:
-            type: string
-            enum:
-              - 2
-              - 23
-              - 24
           description: |-
-            市場コード
+            銘柄コード <br>
+            ※次の形式で入力してください。<br>
+            [銘柄コード]@[市場コード]<br>
+            ※市場コードは下記の定義値から選択してください。
+
+            <b>市場コード</b>
             <table>
               <thead>
                   <tr>
@@ -1013,6 +1005,7 @@ paths:
     get:
       tags:
         - "wallet"
+      operationId: walletOptionGet
       summary: "取引余力（オプション）"
       description: "口座の取引余力（オプション）を取得します"
       parameters:
@@ -1083,7 +1076,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /wallet/option/{symbol}@{exchange}:
+  /wallet/option/{symbol}:
     get:
       tags:
         - "wallet"
@@ -1098,21 +1091,16 @@ paths:
           required: true
         - in: path
           name: symbol
-          description: 銘柄コード
           schema:
             type: string
           required: true
-        - in: path
-          name: exchange
-          required: true
-          schema:
-            type: string
-            enum:
-              - 2
-              - 23
-              - 24
           description: |-
-            市場コード
+            銘柄コード <br>
+            ※次の形式で入力してください。<br>
+            [銘柄コード]@[市場コード]<br>
+            ※市場コードは下記の定義値から選択してください。
+
+            <b>市場コード</b>
             <table>
               <thead>
                   <tr>
@@ -1196,14 +1184,16 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /board/{symbol}@{exchange}:
+  /board/{symbol}:
     get:
       tags:
         - "info"
+      operationId: boardGet
       summary: "時価情報・板情報"
       description: |-
         指定した銘柄の時価情報・板情報を取得します<br>
-        レスポンスの一部にnullが発生した場合、該当銘柄を銘柄登録をしてから、再度時価情報・板情報APIを実行してください。
+        レスポンスの一部にnullが発生した場合、該当銘柄を銘柄登録をしてから、
+        <br>再度時価情報・板情報APIを実行してください。"
       parameters:
         - in: header
           name: X-API-KEY
@@ -1213,25 +1203,16 @@ paths:
           required: true
         - in: path
           name: symbol
-          description: 銘柄コード
           schema:
             type: string
           required: true
-        - in: path
-          name: exchange
-          required: true
-          schema:
-            type: string
-            enum:
-              - 1
-              - 3
-              - 5
-              - 6
-              - 2
-              - 23
-              - 24
           description: |-
-            市場コード
+            銘柄コード <br>
+            ※次の形式で入力してください。<br>
+            [銘柄コード]@[市場コード]<br>
+            ※市場コードは下記の定義値から選択してください。
+
+            <b>市場コード</b>
             <table>
               <thead>
                   <tr>
@@ -1331,10 +1312,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /symbol/{symbol}@{exchange}:
+  /symbol/{symbol}:
     get:
       tags:
         - "info"
+      operationId: symbolGet
       summary: "銘柄情報"
       description: "指定した銘柄情報を取得します"
       parameters:
@@ -1346,25 +1328,16 @@ paths:
           required: true
         - in: path
           name: symbol
-          description: 銘柄コード
           schema:
             type: string
           required: true
-        - in: path
-          name: exchange
-          required: true
-          schema:
-            type: string
-            enum:
-              - 1
-              - 3
-              - 5
-              - 6
-              - 2
-              - 23
-              - 24
           description: |-
-            市場コード
+            銘柄コード <br>
+            ※次の形式で入力してください。<br>
+            [銘柄コード]@[市場コード]<br>
+            ※市場コードは下記の定義値から選択してください。
+
+            <b>市場コード</b>
             <table>
               <thead>
                   <tr>
@@ -1468,6 +1441,7 @@ paths:
     get:
       tags:
         - "info"
+      operationId: ordersGet
       summary: "注文約定照会"
       description: |-
         注文一覧を取得します。<br>
@@ -1686,7 +1660,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OrdersSuccess"
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/OrdersSuccess"
         "400":
           description: BadRequest
           content:
@@ -1745,6 +1721,7 @@ paths:
     get:
       tags:
         - "info"
+      operationId: positionsGet
       summary: "残高照会"
       description: "残高一覧を取得します。<br>※下記Queryパラメータは任意設定となります。"
       parameters:
@@ -1809,7 +1786,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PositionsSuccess"
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/PositionsSuccess"
         "400":
           description: BadRequest
           content:
@@ -1868,6 +1847,7 @@ paths:
     put:
       tags:
         - "register"
+      operationId: registerPut
       summary: "銘柄登録"
       description: "PUSH配信する銘柄を登録します"
       parameters:
@@ -1949,6 +1929,7 @@ paths:
     put:
       tags:
         - "register"
+      operationId: unregisterPut
       summary: "銘柄登録解除"
       description: "API登録銘柄リストに登録されている銘柄を解除します"
       parameters:
@@ -2030,6 +2011,7 @@ paths:
     put:
       tags:
         - "register"
+      operationId: unregisterAllPut
       summary: "銘柄登録全解除"
       description: "API登録銘柄リストに登録されている銘柄をすべて解除します"
       parameters:
@@ -2104,6 +2086,7 @@ paths:
     get:
       tags:
         - "info"
+      operationId: symbolnameFutureGet
       summary: "先物銘柄コード取得"
       description: "先物銘柄コード取得"
       parameters:
@@ -2246,6 +2229,7 @@ paths:
     get:
       tags:
         - "info"
+      operationId: symbolnameOptionGet
       summary: "オプション銘柄コード取得"
       description: "オプション銘柄コード取得"
       parameters:
@@ -2360,11 +2344,13 @@ paths:
     get:
       tags:
         - "info"
+      operationId: rankingGet
       summary: "詳細ランキング"
       description: |-
         詳細ランキング画面と同様の各種ランキングを返します。
         <br>ランキングの対象日はkabuステーションが保持している当日のデータとなります。
-        <br>※株価情報ランキング、業種別指数ランキングは、下記の時間帯でデータがクリアされるため、その間の詳細ランキングAPIは空レスポンスとなります。
+        <br>※株価情報ランキング、業種別指数ランキングは、下記の時間帯でデータがクリアされるため、
+        <br>その間の詳細ランキングAPIは空レスポンスとなります。
         <br>データクリア：平日7:53頃-9:00過ぎ頃
         <br>※信用情報ランキングは毎週第３営業日の7:55頃にデータが更新されます。
       parameters:
@@ -2545,6 +2531,7 @@ paths:
                   - $ref: "#/components/schemas/RankingByTradeValueResponse"
                   - $ref: "#/components/schemas/RankingByMarginResponse"
                   - $ref: "#/components/schemas/RankingByCategoryResponse"
+                
 
         "400":
           description: BadRequest
@@ -5255,755 +5242,751 @@ components:
           format: "double"
           example: 23000
     OrdersSuccess:
-      type: "array"
-      items:
-        type: "object"
-        properties:
-          ID:
-            description: "注文番号"
-            type: "string"
-            example: "20200715A02N04738436"
-          State:
-            description: |-
-              状態
-              <table>
-                <thead>
-                    <tr>
-                        <th>定義値</th>
-                        <th>説明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>待機（発注待機）</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>処理中（発注送信中）</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>処理済（発注済・訂正済）</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>訂正取消送信中</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>終了（発注エラー・取消済・全約定・失効・期限切れ）</td>
-                    </tr>
-                </tbody>
-              </table>
-            type: "integer"
-            format: "int32"
-            example: 5
-          OrderState:
-            description: |-
-              注文状態
-              <table>
-                <thead>
-                    <tr>
-                        <th>定義値</th>
-                        <th>説明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>待機（発注待機）</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>処理中（発注送信中）</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>処理済（発注済・訂正済）</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>訂正取消送信中</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>終了（発注エラー・取消済・全約定・失効・期限切れ）</td>
-                    </tr>
-                </tbody>
-              </table>
-            type: "integer"
-            format: "int32"
-            example: 5
-          OrdType:
-            description: |-
-              執行条件
-              <table>
-                <thead>
-                    <tr>
-                        <th>定義値</th>
-                        <th>説明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>ザラバ</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>寄り</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>引け</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>不成</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>対当指値</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>IOC</td>
-                    </tr>
-                </tbody>
-              </table>
-            type: "integer"
-            format: "int32"
-            example: 1
-          RecvTime:
-            description: "受注日時"
-            type: "string"
-            example: "2020-07-16T18:00:51.763683+09:00"
-          Symbol:
-            description: "銘柄コード"
-            type: "string"
-            example: "8306"
-          SymbolName:
-            description: "銘柄名"
-            type: "string"
-            example: "三菱ＵＦＪフィナンシャル・グループ"
-          Exchange:
-            description: |-
-              市場コード
-              <table>
-                <thead>
-                    <tr>
-                        <th>定義値</th>
-                        <th>説明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>東証</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>名証</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>福証</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>札証</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>SOR</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>日通し</td>
-                    </tr>
-                    <tr>
-                        <td>23</td>
-                        <td>日中</td>
-                    </tr>
-                    <tr>
-                        <td>24</td>
-                        <td>夜間</td>
-                    </tr>
-                </tbody>
-              </table>
-            type: "integer"
-            format: "int32"
-            example: 1
-          ExchangeName:
-            description: "市場名"
-            type: "string"
-            example: "東証１部"
-          TimeInForce:
-            description: |-
-              有効期間条件<br>※先物・オプション銘柄の場合のみ
-              <table>
-                <thead>
-                    <tr>
-                        <th>定義値</th>
-                        <th>説明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>FAS</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>FAK</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>FOK</td>
-                    </tr>
-                </tbody>
-              </table>
-            type: "integer"
-            format: "int32"
-            example: 1
-          Price:
-            description: "値段"
-            type: "number"
-            format: "double"
-            example: 704.5
-          OrderQty:
-            description: "発注数量"
-            type: "number"
-            format: "double"
-            example: 1500
-          CumQty:
-            description: "約定数量"
-            type: "number"
-            format: "double"
-            example: 1500
-          Side:
-            description: |-
-              売買区分
-              <table>
-                <thead>
-                    <tr>
-                        <th>定義値</th>
-                        <th>説明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>売</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>買</td>
-                    </tr>
-                </tbody>
-              </table>
-            type: "string"
-            example: "1"
-          CashMargin:
-            description: |-
-              取引区分
-              <table>
-                <thead>
-                    <tr>
-                        <th>定義値</th>
-                        <th>説明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2</td>
-                        <td>新規</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>返済</td>
-                    </tr>
-                </tbody>
-              </table>
-            type: "integer"
-            format: "int32"
-            example: 2
-          AccountType:
-            description: |-
-              口座種別
-              <table>
-                <thead>
-                    <tr>
-                        <th>定義値</th>
-                        <th>説明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2</td>
-                        <td>一般</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>特定</td>
-                    </tr>
-                    <tr>
-                        <td>12</td>
-                        <td>法人</td>
-                    </tr>
-                </tbody>
-              </table>
-            type: "integer"
-            format: "int32"
-            example: 4
-          DelivType:
-            description: |-
-              受渡区分
-              <table>
-                <thead>
-                    <tr>
-                        <th>定義値</th>
-                        <th>説明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>自動振替</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>お預り金</td>
-                    </tr>
-                </tbody>
-              </table>
-            type: "integer"
-            format: "int32"
-            example: 2
-          ExpireDay:
-            description: "注文有効期限<br>yyyyMMdd形式"
-            type: "integer"
-            format: "int32"
-            example: 20200702
-          MarginTradeType:
-            description: |-
-              信用取引区分
-              <table>
-                <thead>
-                    <tr>
-                        <th>定義値</th>
-                        <th>説明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>制度信用</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>一般信用</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>一般信用（売短）</td>
-                    </tr>
-                </tbody>
-              </table>
-            type: "integer"
-            format: "int32"
-            example: 1
-          Details:
-            description: "注文詳細"
-            type: "array"
-            items:
-              type: "object"
-              properties:
-                SeqNum:
-                  description: "※注文明細レコードの生成順序です。<br>※通番であるとは限りませんが、大小による順序は保たれています。"
-                  type: "integer"
-                  format: "int32"
-                  example: 1
-                ID:
-                  description: "注文詳細番号"
-                  type: "string"
-                  example: "20200715A02N04738436"
-                RecType:
-                  description: |-
-                    明細種別
-                    <table>
-                      <thead>
-                          <tr>
-                              <th>定義値</th>
-                              <th>説明</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr>
-                              <td>1</td>
-                              <td>受付</td>
-                          </tr>
-                          <tr>
-                              <td>2</td>
-                              <td>繰越</td>
-                          </tr>
-                          <tr>
-                              <td>3</td>
-                              <td>期限切れ</td>
-                          </tr>
-                          <tr>
-                              <td>4</td>
-                              <td>発注</td>
-                          </tr>
-                          <tr>
-                              <td>5</td>
-                              <td>訂正</td>
-                          </tr>
-                          <tr>
-                              <td>6</td>
-                              <td>取消</td>
-                          </tr>
-                          <tr>
-                              <td>7</td>
-                              <td>失効</td>
-                          </tr>
-                          <tr>
-                              <td>8</td>
-                              <td>約定</td>
-                          </tr>
-                      </tbody>
-                    </table>
-                  type: "integer"
-                  format: "int32"
-                  example: 1
-                ExchangeID:
-                  description: "取引所番号"
-                  type: "string"
-                  example: "00000000-0000-0000-0000-00000000"
-                State:
-                  description: |-
-                    状態
-                    <table>
-                      <thead>
-                          <tr>
-                              <th>定義値</th>
-                              <th>説明</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr>
-                              <td>1</td>
-                              <td>待機（発注待機）</td>
-                          </tr>
-                          <tr>
-                              <td>2</td>
-                              <td>処理中（発注送信中・訂正送信中・取消送信中）</td>
-                          </tr>
-                          <tr>
-                              <td>3</td>
-                              <td>処理済（発注済・訂正済・取消済・全約定・期限切れ）</td>
-                          </tr>
-                          <tr>
-                              <td>4</td>
-                              <td>エラー</td>
-                          </tr>
-                          <tr>
-                              <td>5</td>
-                              <td>削除済み</td>
-                          </tr>
-                      </tbody>
-                    </table>
-                  type: "integer"
-                  format: "int32"
-                  example: 3
-                TransactTime:
-                  description: "処理時刻"
-                  type: "string"
-                  example: "2020-07-16T18:00:51.763683+09:00"
-                OrdType:
-                  description: |-
-                    執行条件
-                    <table>
-                      <thead>
-                          <tr>
-                              <th>定義値</th>
-                              <th>説明</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr>
-                              <td>1</td>
-                              <td>ザラバ</td>
-                          </tr>
-                          <tr>
-                              <td>2</td>
-                              <td>寄り</td>
-                          </tr>
-                          <tr>
-                              <td>3</td>
-                              <td>引け</td>
-                          </tr>
-                          <tr>
-                              <td>4</td>
-                              <td>不成</td>
-                          </tr>
-                          <tr>
-                              <td>5</td>
-                              <td>対当指値</td>
-                          </tr>
-                          <tr>
-                              <td>6</td>
-                              <td>IOC</td>
-                          </tr>
-                      </tbody>
-                    </table>
-                  type: "integer"
-                  format: "int32"
-                  example: 1
-                Price:
-                  description: "値段"
-                  type: "number"
-                  format: "double"
-                  example: 704.5
-                Qty:
-                  description: "数量"
-                  type: "number"
-                  format: "double"
-                  example: 1500
-                ExecutionID:
-                  description: "約定番号"
-                  type: "string"
-                  example: ""
-                ExecutionDay:
-                  description: "約定日時"
-                  type: "string"
-                  format: "date-time"
-                  example: "2020-07-02T18:02:00+09:00"
-                DelivDay:
-                  description: "受渡日"
-                  type: "integer"
-                  format: "int32"
-                  example: 20200706
-                Commission:
-                  description: "手数料<br>※注文詳細の明細種別が約定（RecType=8)の場合に設定。"
-                  type: "number"
-                  format: "double"
-                  example: 0
-                CommissionTax:
-                  description: "手数料消費税<br>※明細種別は約定（RecType=8）の場合にのみ表示されます。"
-                  type: "number"
-                  format: "double"
-                  example: 0
+      type: "object"
+      properties:
+        ID:
+          description: "注文番号"
+          type: "string"
+          example: "20200715A02N04738436"
+        State:
+          description: |-
+            状態
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>待機（発注待機）</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>処理中（発注送信中）</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>処理済（発注済・訂正済）</td>
+                  </tr>
+                  <tr>
+                      <td>4</td>
+                      <td>訂正取消送信中</td>
+                  </tr>
+                  <tr>
+                      <td>5</td>
+                      <td>終了（発注エラー・取消済・全約定・失効・期限切れ）</td>
+                  </tr>
+              </tbody>
+            </table>
+          type: "integer"
+          format: "int32"
+          example: 5
+        OrderState:
+          description: |-
+            注文状態
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>待機（発注待機）</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>処理中（発注送信中）</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>処理済（発注済・訂正済）</td>
+                  </tr>
+                  <tr>
+                      <td>4</td>
+                      <td>訂正取消送信中</td>
+                  </tr>
+                  <tr>
+                      <td>5</td>
+                      <td>終了（発注エラー・取消済・全約定・失効・期限切れ）</td>
+                  </tr>
+              </tbody>
+            </table>
+          type: "integer"
+          format: "int32"
+          example: 5
+        OrdType:
+          description: |-
+            執行条件
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>ザラバ</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>寄り</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>引け</td>
+                  </tr>
+                  <tr>
+                      <td>4</td>
+                      <td>不成</td>
+                  </tr>
+                  <tr>
+                      <td>5</td>
+                      <td>対当指値</td>
+                  </tr>
+                  <tr>
+                      <td>6</td>
+                      <td>IOC</td>
+                  </tr>
+              </tbody>
+            </table>
+          type: "integer"
+          format: "int32"
+          example: 1
+        RecvTime:
+          description: "受注日時"
+          type: "string"
+          example: "2020-07-16T18:00:51.763683+09:00"
+        Symbol:
+          description: "銘柄コード"
+          type: "string"
+          example: "8306"
+        SymbolName:
+          description: "銘柄名"
+          type: "string"
+          example: "三菱ＵＦＪフィナンシャル・グループ"
+        Exchange:
+          description: |-
+            市場コード
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>東証</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>名証</td>
+                  </tr>
+                  <tr>
+                      <td>5</td>
+                      <td>福証</td>
+                  </tr>
+                  <tr>
+                      <td>6</td>
+                      <td>札証</td>
+                  </tr>
+                  <tr>
+                      <td>9</td>
+                      <td>SOR</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>日通し</td>
+                  </tr>
+                  <tr>
+                      <td>23</td>
+                      <td>日中</td>
+                  </tr>
+                  <tr>
+                      <td>24</td>
+                      <td>夜間</td>
+                  </tr>
+              </tbody>
+            </table>
+          type: "integer"
+          format: "int32"
+          example: 1
+        ExchangeName:
+          description: "市場名"
+          type: "string"
+          example: "東証１部"
+        TimeInForce:
+          description: |-
+            有効期間条件<br>※先物・オプション銘柄の場合のみ
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>FAS</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>FAK</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>FOK</td>
+                  </tr>
+              </tbody>
+            </table>
+          type: "integer"
+          format: "int32"
+          example: 1
+        Price:
+          description: "値段"
+          type: "number"
+          format: "double"
+          example: 704.5
+        OrderQty:
+          description: "発注数量"
+          type: "number"
+          format: "double"
+          example: 1500
+        CumQty:
+          description: "約定数量"
+          type: "number"
+          format: "double"
+          example: 1500
+        Side:
+          description: |-
+            売買区分
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>売</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>買</td>
+                  </tr>
+              </tbody>
+            </table>
+          type: "string"
+          example: "1"
+        CashMargin:
+          description: |-
+            取引区分
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>2</td>
+                      <td>新規</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>返済</td>
+                  </tr>
+              </tbody>
+            </table>
+          type: "integer"
+          format: "int32"
+          example: 2
+        AccountType:
+          description: |-
+            口座種別
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>2</td>
+                      <td>一般</td>
+                  </tr>
+                  <tr>
+                      <td>4</td>
+                      <td>特定</td>
+                  </tr>
+                  <tr>
+                      <td>12</td>
+                      <td>法人</td>
+                  </tr>
+              </tbody>
+            </table>
+          type: "integer"
+          format: "int32"
+          example: 4
+        DelivType:
+          description: |-
+            受渡区分
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>自動振替</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>お預り金</td>
+                  </tr>
+              </tbody>
+            </table>
+          type: "integer"
+          format: "int32"
+          example: 2
+        ExpireDay:
+          description: "注文有効期限<br>yyyyMMdd形式"
+          type: "integer"
+          format: "int32"
+          example: 20200702
+        MarginTradeType:
+          description: |-
+            信用取引区分
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>制度信用</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>一般信用</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>一般信用（売短）</td>
+                  </tr>
+              </tbody>
+            </table>
+          type: "integer"
+          format: "int32"
+          example: 1
+        Details:
+          description: "注文詳細"
+          type: "array"
+          items:
+            type: "object"
+            properties:
+              SeqNum:
+                description: "※注文明細レコードの生成順序です。<br>※通番であるとは限りませんが、大小による順序は保たれています。"
+                type: "integer"
+                format: "int32"
+                example: 1
+              ID:
+                description: "注文詳細番号"
+                type: "string"
+                example: "20200715A02N04738436"
+              RecType:
+                description: |-
+                  明細種別
+                  <table>
+                    <thead>
+                        <tr>
+                            <th>定義値</th>
+                            <th>説明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>受付</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>繰越</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>期限切れ</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>発注</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>訂正</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>取消</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>失効</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>約定</td>
+                        </tr>
+                    </tbody>
+                  </table>
+                type: "integer"
+                format: "int32"
+                example: 1
+              ExchangeID:
+                description: "取引所番号"
+                type: "string"
+                example: "00000000-0000-0000-0000-00000000"
+              State:
+                description: |-
+                  状態
+                  <table>
+                    <thead>
+                        <tr>
+                            <th>定義値</th>
+                            <th>説明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>待機（発注待機）</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>処理中（発注送信中・訂正送信中・取消送信中）</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>処理済（発注済・訂正済・取消済・全約定・期限切れ）</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>エラー</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>削除済み</td>
+                        </tr>
+                    </tbody>
+                  </table>
+                type: "integer"
+                format: "int32"
+                example: 3
+              TransactTime:
+                description: "処理時刻"
+                type: "string"
+                example: "2020-07-16T18:00:51.763683+09:00"
+              OrdType:
+                description: |-
+                  執行条件
+                  <table>
+                    <thead>
+                        <tr>
+                            <th>定義値</th>
+                            <th>説明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>ザラバ</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>寄り</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>引け</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>不成</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>対当指値</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>IOC</td>
+                        </tr>
+                    </tbody>
+                  </table>
+                type: "integer"
+                format: "int32"
+                example: 1
+              Price:
+                description: "値段"
+                type: "number"
+                format: "double"
+                example: 704.5
+              Qty:
+                description: "数量"
+                type: "number"
+                format: "double"
+                example: 1500
+              ExecutionID:
+                description: "約定番号"
+                type: "string"
+                example: ""
+              ExecutionDay:
+                description: "約定日時"
+                type: "string"
+                format: "date-time"
+                example: "2020-07-02T18:02:00+09:00"
+              DelivDay:
+                description: "受渡日"
+                type: "integer"
+                format: "int32"
+                example: 20200706
+              Commission:
+                description: "手数料<br>※注文詳細の明細種別が約定（RecType=8)の場合に設定。"
+                type: "number"
+                format: "double"
+                example: 0
+              CommissionTax:
+                description: "手数料消費税<br>※明細種別は約定（RecType=8）の場合にのみ表示されます。"
+                type: "number"
+                format: "double"
+                example: 0
     PositionsSuccess:
-      type: "array"
-      items:
-        type: "object"
-        properties:
-          ExecutionID:
-            description: "約定番号<br>※現物取引では、nullが返ります。"
-            type: "string"
-            example: "20200715E02N04738464"
-          AccountType:
-            description: |-
-              口座種別
-              <table>
-                <thead>
-                    <tr>
-                        <th>定義値</th>
-                        <th>説明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2</td>
-                        <td>一般</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>特定</td>
-                    </tr>
-                    <tr>
-                        <td>12</td>
-                        <td>法人</td>
-                    </tr>
-                </tbody>
-              </table>
-            type: "integer"
-            format: "int32"
-            example: 4
-          Symbol:
-            description: "銘柄コード"
-            type: "string"
-            example: "8306"
-          SymbolName:
-            description: "銘柄名"
-            type: "string"
-            example: "三菱ＵＦＪフィナンシャル・グループ"
-          Exchange:
-            description: |-
-              市場コード
-              <table>
-                <thead>
-                    <tr>
-                        <th>定義値</th>
-                        <th>説明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>東証</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>名証</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>福証</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>札証</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>日通し</td>
-                    </tr>
-                    <tr>
-                        <td>23</td>
-                        <td>日中</td>
-                    </tr>
-                    <tr>
-                        <td>24</td>
-                        <td>夜間</td>
-                    </tr>
-                </tbody>
-              </table>
-            type: "integer"
-            format: "int32"
-            example: 1
-          ExchangeName:
-            description: "市場名"
-            type: "string"
-            example: "東証１部"
-          SecurityType:
-            description: "銘柄種別<br>※先物・オプション銘柄の場合のみ"
-            type: "integer"
-            format: "int32"
-            example: 101
-          ExecutionDay:
-            description: "約定日（建玉日）<br>※信用・先物・オプションの場合のみ<br>※現物取引では、nullが返ります。"
-            type: "integer"
-            format: "int32"
-            example: 20200702
-          Price:
-            description: "値段"
-            type: "number"
-            format: "double"
-            example: 704
-          LeavesQty:
-            description: "残数量"
-            type: "number"
-            format: "double"
-            example: 500
-          HoldQty:
-            description: "拘束数量（保有数量）"
-            type: "number"
-            format: "double"
-            example: 0
-          Side:
-            description: |-
-              売買区分
-              <table>
-                <thead>
-                    <tr>
-                        <th>定義値</th>
-                        <th>説明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>売</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>買</td>
-                    </tr>
-                </tbody>
-              </table>
-            type: "string"
-            example: "1"
-          Expenses:
-            description: "諸経費<br>※信用・先物・オプションの場合のみ"
-            type: "number"
-            format: "double"
-            example: 0
-          Commission:
-            description: "手数料<br>※信用・先物・オプションの場合のみ"
-            type: "number"
-            format: "double"
-            example: 1620
-          CommissionTax:
-            description: "手数料消費税<br>※信用・先物・オプションの場合のみ"
-            type: "number"
-            format: "double"
-            example: 162
-          ExpireDay:
-            description: "返済期日<br>※信用・先物・オプションの場合のみ"
-            type: "integer"
-            format: "int32"
-            example: 20201229
-          MarginTradeType:
-            description: |-
-              信用取引区分<br>※信用の場合のみ
-              <table>
-                <thead>
-                    <tr>
-                        <th>定義値</th>
-                        <th>説明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>制度信用</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>一般信用</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>一般信用（売短）</td>
-                    </tr>
-                </tbody>
-              </table>
-            type: "integer"
-            format: "int32"
-            example: 1
-          CurrentPrice:
-            description: "現在値"
-            type: "number"
-            format: "double"
-            example: 414.5
-          Valuation:
-            description: "評価金額"
-            type: "number"
-            format: "double"
-            example: 207250
-          ProfitLoss:
-            description: "評価損益額"
-            type: "number"
-            format: "double"
-            example: 144750
-          ProfitLossRate:
-            description: "評価損益率"
-            type: "number"
-            format: "double"
-            example: 41.12215909090909
+      type: "object"
+      properties:
+        ExecutionID:
+          description: "約定番号<br>※現物取引では、nullが返ります。"
+          type: "string"
+          example: "20200715E02N04738464"
+        AccountType:
+          description: |-
+            口座種別
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>2</td>
+                      <td>一般</td>
+                  </tr>
+                  <tr>
+                      <td>4</td>
+                      <td>特定</td>
+                  </tr>
+                  <tr>
+                      <td>12</td>
+                      <td>法人</td>
+                  </tr>
+              </tbody>
+            </table>
+          type: "integer"
+          format: "int32"
+          example: 4
+        Symbol:
+          description: "銘柄コード"
+          type: "string"
+          example: "8306"
+        SymbolName:
+          description: "銘柄名"
+          type: "string"
+          example: "三菱ＵＦＪフィナンシャル・グループ"
+        Exchange:
+          description: |-
+            市場コード
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>東証</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>名証</td>
+                  </tr>
+                  <tr>
+                      <td>5</td>
+                      <td>福証</td>
+                  </tr>
+                  <tr>
+                      <td>6</td>
+                      <td>札証</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>日通し</td>
+                  </tr>
+                  <tr>
+                      <td>23</td>
+                      <td>日中</td>
+                  </tr>
+                  <tr>
+                      <td>24</td>
+                      <td>夜間</td>
+                  </tr>
+              </tbody>
+            </table>
+          type: "integer"
+          format: "int32"
+          example: 1
+        ExchangeName:
+          description: "市場名"
+          type: "string"
+          example: "東証１部"
+        SecurityType:
+          description: "銘柄種別<br>※先物・オプション銘柄の場合のみ"
+          type: "integer"
+          format: "int32"
+          example: 101
+        ExecutionDay:
+          description: "約定日（建玉日）<br>※信用・先物・オプションの場合のみ<br>※現物取引では、nullが返ります。"
+          type: "integer"
+          format: "int32"
+          example: 20200702
+        Price:
+          description: "値段"
+          type: "number"
+          format: "double"
+          example: 704
+        LeavesQty:
+          description: "残数量"
+          type: "number"
+          format: "double"
+          example: 500
+        HoldQty:
+          description: "拘束数量（保有数量）"
+          type: "number"
+          format: "double"
+          example: 0
+        Side:
+          description: |-
+            売買区分
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>売</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>買</td>
+                  </tr>
+              </tbody>
+            </table>
+          type: "string"
+          example: "1"
+        Expenses:
+          description: "諸経費<br>※信用・先物・オプションの場合のみ"
+          type: "number"
+          format: "double"
+          example: 0
+        Commission:
+          description: "手数料<br>※信用・先物・オプションの場合のみ"
+          type: "number"
+          format: "double"
+          example: 1620
+        CommissionTax:
+          description: "手数料消費税<br>※信用・先物・オプションの場合のみ"
+          type: "number"
+          format: "double"
+          example: 162
+        ExpireDay:
+          description: "返済期日<br>※信用・先物・オプションの場合のみ"
+          type: "integer"
+          format: "int32"
+          example: 20201229
+        MarginTradeType:
+          description: |-
+            信用取引区分<br>※信用の場合のみ
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>制度信用</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>一般信用</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>一般信用（売短）</td>
+                  </tr>
+              </tbody>
+            </table>
+          type: "integer"
+          format: "int32"
+          example: 1
+        CurrentPrice:
+          description: "現在値"
+          type: "number"
+          format: "double"
+          example: 414.5
+        Valuation:
+          description: "評価金額"
+          type: "number"
+          format: "double"
+          example: 207250
+        ProfitLoss:
+          description: "評価損益額"
+          type: "number"
+          format: "double"
+          example: 144750
+        ProfitLossRate:
+          description: "評価損益率"
+          type: "number"
+          format: "double"
+          example: 41.12215909090909
     SymbolNameSuccess:
       type: "object"
       properties:
@@ -6017,7 +6000,8 @@ components:
           example: "日経平均先物 20/12"
 
     #Ranking ランキング
-    CommonRankingResponse:
+    RankingDefaultResponse:
+      title: 株価情報 (種別:1~4)
       type: object
       properties:
         Type:
@@ -6026,105 +6010,93 @@ components:
         ExchangeDivision:
           description: 市場
           type: string
-
-    CommonRankingItems:
-      type: object
-      properties:
-        No:
-          description: 順位<br>※ランキング内で同じ順位が返却される場合があります（10位が2件など）
-          type: "integer"
-          format: "int32"
-        Trend:
-          type: "string"
-          description: |-
-            トレンド
-             <table>
-                <thead>
-                    <tr>
-                        <th>定義値</th>
-                        <th>内容</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>0</td>
-                        <td>対象データ無し</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>過去10営業日より20位以上上昇</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>過去10営業日より1～19位上昇</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>過去10営業日と変わらず</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>過去10営業日より1～19位下落</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>過去10営業日より20位以上下落</td>
-                    </tr>
-                </tbody>
-            </table>
-        AverageRanking:
-          type: number
-          format: double
-          description: "平均順位<br>※100位以下は「999」となります"
-        Symbol:
-          description: "銘柄コード"
-          type: "string"
-        SymbolName:
-          description: "銘柄名称"
-          type: "string"
-        CurrentPrice:
-          type: number
-          format: double
-          description: "現在値"
-        ChangeRatio:
-          type: number
-          format: double
-          description: "前日比"
-    RankingDefaultResponse:
-      title: 株価情報 (種別:1~4)
-      allOf:
-        - $ref: "#/components/schemas/CommonRankingResponse"
-        - type: object
-          properties:
-            Ranking:
-              description: ランキング
-              type: array
-              items:
-                allOf:
-                  - $ref: "#/components/schemas/CommonRankingItems"
-                  - type: object
-                    properties:
-                      ChangePercentage:
-                        type: number
-                        format: double
-                        description: "騰落率（%）"
-                      CurrentPriceTime:
-                        description: "時刻<br>HH:mm<br>※日付は返しません"
-                        type: "string"
-                      TradingVolume:
-                        type: number
-                        format: double
-                        description: "売買高"
-                      Turnover:
-                        type: number
-                        format: double
-                        description: "売買代金"
-                      ExchangeName:
-                        description: "市場名"
-                        type: "string"
-                      CategoryName:
-                        description: "業種名"
-                        type: "string"
+        Ranking:
+          description: ランキング
+          type: array
+          items:
+            type: "object"
+            properties:
+              No:
+                description: 順位<br>※ランキング内で同じ順位が返却される場合があります（10位が2件など）
+                type: "integer"
+                format: "int32"
+              Trend:
+                type: "string"
+                description: |-
+                  トレンド
+                  <table>
+                      <thead>
+                          <tr>
+                              <th>定義値</th>
+                              <th>内容</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>0</td>
+                              <td>対象データ無し</td>
+                          </tr>
+                          <tr>
+                              <td>1</td>
+                              <td>過去10営業日より20位以上上昇</td>
+                          </tr>
+                          <tr>
+                              <td>2</td>
+                              <td>過去10営業日より1～19位上昇</td>
+                          </tr>
+                          <tr>
+                              <td>3</td>
+                              <td>過去10営業日と変わらず</td>
+                          </tr>
+                          <tr>
+                              <td>4</td>
+                              <td>過去10営業日より1～19位下落</td>
+                          </tr>
+                          <tr>
+                              <td>5</td>
+                              <td>過去10営業日より20位以上下落</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              AverageRanking:
+                type: number
+                format: double
+                description: "平均順位<br>※100位以下は「999」となります"
+              Symbol:
+                description: "銘柄コード"
+                type: "string"
+              SymbolName:
+                description: "銘柄名称"
+                type: "string"
+              CurrentPrice:
+                type: number
+                format: double
+                description: "現在値"
+              ChangeRatio:
+                type: number
+                format: double
+                description: "前日比"
+              ChangePercentage:
+                type: number
+                format: double
+                description: "騰落率（%）"
+              CurrentPriceTime:
+                description: "時刻<br>HH:mm<br>※日付は返しません"
+                type: "string"
+              TradingVolume:
+                type: number
+                format: double
+                description: "売買高"
+              Turnover:
+                type: number
+                format: double
+                description: "売買代金"
+              ExchangeName:
+                description: "市場名"
+                type: "string"
+              CategoryName:
+                description: "業種名"
+                type: "string"
       example:
         Type: 1
         ExchangeDivision: "ALL"
@@ -6157,48 +6129,110 @@ components:
             CategoryName: "輸送用機器"
     RankingByTickCountResponse:
       title: 株価情報 (種別:5)
-      allOf:
-        - $ref: "#/components/schemas/CommonRankingResponse"
-        - type: object
-          properties:
-            Ranking:
-              description: ランキング
-              type: array
-              items:
-                allOf:
-                  - $ref: "#/components/schemas/CommonRankingItems"
-                  - type: object
-                    properties:
-                      TickCount:
-                        type: number
-                        format: int32
-                        description: "TICK回数"
-                      UpCount:
-                        type: number
-                        format: int32
-                        description: "UP"
-                      DownCount:
-                        type: number
-                        format: int32
-                        description: "DOWN"
-                      ChangePercentage:
-                        type: number
-                        format: double
-                        description: "騰落率（%）"
-                      TradingVolume:
-                        type: number
-                        format: double
-                        description: "売買高"
-                      Turnover:
-                        type: number
-                        format: double
-                        description: "売買代金"
-                      ExchangeName:
-                        description: "市場名"
-                        type: "string"
-                      CategoryName:
-                        description: "業種名"
-                        type: "string"
+      type: object
+      properties:
+        Type:
+          description: "種別"
+          type: "string"
+        ExchangeDivision:
+          description: "市場"
+          type: "string"
+        Ranking:
+          description: ランキング
+          type: array
+          items:
+            type: object
+            properties:
+              No:
+                description: 順位<br>※ランキング内で同じ順位が返却される場合があります（10位が2件など）
+                type: "integer"
+                format: "int32"
+              Trend:
+                type: "string"
+                description: |-
+                  トレンド
+                  <table>
+                      <thead>
+                          <tr>
+                              <th>定義値</th>
+                              <th>内容</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>0</td>
+                              <td>対象データ無し</td>
+                          </tr>
+                          <tr>
+                              <td>1</td>
+                              <td>過去10営業日より20位以上上昇</td>
+                          </tr>
+                          <tr>
+                              <td>2</td>
+                              <td>過去10営業日より1～19位上昇</td>
+                          </tr>
+                          <tr>
+                              <td>3</td>
+                              <td>過去10営業日と変わらず</td>
+                          </tr>
+                          <tr>
+                              <td>4</td>
+                              <td>過去10営業日より1～19位下落</td>
+                          </tr>
+                          <tr>
+                              <td>5</td>
+                              <td>過去10営業日より20位以上下落</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              AverageRanking:
+                type: "number"
+                format: "double"
+                description: "平均順位<br>※100位以下は「999」となります"
+              Symbol:
+                description: "銘柄コード"
+                type: "string"
+              SymbolName:
+                description: "銘柄名称"
+                type: "string"
+              CurrentPrice:
+                type: "number"
+                format: "double"
+                description: "現在値"
+              ChangeRatio:
+                type: "number"
+                format: "double"
+                description: "前日比"
+              TickCount:
+                type: integer
+                format: int32
+                description: "TICK回数"
+              UpCount:
+                type: integer
+                format: int32
+                description: "UP"
+              DownCount:
+                type: integer
+                format: int32
+                description: "DOWN"
+              ChangePercentage:
+                type: number
+                format: double
+                description: "騰落率（%）"
+              TradingVolume:
+                type: number
+                format: double
+                description: "売買高"
+              Turnover:
+                type: number
+                format: double
+                description: "売買代金"
+              ExchangeName:
+                description: "市場名"
+                type: "string"
+              CategoryName:
+                description: "業種名"
+                type: "string"
       example:
         Type: 5
         ExchangeDivision: "ALL"
@@ -6236,39 +6270,101 @@ components:
 
     RankingByTradeVolumeResponse:
       title: 株価情報 (種別:6)
-      allOf:
-        - $ref: "#/components/schemas/CommonRankingResponse"
-        - type: object
-          properties:
-            Ranking:
-              description: ランキング
-              type: array
-              items:
-                allOf:
-                  - $ref: "#/components/schemas/CommonRankingItems"
-                  - type: object
-                    properties:
-                      RapidTradePercentage:
-                        type: number
-                        format: double
-                        description: "売買高急増（％）"
-                      TradingVolume:
-                        type: number
-                        format: double
-                        description: "売買高"
-                      CurrentPriceTime:
-                        description: "時刻<br>HH:mm<br>※日付は返しません"
-                        type: "string"
-                      ChangePercentage:
-                        type: number
-                        format: double
-                        description: "騰落率（%）"
-                      ExchangeName:
-                        description: "市場名"
-                        type: "string"
-                      CategoryName:
-                        description: "業種名"
-                        type: "string"
+      type: object
+      properties:
+        Type:
+          description: "種別"
+          type: "string"
+        ExchangeDivision:
+          description: "市場"
+          type: "string"
+        Ranking:
+          description: ランキング
+          type: array
+          items:
+            type: "object"
+            properties:
+              No:
+                description: 順位<br>※ランキング内で同じ順位が返却される場合があります（10位が2件など）
+                type: "integer"
+                format: "int32"
+              Trend:
+                type: "string"
+                description: |-
+                  トレンド
+                  <table>
+                      <thead>
+                          <tr>
+                              <th>定義値</th>
+                              <th>内容</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>0</td>
+                              <td>対象データ無し</td>
+                          </tr>
+                          <tr>
+                              <td>1</td>
+                              <td>過去10営業日より20位以上上昇</td>
+                          </tr>
+                          <tr>
+                              <td>2</td>
+                              <td>過去10営業日より1～19位上昇</td>
+                          </tr>
+                          <tr>
+                              <td>3</td>
+                              <td>過去10営業日と変わらず</td>
+                          </tr>
+                          <tr>
+                              <td>4</td>
+                              <td>過去10営業日より1～19位下落</td>
+                          </tr>
+                          <tr>
+                              <td>5</td>
+                              <td>過去10営業日より20位以上下落</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              AverageRanking:
+                type: "number"
+                format: "double"
+                description: "平均順位<br>※100位以下は「999」となります"
+              Symbol:
+                description: "銘柄コード"
+                type: "string"
+              SymbolName:
+                description: "銘柄名称"
+                type: "string"
+              CurrentPrice:
+                type: "number"
+                format: "double"
+                description: "現在値"
+              ChangeRatio:
+                type: "number"
+                format: "double"
+                description: "前日比"
+              RapidTradePercentage:
+                type: number
+                format: double
+                description: "売買高急増（％）"
+              TradingVolume:
+                type: number
+                format: double
+                description: "売買高"
+              CurrentPriceTime:
+                description: "時刻<br>HH:mm<br>※日付は返しません"
+                type: "string"
+              ChangePercentage:
+                type: number
+                format: double
+                description: "騰落率（%）"
+              ExchangeName:
+                description: "市場名"
+                type: "string"
+              CategoryName:
+                description: "業種名"
+                type: "string"
       example:
         Type: 6
         ExchangeDivision: "ALL"
@@ -6301,39 +6397,101 @@ components:
             CategoryName: 小売業
     RankingByTradeValueResponse:
       title: 株価情報 (種別:7)
-      allOf:
-        - $ref: "#/components/schemas/CommonRankingResponse"
-        - type: object
-          properties:
-            Ranking:
-              description: ランキング
-              type: array
-              items:
-                allOf:
-                  - $ref: "#/components/schemas/CommonRankingItems"
-                  - type: object
-                    properties:
-                      RapidPaymentPercentage:
-                        type: number
-                        format: double
-                        description: "代金急増（％）"
-                      Turnover:
-                        type: number
-                        format: double
-                        description: "売買代金"
-                      CurrentPriceTime:
-                        description: "時刻<br>HH:mm<br>※日付は返しません"
-                        type: "string"
-                      ChangePercentage:
-                        type: number
-                        format: double
-                        description: "騰落率（%）"
-                      ExchangeName:
-                        description: "市場名"
-                        type: "string"
-                      CategoryName:
-                        description: "業種名"
-                        type: "string"
+      type: "object"
+      properties:
+        Type:
+          description: "種別"
+          type: "string"
+        ExchangeDivision:
+          description: "市場"
+          type: "string"
+        Ranking:
+          description: ランキング
+          type: array
+          items:
+            type: "object"
+            properties:
+              No:
+                description: 順位<br>※ランキング内で同じ順位が返却される場合があります（10位が2件など）
+                type: "integer"
+                format: "int32"
+              Trend:
+                type: "string"
+                description: |-
+                  トレンド
+                  <table>
+                      <thead>
+                          <tr>
+                              <th>定義値</th>
+                              <th>内容</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>0</td>
+                              <td>対象データ無し</td>
+                          </tr>
+                          <tr>
+                              <td>1</td>
+                              <td>過去10営業日より20位以上上昇</td>
+                          </tr>
+                          <tr>
+                              <td>2</td>
+                              <td>過去10営業日より1～19位上昇</td>
+                          </tr>
+                          <tr>
+                              <td>3</td>
+                              <td>過去10営業日と変わらず</td>
+                          </tr>
+                          <tr>
+                              <td>4</td>
+                              <td>過去10営業日より1～19位下落</td>
+                          </tr>
+                          <tr>
+                              <td>5</td>
+                              <td>過去10営業日より20位以上下落</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              AverageRanking:
+                type: "number"
+                format: "double"
+                description: "平均順位<br>※100位以下は「999」となります"
+              Symbol:
+                description: "銘柄コード"
+                type: "string"
+              SymbolName:
+                description: "銘柄名称"
+                type: "string"
+              CurrentPrice:
+                type: "number"
+                format: "double"
+                description: "現在値"
+              ChangeRatio:
+                type: "number"
+                format: "double"
+                description: "前日比"
+              RapidPaymentPercentage:
+                type: number
+                format: double
+                description: "代金急増（％）"
+              Turnover:
+                type: number
+                format: double
+                description: "売買代金"
+              CurrentPriceTime:
+                description: "時刻<br>HH:mm<br>※日付は返しません"
+                type: "string"
+              ChangePercentage:
+                type: number
+                format: double
+                description: "騰落率（%）"
+              ExchangeName:
+                description: "市場名"
+                type: "string"
+              CategoryName:
+                description: "業種名"
+                type: "string"
       example:
         Type: 7
         ExchangeDivision: "ALL"
@@ -6367,52 +6525,56 @@ components:
 
     RankingByMarginResponse:
       title: 信用情報（種別:8~13）
-      allOf:
-        - $ref: "#/components/schemas/CommonRankingResponse"
-        - type: object
-          properties:
-            Ranking:
-              description: ランキング
-              type: array
-              items:
-                type: object
-                properties:
-                  No:
-                    description: 順位<br>※ランキング内で同じ順位が返却される場合があります（10位が2件など）
-                    type: "integer"
-                    format: "int32"
-                  Symbol:
-                    description: "銘柄コード"
-                    type: "string"
-                  SymbolName:
-                    description: "銘柄名称"
-                    type: "string"
-                  SellRapidPaymentPercentage:
-                    type: number
-                    format: double
-                    description: "売残（千株）"
-                  SellLastWeekRatio:
-                    type: number
-                    format: double
-                    description: "売残前週比"
-                  BuyRapidPaymentPercentage:
-                    type: number
-                    format: double
-                    description: "買残（千株）"
-                  BuyLastWeekRatio:
-                    type: number
-                    format: double
-                    description: "買残前週比"
-                  Ratio:
-                    type: number
-                    format: double
-                    description: "倍率"
-                  ExchangeName:
-                    description: "市場名"
-                    type: "string"
-                  CategoryName:
-                    description: "業種名"
-                    type: "string"
+      type: "object"
+      properties:
+        Type:
+          description: "種別"
+          type: "string"
+        ExchangeDivision:
+          description: "市場"
+          type: "string"
+        Ranking:
+          description: ランキング
+          type: array
+          items:
+            type: object
+            properties:
+              No:
+                description: 順位<br>※ランキング内で同じ順位が返却される場合があります（10位が2件など）
+                type: "integer"
+                format: "int32"
+              Symbol:
+                description: "銘柄コード"
+                type: "string"
+              SymbolName:
+                description: "銘柄名称"
+                type: "string"
+              SellRapidPaymentPercentage:
+                type: number
+                format: double
+                description: "売残（千株）"
+              SellLastWeekRatio:
+                type: number
+                format: double
+                description: "売残前週比"
+              BuyRapidPaymentPercentage:
+                type: number
+                format: double
+                description: "買残（千株）"
+              BuyLastWeekRatio:
+                type: number
+                format: double
+                description: "買残前週比"
+              Ratio:
+                type: number
+                format: double
+                description: "倍率"
+              ExchangeName:
+                description: "市場名"
+                type: "string"
+              CategoryName:
+                description: "業種名"
+                type: "string"
       example:
         Type: 7
         ExchangeDivision: "ALL"
