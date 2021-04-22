@@ -7,6 +7,7 @@ using System.Runtime.Serialization.Json;
 using Codeplex.Data;
 using ExcelDna.Integration;
 using KabuSuteAddin.Elements;
+using System.Diagnostics;
 
 namespace KabuSuteAddin.Utils
 {
@@ -24,6 +25,7 @@ namespace KabuSuteAddin.Utils
 
             foreach (KeyValuePair<string, object> item in objectJson)
             {
+                Debug.WriteLine(item.Value);
                 array[col] = item.Value;
                 col++;
             }

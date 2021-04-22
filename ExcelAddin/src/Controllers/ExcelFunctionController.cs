@@ -331,7 +331,8 @@ namespace KabuSuteAddin
         [ExcelFunction(Name = "SYMBOL", Category = "kabuSTATIONアドイン", Description = "指定した銘柄情報を取得する.", IsHidden = false)]
         public static object SYMBOL(
             [ExcelArgument(Description = "の銘柄情報を取得する", Name = "銘柄コード")] string Symbol,
-            [ExcelArgument(Description = "の銘柄情報を取得する", Name = "市場コード")] string Exchange)
+            [ExcelArgument(Description = "の銘柄情報を取得する", Name = "市場コード")] string Exchange,
+            [ExcelArgument(Description = "の銘柄情報を取得する", Name = "追加情報")] string AddInfo)
         {
             string ret = null;
             try
@@ -349,7 +350,7 @@ namespace KabuSuteAddin
                 }
                 if (String.IsNullOrEmpty(ret))
                 {
-                    ret = middleware.GetSymbol(Symbol, Exchange);
+                    ret = middleware.GetSymbol(Symbol, Exchange, AddInfo);
                     _symbolCache[tplKey] = Tuple.Create(DateTime.Now, ret);
                 }
 
@@ -391,7 +392,7 @@ namespace KabuSuteAddin
 
             try
             {
-                string ResultMessage = Validate.ValidateMultiple(Params);
+                string ResultMessage = Validate.ValidateCommon();
                 
                 if (!string.IsNullOrEmpty(ResultMessage))
                     return ResultMessage;
@@ -435,14 +436,16 @@ namespace KabuSuteAddin
         [ExcelFunction(Name = "POSITIONS", Category = "kabuSTATIONアドイン", Description = "残高一覧を取得する.", IsHidden = false)]
         public static object POSITIONS(
             [ExcelArgument(Description = "の残高情報を取得する​", Name = "商品種別")] string SecurityType,
-            [ExcelArgument(Description = "の残高情報を取得する​", Name = "銘柄コード")] string Symbol)
+            [ExcelArgument(Description = "の残高情報を取得する​", Name = "銘柄コード")] string Symbol,
+            [ExcelArgument(Description = "の残高情報を取得する​", Name = "売買区分")] string Side,
+            [ExcelArgument(Description = "の残高情報を取得する​", Name = "追加情報")] string AddInfo
+            )
         {
             
             string ret = null;
-            string[] Params = { SecurityType, Symbol };
             try
             {
-                string ResultMessage = Validate.ValidateMultiple(Params);
+                string ResultMessage = Validate.ValidateCommon();
                 if (!string.IsNullOrEmpty(ResultMessage))
                     return ResultMessage;
 
@@ -455,7 +458,7 @@ namespace KabuSuteAddin
                 }
                 if (String.IsNullOrEmpty(ret))
                 {
-                    ret = middleware.GetPositions(SecurityType, Symbol);
+                    ret = middleware.GetPositions(SecurityType, Symbol, Side, AddInfo);
                     _positionsCache[tplKey] = Tuple.Create(DateTime.Now, ret);
                 }
 
@@ -540,6 +543,7 @@ namespace KabuSuteAddin
             string ret = null;
             try
             {
+                
                 string ResultMessage = Validate.ValidateRegister(symboldata);
                 if (!string.IsNullOrEmpty(ResultMessage))
                     return ResultMessage;
@@ -795,6 +799,12 @@ namespace KabuSuteAddin
         }
 
         private static Dictionary<string, Tuple<DateTime, string>> _rankingCache = new Dictionary<string, Tuple<DateTime, string>>();
+        /// <summary>
+        /// 詳細ランキング取得
+        /// </summary>
+        /// <param name="Type"></param>
+        /// <param name="ExchangeDivision"></param>
+        /// <returns></returns>
         [ExcelFunction(Name = "RANKING", Category = "kabuSTATIONアドイン", Description = "詳細ランキングを取得する。", IsHidden = false)]
         public static object RANKING(
             [ExcelArgument(Description = "の詳細ランキングを取得する", Name = "種別")] string Type,
@@ -839,9 +849,205 @@ namespace KabuSuteAddin
                 }
             }
         }
-    }
 
-    
+        private static Dictionary<string, Tuple<DateTime, string>> _apiSoftLimitCache = new Dictionary<string, Tuple<DateTime, string>>();
+        /// <summary>
+        /// kabuステーションAPIのソフトリミット値を取得する
+        /// </summary>
+        /// <returns></returns>
+        [ExcelFunction(Name = "APISOFTLIMIT", Category = "kabuSTATIONアドイン", Description = "kabuステーションAPIのソフトリミット値を取得する。", IsHidden = false)]
+        public static object APISOFTLIMIT()
+        {
+            string Json = null;
+            try
+            {
+                string ResultMessage = Validate.ValidateCommon();
+                if (!string.IsNullOrEmpty(ResultMessage))
+                    return ResultMessage;
+
+                Tuple<DateTime, string> tpl;
+                var tplKey = string.Format("APISOFTLIMIT");
+                if (_apiSoftLimitCache.TryGetValue(tplKey, out tpl))
+                {
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
+                    {
+                        Json = tpl.Item2;
+                    }
+                }
+                if (string.IsNullOrEmpty(Json))
+                {
+                    Json = middleware.GetAPISoftLimit();
+                    _apiSoftLimitCache[tplKey] = Tuple.Create(DateTime.Now, Json);
+                }
+                object array = APISoftLimitResult.APISoftLimitCheck(Json);
+                return XlCall.Excel(XlCall.xlUDF, "Resize", array);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException == null)
+                {
+                    return ex.Message;
+                }
+                else
+                {
+                    return ex.InnerException.Message;
+                }
+            }
+        }
+
+        private static Dictionary<string, Tuple<DateTime, string>> _exchangeCache = new Dictionary<string, Tuple<DateTime, string>>();
+        /// <summary>
+        /// マネービューの情報を取得する。
+        /// </summary>
+        /// <param name="Symbol">通貨</param>
+        /// <returns></returns>
+        [ExcelFunction(Name = "EXCHANGE", Category = "kabuSTATIONアドイン", Description = "マネービューの情報を取得する。", IsHidden = false)]
+        public static object EXCHANGE(
+            [ExcelArgument(Description = "の為替情報を取得する", Name = "通貨")] string Symbol
+            )
+        {
+            string Json = null;
+            try
+            {
+                Debug.WriteLine(Symbol);
+                string ResultMessage = Validate.ValidateSingle(Symbol);
+                Debug.WriteLine(ResultMessage);
+                if (!string.IsNullOrEmpty(ResultMessage))
+                    return ResultMessage;
+
+                Tuple<DateTime, string> tpl;
+                var tplKey = string.Format(Symbol);
+                if (_exchangeCache.TryGetValue(tplKey, out tpl))
+                {
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
+                    {
+                        Json = tpl.Item2;
+                    }
+                    
+
+                }
+                if (string.IsNullOrEmpty(Json))
+                {
+                    Json = middleware.GetExchange(Symbol);
+                    _exchangeCache[tplKey] = Tuple.Create(DateTime.Now, Json);
+                }
+                object array = ExchangeResult.ExchangeCheck(Json);
+                return XlCall.Excel(XlCall.xlUDF, "Resize", array);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException == null)
+                {
+                    return ex.Message;
+                }
+                else
+                {
+                    return ex.InnerException.Message;
+                }
+            }
+        }
+
+        private static Dictionary<string, Tuple<DateTime, string>> _regulationsCache = new Dictionary<string, Tuple<DateTime, string>>();
+        /// <summary>
+        /// 規制情報＋空売り規制情報を取得する。
+        /// </summary>
+        /// <param name="Symbol">銘柄コード</param>
+        /// <param name="Exchange">市場コード</param>
+        /// <returns></returns>
+        [ExcelFunction(Name = "REGULATIONS", Category = "kabuSTATIONアドイン", Description = "規制情報＋空売り規制情報を取得する。", IsHidden = false)]
+        public static object REGULATIONS(
+            [ExcelArgument(Description = "の規制情報を取得する", Name = "銘柄コード")] string Symbol,
+            [ExcelArgument(Description = "の規制情報を取得する", Name = "市場コード")] string Exchange
+            )
+        {
+            string Json = null;
+            try
+            {
+                string ResultMessage = Validate.ValidateCommon();
+                if (!string.IsNullOrEmpty(ResultMessage))
+                    return ResultMessage;
+
+                Tuple<DateTime, string> tpl;
+                var tplKey = string.Format("{0}-{1}", Symbol, Exchange);
+                if (_regulationsCache.TryGetValue(tplKey, out tpl))
+                {
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
+                    {
+                        Json = tpl.Item2;
+                    }
+                   
+
+                }
+                if (string.IsNullOrEmpty(Json))
+                {
+                    Json = middleware.GetRegulation(Symbol, Exchange);
+                    _regulationsCache[tplKey] = Tuple.Create(DateTime.Now, Json);
+                }
+                object array = RegulationsInfoResult.RegulationCheck(Json);
+                return XlCall.Excel(XlCall.xlUDF, "Resize", array);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException == null)
+                {
+                    return ex.Message;
+                }
+                else
+                {
+                    return ex.InnerException.Message;
+                }
+            }
+        }
+        private static Dictionary<string, Tuple<DateTime, string>> _primaryexchangeCache = new Dictionary<string, Tuple<DateTime, string>>();
+        /// <summary>
+        /// 株式の優先市場を取得する。
+        /// </summary>
+        /// <param name="Symbol">銘柄コード</param>
+        /// <returns></returns>
+        [ExcelFunction(Name = "PRIMARYEXCHANGE", Category = "kabuSTATIONアドイン", Description = "株式の優先市場を取得する。", IsHidden = false)]
+        public static object PRIMARYEXCHANGE(
+            [ExcelArgument(Description = "の優先市場を取得する", Name = "銘柄コード")] string Symbol
+            )
+        {
+            string Json = null;
+            try
+            {
+                string ResultMessage = Validate.ValidateCommon();
+                if (!string.IsNullOrEmpty(ResultMessage))
+                    return ResultMessage;
+
+                Tuple<DateTime, string> tpl;
+                var tplKey = string.Format(Symbol);
+                if (_primaryexchangeCache.TryGetValue(tplKey, out tpl))
+                {
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
+                    {
+                        Json = tpl.Item2;
+                    }
+                    
+
+                }
+                if (string.IsNullOrEmpty(Json))
+                {
+                    Json = middleware.GetPrimaryExchange(Symbol);
+                    _primaryexchangeCache[tplKey] = Tuple.Create(DateTime.Now, Json);
+                }
+                object array = PrimaryExchangeResult.PrimaryExchangeCheck(Json);
+                return XlCall.Excel(XlCall.xlUDF, "Resize", array);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException == null)
+                {
+                    return ex.Message;
+                }
+                else
+                {
+                    return ex.InnerException.Message;
+                }
+            }
+        }
+    }
 
     internal class ExcelFunctionMiddleware
     {
@@ -1011,10 +1217,20 @@ namespace KabuSuteAddin
 
         //----------------------------------
         // 銘柄情報取得x
-        internal string GetSymbol(string Symbol, string Exchange)
+        internal string GetSymbol(string Symbol, string Exchange, string AddInfo)
         {
+            var builder = new UriBuilder(domain + CustomRibbon._port + "/kabusapi/symbol/" + Symbol + "@" + Exchange);
+            var param = HttpUtility.ParseQueryString(builder.Query);
+            if (!string.IsNullOrEmpty(AddInfo))
+            {
+                param["addinfo"] = AddInfo;
+            }
 
-            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/symbol/" + Symbol + "@" + Exchange);
+            builder.Query = param.ToString();
+
+            string url = builder.ToString();
+
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
 
             request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
 
@@ -1077,7 +1293,7 @@ namespace KabuSuteAddin
 
         //----------------------------------
         // 注文約定照会取得
-        internal string GetPositions(string Product, string Symbol)
+        internal string GetPositions(string Product, string Symbol, string Side, string AddInfo)
         {
             
             var builder = new UriBuilder(domain + CustomRibbon._port + "/kabusapi/positions");
@@ -1089,6 +1305,14 @@ namespace KabuSuteAddin
             if (!string.IsNullOrEmpty(Symbol))
             {
                 param["symbol"] = Symbol;
+            }
+            if (!string.IsNullOrEmpty(Side))
+            {
+                param["side"] = Side;
+            }
+            if (!string.IsNullOrEmpty(AddInfo))
+            {
+                param["addinfo"] = AddInfo;
             }
             builder.Query = param.ToString();
 
@@ -1126,7 +1350,7 @@ namespace KabuSuteAddin
         internal string UnRegistSymbol(object[,] symbolData)
         {
             var json = Util.SymbolArrayToString(symbolData);
-
+            
             var url = domain + CustomRibbon._port + "/kabusapi/unregister";
             var request = new HttpRequestMessage(HttpMethod.Put, url);
 
@@ -1261,6 +1485,8 @@ namespace KabuSuteAddin
             return response.Content.ReadAsStringAsync().Result;
         }
 
+        //---------------------------------
+        // 詳細ランキング取得
         internal string GetRanking(string Type, string ExchangeDivision)
         {
             var requestString = "";
@@ -1275,5 +1501,46 @@ namespace KabuSuteAddin
             HttpResponseMessage response = client.SendAsync(request).Result;
             return response.Content.ReadAsStringAsync().Result;
         }
+
+        //--------------------------------
+        // kabuステーションAPIのソフトリミット値を取得する
+        internal string GetAPISoftLimit()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/apisoftlimit");
+            request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
+            HttpResponseMessage response = client.SendAsync(request).Result;
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        //-------------------------------
+        // マネービューの情報を取得する
+        internal string GetExchange(string symbol)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/exchange/" + symbol);
+            request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
+            HttpResponseMessage response = client.SendAsync(request).Result;
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        //-------------------------------
+        // 規制情報＋空売り規制情報を取得する
+        internal string GetRegulation(string symbol, string exchange)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/regulations/" + symbol + "@" + exchange);
+            request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
+            HttpResponseMessage response = client.SendAsync(request).Result;
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        //-------------------------------
+        // 株式の優先市場を取得する。
+        internal string GetPrimaryExchange(string symbol)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/primaryexchange/" + symbol);
+            request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
+            HttpResponseMessage response = client.SendAsync(request).Result;
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
     }
 }

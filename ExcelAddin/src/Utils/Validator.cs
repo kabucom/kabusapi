@@ -1,7 +1,7 @@
 ﻿using ExcelDna.Integration;
 using System;
 using System.Linq;
-
+using System.Diagnostics;
 namespace KabuSuteAddin.Utils
 {
     public abstract class Validate
@@ -111,6 +111,29 @@ namespace KabuSuteAddin.Utils
 
             return result;
         }
+        /// <summary>
+        /// 入力チェック（単項目）
+        /// </summary>
+        [ExcelFunction(IsHidden = true)]
+        public static string ValidateSingle(string value)
+        {
+           
+            string result = ValidateCommon();
+            if (string.IsNullOrEmpty(result))
+            {
+
+                if (string.IsNullOrEmpty(value.ToString()))
+                    return ResultMessage.BadRequest;
+
+                else if (value.ToString() == "ExcelDna.Integration.ExcelMissing")
+                    return ResultMessage.BadRequest;
+
+                else if (value.ToString() == "ExcelDna.Integration.ExcelEmpty")
+                    return ResultMessage.BadRequest;
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// 入力チェック（単項目）
@@ -135,7 +158,7 @@ namespace KabuSuteAddin.Utils
         [ExcelFunction(IsHidden = true)]
         public static string ValidateRegister(object[,] array)
         {
-
+            
             string result = ValidateCommon();
 
             if (string.IsNullOrEmpty(result))
@@ -155,8 +178,7 @@ namespace KabuSuteAddin.Utils
                         else if (array[i, j].ToString() == "ExcelDna.Integration.ExcelEmpty")
                             return ResultMessage.BadRequest;
 
-                        else if (!int.TryParse(array[i, j].ToString(), out _))
-                            return ResultMessage.BadRequest;
+                       
                     }
                 }
 
