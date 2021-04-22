@@ -1,4 +1,6 @@
 var url = 'http://localhost:18080/kabusapi/symbol/5401@1';
+url.searchParams.append('addinfo', 'true');  // true:追加情報を出力する、false:追加情報を出力しない
+// 追加情報は、「時価総額」、「発行済み株式数」、「決算期日」、「清算値」を意味します
 var apikey = 'a68e2d55951b4756a3131f7942974eeb';
 
 fetch(url, {
