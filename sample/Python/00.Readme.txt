@@ -89,6 +89,21 @@
 20．銘柄登録全解除
 コマンド：python kabusapi_unregisterall.py
 
+21. 詳細ランキング
+コマンド：kabusapi_ranking.py
+
+22. 為替情報
+コマンド：kabusapi_exchange.py
+
+23. 規制情報
+コマンド：kabusapi_regulations.py
+
+24. 優先市場
+コマンド：kabusapi_primaryexchange.py
+
+25. ソフトリミット
+コマンド：kabusapi_apisoftlimit.py
+
 
 // ライセンスについて
 Copyright (c) 2020 au Kabucom Securities Co., Ltd.
