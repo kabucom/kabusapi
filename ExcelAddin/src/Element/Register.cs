@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using Codeplex.Data;
 using ExcelDna.Integration;
+using System.Diagnostics;
 
 namespace KabuSuteAddin.Elements
 {
@@ -42,18 +43,18 @@ namespace KabuSuteAddin.Elements
         [ExcelFunction(IsHidden = true)]
         public static object RegisterCheck(string value)
         {
+            //Debug.WriteLine(value);
             var objectJson = DynamicJson.Parse(value);
+            Debug.WriteLine(value);
             object ret;
-            if (objectJson.IsDefined("Code"))
+
+            if (objectJson.IsDefined("Code") || !CustomRibbon._env)
             {
                 // API Error
                 ret = Utils.Util.SingleDimToArray(value);
                 return ret;
             }
-            else if (!CustomRibbon._env)
-            {
-                return null;
-            }
+            
 
             ret = RegisterMultipleDimToArray(objectJson);
             return ret;

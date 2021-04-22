@@ -78,6 +78,21 @@ unregister.js
 20．銘柄登録全解除
 unregisterall.js
 
+21. 詳細ランキング
+ranking.js
+
+22. 為替情報
+exchange.js
+
+23. 規制情報
+regulations.js
+
+24. 優先市場
+primaryexchange.js
+
+25. ソフトリミット
+apisoftlimit.js
+
 
 // ライセンスについて
 

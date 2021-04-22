@@ -5,6 +5,7 @@ using ExcelDna.Integration;
 
 namespace KabuSuteAddin.Elements
 {
+    [DataContract]
     public class PositionsElement
     {
         [DataMember(Name = "ExecutionID")]
@@ -119,6 +120,7 @@ namespace KabuSuteAddin.Elements
         public static object PositionCheck(string value)
         {
             var objectJson = DynamicJson.Parse(value);
+            
             object ret;
             if (objectJson.IsDefined("Code"))
             {

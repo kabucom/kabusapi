@@ -177,8 +177,12 @@ body {
 }
 
 a {
-    font-weight: bold;
     color: #2b6884;
+    text-decoration: none;
+}
+
+a:visited{
+    font-weight: bold;
 }
 
 #contents {
@@ -338,7 +342,7 @@ a {
 .list-group-item {
     position: relative;
     display: block;
-    padding: 10px 0 10px 10px;
+    padding: 10px 15px;
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.125)
 }
@@ -349,7 +353,25 @@ a {
     top: 80px;
 }
 
+/* table
+-----------------------------------*/
+.table{
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
 
+td, th {
+    border: 1px solid #dddddd;
+    padding: 0.5em;
+    text-align: left;
+}
+
+
+.table-bordered{
+    border: 1px solid #dddddd;
+}
 /*  tab
 -----------------------------------------------------*/
 

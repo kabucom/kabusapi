@@ -7,6 +7,7 @@ info:
   x-logo:
     url: ../ptal/content/image/common/logo.png
   termsOfService: https://kabucom.github.io/kabusapi/ptal/guide.html
+  description: "# 定義情報 \n REST APIのコード一覧、エンドポイントは下記リンク参照  \n  - [REST APIコード一覧](../ptal/error.html)"
 servers:
   - url: http://localhost:18080/kabusapi
     description: 本番用
@@ -550,7 +551,6 @@ paths:
             ※次の形式で入力してください。<br>
             [銘柄コード]@[市場コード]<br>
             ※市場コードは下記の定義値から選択してください。
-
             <b>市場コード</b>
             <table>
               <thead>
@@ -737,7 +737,6 @@ paths:
             ※次の形式で入力してください。<br>
             [銘柄コード]@[市場コード]<br>
             ※市場コードは下記の定義値から選択してください。
-
             <b>市場コード</b>
             <table>
               <thead>
@@ -916,7 +915,6 @@ paths:
             ※次の形式で入力してください。<br>
             [銘柄コード]@[市場コード]<br>
             ※市場コードは下記の定義値から選択してください。
-
             <b>市場コード</b>
             <table>
               <thead>
@@ -1099,7 +1097,6 @@ paths:
             ※次の形式で入力してください。<br>
             [銘柄コード]@[市場コード]<br>
             ※市場コードは下記の定義値から選択してください。
-
             <b>市場コード</b>
             <table>
               <thead>
@@ -1193,7 +1190,7 @@ paths:
       description: |-
         指定した銘柄の時価情報・板情報を取得します<br>
         レスポンスの一部にnullが発生した場合、該当銘柄を銘柄登録をしてから、
-        <br>再度時価情報・板情報APIを実行してください。"
+        <br>再度時価情報・板情報APIを実行してください。
       parameters:
         - in: header
           name: X-API-KEY
@@ -1211,7 +1208,6 @@ paths:
             ※次の形式で入力してください。<br>
             [銘柄コード]@[市場コード]<br>
             ※市場コードは下記の定義値から選択してください。
-
             <b>市場コード</b>
             <table>
               <thead>
@@ -1336,7 +1332,6 @@ paths:
             ※次の形式で入力してください。<br>
             [銘柄コード]@[市場コード]<br>
             ※市場コードは下記の定義値から選択してください。
-
             <b>市場コード</b>
             <table>
               <thead>
@@ -1376,6 +1371,32 @@ paths:
                   </tr>
               </tbody>
             </table>
+        - in: query
+          name: addinfo
+          description: |-
+            追加情報出力フラグ（未指定時：true）<br>
+            ※追加情報は、「時価総額」、「発行済み株式数」、「決算期日」、「清算値」を意味します。
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>true</td>
+                      <td>追加情報を出力する</td>
+                  </tr>
+                  <tr>
+                      <td>false</td>
+                      <td>追加情報を出力しない</td>
+                  </tr>
+              </tbody>
+            </table>
+          schema:
+            type: string
+          required: false
       responses:
         "200":
           description: OK
@@ -1780,6 +1801,61 @@ paths:
           schema:
             type: string
           required: false
+        - in: query
+          name: side
+          description: |-
+            売買区分フィルタ<br>
+            指定された売買区分と一致する注文を返す
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>売</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>買</td>
+                  </tr>
+              </tbody>
+            </table>
+          schema:
+            type: string
+            enum:
+              - 1
+              - 2
+          required: false
+        - in: query
+          name: addinfo
+          description: |-
+            追加情報出力フラグ（未指定時：true）<br>
+            ※追加情報は、「現在値」、「評価金額」、「評価損益額」、「評価損益率」を意味します。
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>true</td>
+                      <td>追加情報を出力する</td>
+                  </tr>
+                  <tr>
+                      <td>false</td>
+                      <td>追加情報を出力しない</td>
+                  </tr>
+              </tbody>
+            </table>
+          schema:
+            type: string
+          required: false
       responses:
         "200":
           description: OK
@@ -1849,7 +1925,9 @@ paths:
         - "register"
       operationId: registerPut
       summary: "銘柄登録"
-      description: "PUSH配信する銘柄を登録します"
+      description: |-
+        PUSH配信する銘柄を登録します。<br>
+        API登録銘柄リストを開くには、kabuステーションAPIインジケーターを右クリックし「API登録銘柄リスト」を選択してください。
       parameters:
         - in: header
           name: X-API-KEY
@@ -1945,7 +2023,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RequestRegister"
+              $ref: "#/components/schemas/RequestUnregister"
       responses:
         "200":
           description: OK
@@ -2587,6 +2665,425 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /exchange/{symbol}:
+    get:
+      tags:
+        - "info"
+      operationId: exchangeGet
+      summary: "為替情報"
+      description: "マネービューの情報を取得する"
+      parameters:
+        - in: header
+          name: X-API-KEY
+          description: トークン発行メソッドで取得した文字列
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: symbol
+          description: |-
+            通貨
+            <table>
+              <thead>
+                <tr>
+                  <th>定義値</th>
+                  <th>内容</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>usdjpy</td>
+                  <td>USD/JPY</td>
+                </tr>
+                <tr>
+                  <td>eurjpy</td>
+                  <td>EUR/JPY</td>
+                </tr>
+                <tr>
+                  <td>gbpjpy</td>
+                  <td>GBP/JPY</td>
+                </tr>
+                <tr>
+                  <td>audjpy</td>
+                  <td>AUD/JPY</td>
+                </tr>
+                <tr>
+                  <td>chfjpy</td>
+                  <td>CHF/JPY</td>
+                </tr>
+                <tr>
+                  <td>cadjpy</td>
+                  <td>CAD/JPY</td>
+                </tr>
+                <tr>
+                  <td>nzdjpy</td>
+                  <td>NZD/JPY</td>
+                </tr>
+                <tr>
+                  <td>zarjpy</td>
+                  <td>ZAR/JPY</td>
+                </tr>
+                <tr>
+                  <td>eurusd</td>
+                  <td>EUR/USD</td>
+                </tr>
+                <tr>
+                  <td>gbpusd</td>
+                  <td>GBP/USD</td>
+                </tr>
+                <tr>
+                  <td>audusd</td>
+                  <td>AUD/USD</td>
+                </tr>
+              </tbody>
+            </table>
+          schema:
+            type: string
+            enum:
+              - usdjpy
+              - eurjpy
+              - gbpjpy
+              - audjpy
+              - chfjpy
+              - cadjpy
+              - nzdjpy
+              - zarjpy
+              - eurusd
+              - gbpusd
+              - audusd
+          required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/ExchangeResponse"
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: MethodNotAllowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "413":
+          description: RequestEntityTooLarge
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "415":
+          description: UnsupportedMediaType
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: TooManyRequests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /regulations/{symbol}:
+    get:
+      tags:
+        - "info"
+      operationId: regulationsGet
+      summary: "規制情報"
+      description: "規制情報＋空売り規制情報を取得する"
+      parameters:
+        - in: header
+          name: X-API-KEY
+          description: トークン発行メソッドで取得した文字列
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: symbol
+          schema:
+            type: string
+          required: true
+          description: |-
+            銘柄コード <br>
+            ※次の形式で入力してください。<br>
+            [銘柄コード]@[市場コード]<br>
+            ※市場コードは下記の定義値から選択してください。
+            <b>市場コード</b>
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>東証</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>名証</td>
+                  </tr>
+                  <tr>
+                      <td>5</td>
+                      <td>福証</td>
+                  </tr>
+                  <tr>
+                      <td>6</td>
+                      <td>札証</td>
+                  </tr>
+              </tbody>
+            </table>
+          
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegulationsResponse"
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: MethodNotAllowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "413":
+          description: RequestEntityTooLarge
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "415":
+          description: UnsupportedMediaType
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: TooManyRequests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /primaryexchange/{symbol}:
+    get:
+      tags: 
+        - info
+      operationId: primaryExchangeGet
+      summary: 優先市場
+      description: 株式の優先市場を取得する
+      parameters:
+        - in: header
+          name: X-API-KEY
+          description: トークン発行メソッドで取得した文字列
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: symbol
+          description: 銘柄コード
+          schema: 
+            type: string
+          required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PrimaryExchangeResponse"
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: MethodNotAllowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "413":
+          description: RequestEntityTooLarge
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "415":
+          description: UnsupportedMediaType
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: TooManyRequests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /apisoftlimit:
+    get:
+      tags:
+        - info
+      operationId: apisoftlimitGet
+      summary: ソフトリミット
+      description: kabuステーションAPIのソフトリミット値を取得する
+      parameters:
+        - in: header
+          name: X-API-KEY
+          description: トークン発行メソッドで取得した文字列
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSoftLimitResponse"
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: MethodNotAllowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "413":
+          description: RequestEntityTooLarge
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "415":
+          description: UnsupportedMediaType
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: TooManyRequests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+
 # Component Schemas
 components:
   schemas:
@@ -3525,6 +4022,65 @@ components:
       type: "object"
       properties:
         Symbols:
+          type: "array"
+          items:
+            type: "object"
+            properties:
+              Symbol:
+                description: "銘柄コード"
+                type: "string"
+                example: "9433"
+              Exchange:
+                description: |-
+                  市場コード
+                  <table>
+                    <thead>
+                        <tr>
+                            <th>定義値</th>
+                            <th>説明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>東証</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>名証</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>福証</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>札証</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>日通し</td>
+                        </tr>
+                        <tr>
+                            <td>23</td>
+                            <td>日中</td>
+                        </tr>
+                        <tr>
+                            <td>24</td>
+                            <td>夜間</td>
+                        </tr>
+                    </tbody>
+                  </table>
+                type: "integer"
+                format: "int32"
+                example: 1
+    RequestUnregister:
+      type: "object"
+      properties:
+        Symbols:
+          description: |-
+            ※為替銘柄を登録する場合、銘柄名は"通貨A" + "/" + "通貨B"、市場コードは"300"で指定してください。
+            例：'Symbol': 'EUR/USD', "Exchange": 300
           type: "array"
           items:
             type: "object"
@@ -4897,12 +5453,12 @@ components:
           type: "string"
           example: "5250"
         TotalMarketValue:
-          description: "時価総額<br>※株式銘柄の場合のみ"
+          description: "時価総額<br>※株式銘柄の場合のみ<br>追加情報出力フラグ：falseの場合、null"
           type: "number"
           format: "double"
           example: 7654484465100
         TotalStocks:
-          description: "発行済み株式数（千株）<br>※株式銘柄の場合のみ"
+          description: "発行済み株式数（千株）<br>※株式銘柄の場合のみ<br>追加情報出力フラグ：falseの場合、null"
           type: "number"
           format: "double"
           example: 4484
@@ -4912,7 +5468,7 @@ components:
           format: "double"
           example: 100
         FiscalYearEndBasic:
-          description: "決算期日<br>※株式銘柄の場合のみ"
+          description: "決算期日<br>※株式銘柄の場合のみ<br>追加情報出力フラグ：falseの場合、null"
           type: "integer"
           format: "int32"
           example: 20210331
@@ -5237,7 +5793,7 @@ components:
           format: "int32"
           example: 2
         ClearingPrice:
-          description: "清算値<br>※先物銘柄の場合のみ"
+          description: "清算値<br>※先物銘柄の場合のみ<br>追加情報出力フラグ：falseの場合、null"
           type: "number"
           format: "double"
           example: 23000
@@ -5968,22 +6524,22 @@ components:
           format: "int32"
           example: 1
         CurrentPrice:
-          description: "現在値"
+          description: "現在値<br>追加情報出力フラグ：falseの場合、null"
           type: "number"
           format: "double"
           example: 414.5
         Valuation:
-          description: "評価金額"
+          description: "評価金額<br>追加情報出力フラグ：falseの場合、null"
           type: "number"
           format: "double"
           example: 207250
         ProfitLoss:
-          description: "評価損益額"
+          description: "評価損益額<br>追加情報出力フラグ：falseの場合、null"
           type: "number"
           format: "double"
           example: 144750
         ProfitLossRate:
-          description: "評価損益率"
+          description: "評価損益率<br>追加情報出力フラグ：falseの場合、null"
           type: "number"
           format: "double"
           example: 41.12215909090909
@@ -6705,7 +7261,310 @@ components:
             ChangeRatio: 3.98
             CurrentPriceTime: 15:00
             ChangePercentage: 0.93
-
+    ExchangeResponse:
+      type: "object"
+      properties:
+        Symbol:
+          description: "通貨"
+          type: "string"
+        BidPrice:
+          description: "BID"
+          type: "number"
+          format: "double"
+        Spread:
+          description: "SP"
+          type: "number"
+          format: "double"
+        AskPrice:
+          description: "ASK"
+          type: "number"
+          format: "double"
+        Change:
+          description: "前日比"
+          type: "number"
+          format: "double"
+        Time:
+          description: "時刻 <br>※HH:mm:ss形式"
+          type: "string"
+      example:
+        Symbol: "USD/JPY"
+        BidPrice: 105.502
+        Spread: 0.200
+        AskPrice: 105.504
+        Change: -0.05500
+        Time: "16:10:45"
+    RegulationsResponse:
+      type: "object"
+      properties:
+        Symbol:
+          description: |-
+            銘柄コード<br>
+            ※対象商品は、株式のみ
+          type: "string"
+        RegulationsInfo:
+          description: "規制情報"
+          type: "array"
+          items:
+            type: "object"
+            properties:
+              Exchange:
+                type: "integer"
+                format: "int32"
+                description: |-
+                  規制市場
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>定義値</th>
+                        <th>内容</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>0</td>
+                        <td>全対象</td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>東証</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>名証</td>
+                      </tr>
+                      <tr>
+                        <td>5</td>
+                        <td>福証</td>
+                      </tr>
+                      <tr>
+                        <td>6</td>
+                        <td>札証</td>
+                      </tr>
+                      <tr>
+                        <td>9</td>
+                        <td>SOR</td>
+                      </tr>
+                      <tr>
+                        <td>10</td>
+                        <td>CXJ</td>
+                      </tr>
+                      <tr>
+                        <td>21</td>
+                        <td>JNX</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              Product:
+                type: "integer"
+                format: "int32"
+                description: |-
+                  規制取引区分<br>
+                  ※空売り規制の場合、「4：新規」
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>定義値</th>
+                        <th>内容</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>0</td>
+                        <td>全対象</td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>現物</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>信用新規（制度）</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>信用新規（一般）</td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td>新規</td>
+                      </tr>
+                      <tr>
+                        <td>5</td>
+                        <td>信用返済（制度）</td>
+                      </tr>
+                      <tr>
+                        <td>6</td>
+                        <td>信用返済（一般）</td>
+                      </tr>
+                      <tr>
+                        <td>7</td>
+                        <td>返済</td>
+                      </tr>
+                      <tr>
+                        <td>8</td>
+                        <td>品受</td>
+                      </tr>
+                      <tr>
+                        <td>9</td>
+                        <td>品渡</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              Side:
+                type: "string"
+                description: |-
+                  規制売買<br>
+                  ※空売り規制の場合、「1：売」
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>定義値</th>
+                        <th>内容</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>0</td>
+                        <td>全対象</td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>売</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>買</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              Reason:
+                type: "string"
+                description: "理由<br>※空売り規制の場合、「空売り規制」"
+              LimitStartDay:
+                type: "string"
+                description: "制限開始日<br>yyyy/MM/dd HH:mm形式  <br>※空売り規制の場合、null"
+              LimitEndDay:
+                type: "string"
+                description: "制限終了日<br>yyyy/MM/dd HH:mm形式  <br>※空売り規制の場合、null"
+              Level:
+                type: "integer"
+                format: "int32"
+                description: |-
+                  コンプライアンスレベル<br>
+                  ※空売り規制の場合、null
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>定義値</th>
+                        <th>内容</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>０</td>
+                        <td>規制無し</td>
+                      </tr>
+                      <tr>
+                        <td>１</td>
+                        <td>ワーニング</td>
+                      </tr>
+                      <tr>
+                        <td>２</td>
+                        <td>エラー</td>
+                      </tr>
+                    </tbody>
+                  </table>
+      example:
+        Symbol: "5614"
+        RegulationsInfo: 
+          - Exchange: 1
+            Product: 8
+            Side: 2
+            Reason: "品受停止（貸借申込停止銘柄（日証金規制））"
+            LimitStartDay: "2020/10/01 00:00"
+            LimitEndDay: "2999/12/31 00:00"
+            Level: 2
+          - Exchange: 0
+            Product: 1
+            Side: 2
+            Reason: "その他（代用不適格銘柄）"
+            LimitStartDay: "2021/01/27 00:00"
+            LimitEndDay: "2021/02/17 00:00"
+            Level: 2
+    PrimaryExchangeResponse:
+      type: object
+      properties:
+        Symbol:
+          description: 銘柄コード<br>※対象商品は、株式のみ
+          type: string
+        Exchange:
+          description: |-
+            優先市場
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>東証</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>名証</td>
+                  </tr>
+                  <tr>
+                      <td>5</td>
+                      <td>福証</td>
+                  </tr>
+                  <tr>
+                      <td>6</td>
+                      <td>札証</td>
+                  </tr>
+              </tbody>
+            </table>
+          type: "integer"
+          format: "int32"
+      example:
+        Symbol: "2928"
+        Exchange: 6
+    ApiSoftLimitResponse:
+      type: object
+      properties:
+        Stock:
+          description: "現物のワンショット上限<br>※単位は万円"
+          type: "number"
+          format: "double"
+        Margin:
+          description: 信用のワンショット上限<br>※単位は万円
+          type: "number"
+          format: "double"
+        Future:
+          description: 先物のワンショット上限<br>※単位は枚
+          type: "number"
+          format: "double"
+        FutureMini:
+          description: 先物ミニのワンショット上限<br>※単位は枚
+          type: "number"
+          format: "double"
+        Option:
+          description: オプションのワンショット上限<br>※単位は枚
+          type: "number"
+          format: "double"
+        KabuSVersion:
+          description: kabuステーションのバージョン
+          type: "string"
+      example:
+        Stock: 200
+        Margin: 200
+        Future: 10
+        FutureMini: 100
+        Option: 20
+        KabuSVersion: "5.13.1.0"
+  
     #APIエラー結果
     ErrorResponse:
       type: "object"
@@ -6716,238 +7575,6 @@ components:
           format: "int32"
           example: 4001001
         Message:
-          description: |-
-            エラーメッセージ
-            <table>
-              <thead>
-                  <tr>
-                      <th>エラーコード</th>
-                      <th>エラーメッセージ</th>
-                      <th>説明</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                      <td>4001001</td>
-                      <td>内部エラー</td>
-                      <td>kabuSログファイルを確認<br>してください。</td>
-                  </tr>
-                  <tr>
-                      <td>4001002</td>
-                      <td>トリガキー生成<br>エラー</td>
-                      <td>kabuSログファイルを確認<br>してください。</td>
-                  </tr>
-                  <tr>
-                      <td>4001003</td>
-                      <td>エラー：Uターン</td>
-                      <td>kabuSログファイルを確認<br>してください。</td>
-                  </tr>
-                  <tr>
-                      <td>4001004</td>
-                      <td>トリガ生成エラー</td>
-                      <td>kabuSログファイルを確認<br>してください。</td>
-                  </tr>
-                  <tr>
-                      <td>4001005</td>
-                      <td>パラメータ変換<br>エラー</td>
-                      <td>設定したパラメータはkabu<br>ステーション「システム設<br>定」「注文１」の設定内容<br>と相違がないかを確認して<br>ください。</td>
-                  </tr>
-                  <tr>
-                      <td>4001006</td>
-                      <td>API実行回数エラー</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4001007</td>
-                      <td>ログイン認証エラー</td>
-                      <td>kabuステーションにログイン<br>しているかを確認し<br>てください。</td>
-                  </tr>
-                  <tr>
-                      <td>4001008</td>
-                      <td>API利用不可</td>
-                      <td>API利用設定が完了して<br>いるかを確認してください。</td>
-                  </tr>
-                  <tr>
-                      <td>4001009</td>
-                      <td>APIキー不一致</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4001010</td>
-                      <td>クエリ文字列不正</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4001011</td>
-                      <td>リクエスト文字列不正</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4001012</td>
-                      <td>リクエスト不正</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4001013</td>
-                      <td>トークン取得失敗：<br>kabuステーションが<br>ログインして<br>いる状態で、API<br>パスワードが不正</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4001014</td>
-                      <td>許可されていない<br>HTTPメソッド</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4001015</td>
-                      <td>ContentLength超過</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4001016</td>
-                      <td>サポートされていない<br>メディアタイプ</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4001017</td>
-                      <td>ログイン認証<br>エラー：kabuS<br>ステーション未<br>ログイン状態。</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4001018</td>
-                      <td>銘柄が登録<br>できませんでした</td>
-                      <td>登録銘柄上限数（50銘柄）<br>以上の銘柄をリクエスト<br>していないかを確認して<br>ください。</td>
-                  </tr>
-                  <tr>
-                      <td>4001019</td>
-                      <td>一部の銘柄が登録<br>できませんでした</td>
-                      <td>登録銘柄上限数（50銘柄）<br>以上の銘柄をリクエスト<br>していないかを確認して<br>ください。</td>
-                  </tr>
-                  <tr>
-                      <td>4001020</td>
-                      <td>銘柄が解除<br>できませんでした</td>
-                      <td>銘柄が登録されているかを確認して<br>ください。</td>
-                  </tr>
-                  <tr>
-                      <td>4001021</td>
-                      <td>一部の銘柄が解除<br>できませんでした</td>
-                      <td>登録銘柄上限数（50銘柄）<br>以上の銘柄をリクエスト<br>していないかを確認して<br>ください。</td>
-                  </tr>
-                  <tr>
-                      <td>4002001</td>
-                      <td>銘柄が見つから<br>ない</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4002002</td>
-                      <td>執行条件エラー</td>
-                      <td>FrontOrderTypeを確認して<br>ください。</td>
-                  </tr>
-                  <tr>
-                      <td>4002003</td>
-                      <td>執行条件エラー</td>
-                      <td>FrontOrderTypeを確認して<br>ください。</td>
-                  </tr>
-                  <tr>
-                      <td>4002004</td>
-                      <td>トリガチェック<br>エラー - 詳細はkabuS<br>ログファイルを確認<br>してください</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4002005</td>
-                      <td>商品エラー</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4002006</td>
-                      <td>レジスト数エラー</td>
-                      <td>登録銘柄上限数（50銘柄）<br>以上の銘柄をリクエスト<br>していないかを確認し<br>てください。</td>
-                  </tr>
-                  <tr>
-                      <td>4002007</td>
-                      <td>パラメータ不正：<br>AccountType -<br> 詳細はkabuS<br>ログファイルを<br>確認してください</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4002008</td>
-                      <td>パラメータ不正：<br>Side -<br> 詳細はkabuS<br>ログファイルを<br>確認してください</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4002009</td>
-                      <td>パラメータ不正：<br>CashMargin -<br> 詳細はkabuS<br>ログファイルを<br>確認してください</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4002010</td>
-                      <td>パラメータ不正：<br>DelivType -<br> 詳細はkabuS<br>ログファイルを<br>確認してください</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4002011</td>
-                      <td>パラメータ不正：<br>FundType -<br> 詳細はkabuS<br>ログファイルを<br>確認してください</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4002012</td>
-                      <td>パラメータ不正：<br>FrontOrderType -<br> 詳細はkabuS<br>ログファイルを<br>確認してください</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4002013</td>
-                      <td>パラメータ不正：<br>MarginTradeType -<br> 詳細はkabuS<br>ログファイルを<br>確認してください</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4002014</td>
-                      <td>パラメータ不正：<br>TimeInForce -<br> 詳細はkabuS<br>ログファイルを確認<br>してください</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4002015</td>
-                      <td>パラメータ不正：<br>返済順指定と返済<br>指定は同時に設定<br>できない</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4002016</td>
-                      <td>パラメータ不正：<br>DelivType -<br> 詳細はkabuS<br>ログファイルを確認<br>してください</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4002017</td>
-                      <td>パラメータ不正：<br>値段指定エラー</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4002018</td>
-                      <td>パラメータ不正：<br>IOC対象銘柄では<br>ない - 詳細はkabuS<br>ログファイルを<br>確認してください</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4002021</td>
-                      <td>取引期日を過ぎた<br>取引であるか、<br>有効な銘柄ではない<br>ため取引できません</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4003001</td>
-                      <td>ワンショット：金額エラー</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4003002</td>
-                      <td>ワンショット：数量エラー</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4004001</td>
-                      <td>該当注文なしエラー</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>4004002</td>
-                      <td>取消不可</td>
-                      <td></td>
-                  </tr>
-              </tbody>
-            </table>
+          description: "[エラーメッセージ](../ptal/error.html#message)"
           type: "string"
           example: "内部エラー"
