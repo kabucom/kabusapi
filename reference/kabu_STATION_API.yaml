@@ -7479,14 +7479,14 @@ components:
         RegulationsInfo: 
           - Exchange: 1
             Product: 8
-            Side: 2
+            Side: '2'
             Reason: "品受停止（貸借申込停止銘柄（日証金規制））"
             LimitStartDay: "2020/10/01 00:00"
             LimitEndDay: "2999/12/31 00:00"
             Level: 2
           - Exchange: 0
             Product: 1
-            Side: 2
+            Side: '2'
             Reason: "その他（代用不適格銘柄）"
             LimitStartDay: "2021/01/27 00:00"
             LimitEndDay: "2021/02/17 00:00"
