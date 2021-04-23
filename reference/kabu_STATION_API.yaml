@@ -7497,7 +7497,7 @@ components:
         Symbol:
           description: 銘柄コード<br>※対象商品は、株式のみ
           type: string
-        Exchange:
+        PrimaryExchange:
           description: |-
             優先市場
             <table>
