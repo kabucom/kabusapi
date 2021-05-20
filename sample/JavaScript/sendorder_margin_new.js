@@ -1,18 +1,24 @@
-<script>
 var data = {
  'Password': '123456',
  'Symbol': '9433',
  'Exchange': 1,
  'SecurityType': 1,
- 'FrontOrderType': 20,
  'Side': '2',
  'CashMargin': 2,
  'MarginTradeType': 2,
  'DelivType': 0,
  'AccountType': 2,
  'Qty': 100,
+ 'FrontOrderType': 20,
  'Price': 2762.5,
- 'ExpireDay': 20200924
+ 'ExpireDay': 0,
+ 'ReverseLimitOrder': {
+                       'TriggerSec': 2,
+                       'TriggerPrice': 30000,
+                       'UnderOver': 2,
+                       'AfterHitOrderType': 2,
+                       'AfterHitPrice': 8435
+                      }
 }
 var url = 'http://localhost:18080/kabusapi/sendorder';
 var apikey = '8a8b00d5bcbd4efe9f24d064a94c55bc';
@@ -40,4 +46,4 @@ fetch(url, {
   .catch(e => {
     console.log(e.message);
   });
-</script>
+

@@ -6,16 +6,27 @@ obj = { 'Password': '123456',
         'Symbol': '9433',
         'Exchange': 1,
         'SecurityType': 1,
-        'FrontOrderType': 20,
         'Side': '1',
         'CashMargin': 3,
         'MarginTradeType': 1,
         'DelivType': 2,
-        'AccountType': 4,
+        'AccountType': 2,
         'Qty': 200,
-        'ClosePositions': [{'HoldID':'E20200924*****','Qty':100},{'HoldID':'E20200924*****','Qty':100}],
+        'ClosePositions': [
+                            {'HoldID':'E20200924*****','Qty':100},
+                            {'HoldID':'E20200924*****','Qty':100}
+                          ],
+        'FrontOrderType': 30,
         'Price': 2762.5,
-        'ExpireDay': 20200924 }
+        'ExpireDay': 0,
+        'ReverseLimitOrder': {
+                               'TriggerSec': 2, #1.発注銘柄 2.NK225指数 3.TOPIX指数
+                               'TriggerPrice': 30000,
+                               'UnderOver': 2, #1.以下 2.以上
+                               'AfterHitOrderType': 2, #1.成行 2.指値 3. 不成
+                               'AfterHitPrice': 8435
+                               }
+       }
 json_data = json.dumps(obj).encode('utf-8')
 
 url = 'http://localhost:18080/kabusapi/sendorder'

@@ -3,15 +3,22 @@ var data = {
  'Symbol': '9433',
  'Exchange': 1,
  'SecurityType': 1,
- 'FrontOrderType': 20,
  'Side': '2',
  'CashMargin': 1,
  'DelivType': 2,
  'FundType': 'AA',
  'AccountType': 2,
  'Qty': 100,
+ 'FrontOrderType': 20,
  'Price': 2762.5,
- 'ExpireDay': 20200924
+ 'ExpireDay': 0,
+ 'ReverseLimitOrder': {
+			           'TriggerSec': 3,
+			           'TriggerPrice': 1600,
+			           'UnderOver': 2, 
+			           'AfterHitOrderType': 1,
+			           'AfterHitPrice': 0
+		   			  }
 }
 var url = 'http://localhost:18080/kabusapi/sendorder';
 var apikey = '8a8b00d5bcbd4efe9f24d064a94c55bc';

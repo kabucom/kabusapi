@@ -3479,6 +3479,11 @@ components:
                       <td>IOC指値</td>
                       <td>発注したい金額</td>
                   </tr>
+                  <tr>
+                      <td>30</td>
+                      <td>逆指値</td>
+                      <td></td>
+                  </tr>
               </tbody>
             </table>
           type: "integer"
@@ -3502,6 +3507,142 @@ components:
           type: "integer"
           format: "int32"
           example: 20200903
+        ReverseLimitOrder:
+          description: |-
+            逆指値条件<br>
+            ※FrontOrderTypeで逆指値を指定した場合のみ必須。
+          type: "object"
+          required:
+            - TriggerSec
+            - TriggerPrice
+            - UnderOver
+            - AfterHitOrderType
+            - AfterHitPrice
+          properties:
+            TriggerSec:
+              description: |-
+                トリガ銘柄<br>
+                ※未設定の場合はエラーになります。
+                <table>
+                  <thead>
+                      <tr>
+                          <th>定義値</th>
+                          <th>説明</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>発注銘柄</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>NK225指数</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>TOPIX指数</td>
+                    </tr>
+                  </tbody>
+                </table>
+              type: "integer"
+              format: "int32"
+              example: 1
+            TriggerPrice:
+              description: |-
+                トリガ価格<br>
+                ※未設定の場合はエラーになります。<br>
+                ※数字以外が設定された場合はエラーになります。
+              type: "number"
+              format: "double"
+              example: 40000
+            UnderOver:
+              description: |-
+                以上／以下<br>
+                ※未設定の場合はエラーになります。<br>
+                ※1、2以外が指定された場合はエラーになります。
+                <table>
+                  <thead>
+                      <tr>
+                          <th>定義値</th>
+                          <th>説明</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>以下</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>以上</td>
+                    </tr>
+                  </tbody>
+                </table>
+              type: "integer"
+              format: "int32"
+              example: 2
+            AfterHitOrderType:
+              description: |-
+                ヒット後執行条件<br>
+                ※未設定の場合はエラーになります。<br>
+                ※1、2、3以外が指定された場合はエラーになります。
+                <table>
+                  <thead>
+                      <tr>
+                          <th>定義値</th>
+                          <th>説明</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>成行</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>指値</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>不成</td>
+                    </tr>
+                  </tbody>
+                </table>
+              type: "integer"
+              format: "int32"
+              example: 1
+            AfterHitPrice:
+              description: |-
+                ヒット後注文価格<br>
+                ※未設定の場合はエラーになります。<br>
+                ※数字以外が設定された場合はエラーになります。<br><br>
+                ヒット後執行条件に従い、下記のようにヒット後注文価格を設定してください。	
+                <table>
+                  <thead>
+                      <tr>
+                          <th>ヒット後執行条件</th>
+                          <th>設定価格</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>成行</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <td>指値</td>
+                      <td>指値の単価</td>
+                    </tr>
+                    <tr>
+                      <td>不成</td>
+                      <td>不成の単価</td>
+                    </tr>
+                  </tbody>
+                </table>
+              type: "number"
+              format: "double"
+              example: 0
     RequestSendOrderDerivFuture:
       type: "object"
       required:
@@ -3589,15 +3730,15 @@ components:
               <tbody>
                   <tr>
                       <td>1</td>
-                      <td>FAS<br>※FASを指定した場合、FrontOrderTypeは指値(20)のみ指定可能。</td>
+                      <td>FAS<br>※逆指値注文以外の場合、FASを指定した場合、FrontOrderTypeは指値(20)のみ指定可能。</td>
                   </tr>
                   <tr>
                       <td>2</td>
-                      <td>FAK<br>※FAKを指定した場合、Exchangeは日中(23)、夜間(24)のみ指定可能。</td>
+                      <td>FAK<br>※逆指値注文以外の場合、FAKを指定した場合、Exchangeは日中(23)、夜間(24)のみ指定可能。</td>
                   </tr>
                   <tr>
                       <td>3</td>
-                      <td>FOK<br>※FOKを指定した場合、Exchangeは日中(23)、夜間(24)のみ指定可能。</td>
+                      <td>FOK<br>※逆指値注文以外の場合、FOKを指定した場合、Exchangeは日中(23)、夜間(24)のみ指定可能。</td>
                   </tr>
               </tbody>
             </table>
@@ -3713,6 +3854,11 @@ components:
                       <td>発注したい金額</td>
                   </tr>
                   <tr>
+                      <td>30</td>
+                      <td>逆指値</td>
+                      <td></td>
+                  </tr>
+                  <tr>
                       <td>120</td>
                       <td>成行（マーケットオーダー）</td>
                       <td>0</td>
@@ -3741,6 +3887,107 @@ components:
           type: "integer"
           format: "int32"
           example: 20200903
+        ReverseLimitOrder:
+          description: |-
+            逆指値条件<br>
+            ※FrontOrderTypeで逆指値を指定した場合のみ必須。
+          type: "object"
+          required:
+            - TriggerPrice
+            - UnderOver
+            - AfterHitOrderType
+            - AfterHitPrice
+          properties:
+            TriggerPrice:
+              description: |-
+                トリガ価格<br>
+                ※未設定の場合はエラーになります。<br>
+                ※数字以外が設定された場合はエラーになります。
+              type: "number"
+              format: "double"
+              example: 100
+            UnderOver:
+              description: |-
+                以上／以下<br>
+                ※未設定の場合はエラーになります。<br>
+                ※1、2以外が指定された場合はエラーになります。
+                <table>
+                  <thead>
+                      <tr>
+                          <th>定義値</th>
+                          <th>説明</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>以下</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>以上</td>
+                    </tr>
+                  </tbody>
+                </table>
+              type: "integer"
+              format: "int32"
+              example: 1
+            AfterHitOrderType:
+              description: |-
+                ヒット後執行条件<br>
+                ※未設定の場合はエラーになります。<br>
+                ※日通の注文で2以外が指定された場合はエラーになります。<br>
+                ※日中、夜間の注文で1、2以外が指定された場合はエラーになります。<br>
+                ※逆指値（成行）で有効期間条件(TimeInForce)にFAK以外を指定された場合はエラーになります。<br>
+                ※逆指値（指値）で有効期間条件(TimeInForce)にFAS以外を指定された場合はエラーになります。
+                <table>
+                  <thead>
+                      <tr>
+                          <th>定義値</th>
+                          <th>説明</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>成行</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>指値</td>
+                    </tr>
+                  </tbody>
+                </table>
+              type: "integer"
+              format: "int32"
+              example: 1
+            AfterHitPrice:
+              description: |-
+                ヒット後注文価格<br>
+                ※未設定の場合はエラーになります。<br>
+                ※数字以外が設定された場合はエラーになります。<br><br>
+                ヒット後執行条件に従い、下記のようにヒット後注文価格を設定してください。	
+                <table>
+                  <thead>
+                      <tr>
+                          <th>ヒット後執行条件</th>
+                          <th>設定価格</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>成行</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <td>指値</td>
+                      <td>指値の単価</td>
+                    </tr>
+                  </tbody>
+                </table>
+              type: "number"
+              format: "double"
+              example: 0
     RequestSendOrderDerivOption:
       type: "object"
       required:
@@ -3828,15 +4075,15 @@ components:
               <tbody>
                   <tr>
                       <td>1</td>
-                      <td>FAS<br>※FASを指定した場合、FrontOrderTypeは指値(20)のみ指定可能。</td>
+                      <td>FAS<br>※逆指値注文以外の場合、FASを指定した場合、FrontOrderTypeは指値(20)のみ指定可能。</td>
                   </tr>
                   <tr>
                       <td>2</td>
-                      <td>FAK<br>※FAKを指定した場合、Exchangeは日中(23)、夜間(24)のみ指定可能。</td>
+                      <td>FAK<br>※逆指値注文以外の場合、FAKを指定した場合、Exchangeは日中(23)、夜間(24)のみ指定可能。</td>
                   </tr>
                   <tr>
                       <td>3</td>
-                      <td>FOK<br>※FOKを指定した場合、Exchangeは日中(23)、夜間(24)のみ指定可能。</td>
+                      <td>FOK<br>※逆指値注文以外の場合、FOKを指定した場合、Exchangeは日中(23)、夜間(24)のみ指定可能。</td>
                   </tr>
               </tbody>
             </table>
@@ -3952,6 +4199,11 @@ components:
                       <td>発注したい金額</td>
                   </tr>
                   <tr>
+                      <td>30</td>
+                      <td>逆指値</td>
+                      <td></td>
+                  </tr>
+                  <tr>
                       <td>120</td>
                       <td>成行（マーケットオーダー）</td>
                       <td>0</td>
@@ -3980,6 +4232,107 @@ components:
           type: "integer"
           format: "int32"
           example: 20200903
+        ReverseLimitOrder:
+          description: |-
+            逆指値条件<br>
+            ※FrontOrderTypeで逆指値を指定した場合のみ必須。
+          type: "object"
+          required:
+            - TriggerPrice
+            - UnderOver
+            - AfterHitOrderType
+            - AfterHitPrice
+          properties:
+            TriggerPrice:
+              description: |-
+                トリガ価格<br>
+                ※未設定の場合はエラーになります。<br>
+                ※数字以外が設定された場合はエラーになります。
+              type: "number"
+              format: "double"
+              example: 100
+            UnderOver:
+              description: |-
+                以上／以下<br>
+                ※未設定の場合はエラーになります。<br>
+                ※1、2以外が指定された場合はエラーになります。
+                <table>
+                  <thead>
+                      <tr>
+                          <th>定義値</th>
+                          <th>説明</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>以下</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>以上</td>
+                    </tr>
+                  </tbody>
+                </table>
+              type: "integer"
+              format: "int32"
+              example: 1
+            AfterHitOrderType:
+              description: |-
+                ヒット後執行条件<br>
+                ※未設定の場合はエラーになります。<br>
+                ※日通の注文で2以外が指定された場合はエラーになります。<br>
+                ※日中、夜間の注文で1、2以外が指定された場合はエラーになります。<br>
+                ※逆指値（成行）で有効期間条件(TimeInForce)にFAK以外を指定された場合はエラーになります。<br>
+                ※逆指値（指値）で有効期間条件(TimeInForce)にFAS以外を指定された場合はエラーになります。
+                <table>
+                  <thead>
+                      <tr>
+                          <th>定義値</th>
+                          <th>説明</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>成行</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>指値</td>
+                    </tr>
+                  </tbody>
+                </table>
+              type: "integer"
+              format: "int32"
+              example: 1
+            AfterHitPrice:
+              description: |-
+                ヒット後注文価格<br>
+                ※未設定の場合はエラーになります。<br>
+                ※数字以外が設定された場合はエラーになります。<br><br>
+                ヒット後執行条件に従い、下記のようにヒット後注文価格を設定してください。	
+                <table>
+                  <thead>
+                      <tr>
+                          <th>ヒット後執行条件</th>
+                          <th>設定価格</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>成行</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <td>指値</td>
+                      <td>指値の単価</td>
+                    </tr>
+                  </tbody>
+                </table>
+              type: "number"
+              format: "double"
+              example: 0
     Positions:
       type: "object"
       properties:
@@ -5174,6 +5527,74 @@ components:
           type: "number"
           format: "double"
           example: 0.4794
+        SecurityType:
+          description: |-
+            銘柄種別
+            <table>
+              <thead>
+                <tr>
+                  <th>定義値</th>
+                  <th>説明</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>0</td>
+                  <td>指数</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>現物</td>
+                </tr>
+                <tr>
+                  <td>101</td>
+                  <td>日経225先物</td>
+                </tr>
+                <tr>
+                  <td>103</td>
+                  <td>日経225OP</td>
+                </tr>
+                <tr>
+                  <td>107</td>
+                  <td>TOPIX先物</td>
+                </tr>
+                <tr>
+                  <td>121</td>
+                  <td>JPX400先物</td>
+                </tr>
+                <tr>
+                  <td>144</td>
+                  <td>NYダウ</td>
+                </tr>
+                <tr>
+                  <td>145</td>
+                  <td>日経平均VI</td>
+                </tr>
+                <tr>
+                  <td>154</td>
+                  <td>東証マザーズ指数先物</td>
+                </tr>
+                <tr>
+                  <td>155</td>
+                  <td>TOPIX_REIT</td>
+                </tr>
+                <tr>
+                  <td>171</td>
+                  <td>TOPIX CORE30</td>
+                </tr>
+                <tr>
+                  <td>901</td>
+                  <td>日経平均225ミニ先物</td>
+                </tr>
+                <tr>
+                  <td>907</td>
+                  <td>TOPIXミニ先物</td>
+                </tr>
+              </tbody>
+            </table>
+          type: "integer"
+          format: int32
+          example: 101
     RegistSuccess:
       type: "object"
       properties:
