@@ -9,9 +9,16 @@ obj = { 'Password': '123456',
         'TimeInForce': 2,
         'Side': '1',
         'Qty': 5,
+        'FrontOrderType': 30,
         'Price': 0,
-        'ExpireDay': 20200924,
-        'FrontOrderType': 120 }
+        'ExpireDay': 0,
+        'ReverseLimitOrder': {
+                               'TriggerPrice': 1150,
+                               'UnderOver': 1, #1.以下 2.以上
+                               'AfterHitOrderType': 1, #1.成行 2.指値
+                               'AfterHitPrice': 0
+                             }
+      }
 json_data = json.dumps(obj).encode('utf-8')
 
 url = 'http://localhost:18080/kabusapi/sendorder/option'

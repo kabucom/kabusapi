@@ -6,9 +6,15 @@ var data = {
  'TimeInForce': 2,
  'Side': '1',
  'Qty': 5,
+ 'FrontOrderType': 120,
  'Price': 0,
- 'ExpireDay': 20200924,
- 'FrontOrderType': 120
+ 'ExpireDay': 0,
+ 'ReverseLimitOrder': {
+                       'TriggerPrice': 1150,
+                       'UnderOver': 1,
+                       'AfterHitOrderType': 1,
+                       'AfterHitPrice': 0
+                      }
 }
 var url = 'http://localhost:18080/kabusapi/sendorder/option';
 var apikey = '8a8b00d5bcbd4efe9f24d064a94c55bc';

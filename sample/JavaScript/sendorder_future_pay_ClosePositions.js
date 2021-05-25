@@ -6,10 +6,19 @@ var data = {
  'TimeInForce': 1,
  'Side': '2',
  'Qty': 3,
- 'ClosePositions': [{'HoldID':'E20200924*****','Qty':2},{'HoldID':'E20200924*****','Qty':1}],
+ 'ClosePositions': [
+                    {'HoldID':'E20200924*****','Qty':2},
+                    {'HoldID':'E20200924*****','Qty':1}
+                   ],
+ 'FrontOrderType': 20,
  'Price': 22000,
- 'ExpireDay': 20200925,
- 'FrontOrderType': 20
+ 'ExpireDay': 0,
+ 'ReverseLimitOrder': {
+                       'TriggerPrice': 26010,
+                       'UnderOver': 2,
+                       'AfterHitOrderType': 1,
+                       'AfterHitPrice': 0
+                      }
 }
 var url = 'http://localhost:18080/kabusapi/sendorder/future';
 var apikey = '8a8b00d5bcbd4efe9f24d064a94c55bc';

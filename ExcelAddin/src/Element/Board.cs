@@ -204,6 +204,9 @@ namespace KabuSuteAddin.Elements
 
         [DataMember(Name = "Delta")]
         public double Delta { get; set; }
+
+        [DataMember(Name = "SecurityType")]
+        public int SecurityType { get; set; }
     }
 
     [DataContract]
@@ -262,7 +265,7 @@ namespace KabuSuteAddin.Elements
 
 public class BoardResult
     {
-        private const int BoardCol = 86;
+        private const int BoardCol = 87;
 
         private static object BoardToArray(dynamic objectJson)
         {
@@ -457,6 +460,7 @@ public class BoardResult
             array[83] = BoardData.Theta;
             array[84] = BoardData.Vega;
             array[85] = BoardData.Delta;
+            array[86] = BoardData.SecurityType;
 
             return array;
         }
@@ -735,6 +739,9 @@ public class BoardResult
 
                 case "デルタ":
                     return BoardData.Delta;
+
+                case "銘柄種別":
+                    return BoardData.SecurityType;
 
                 default:
                     return "";

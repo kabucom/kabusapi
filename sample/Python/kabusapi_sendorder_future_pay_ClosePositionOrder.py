@@ -6,13 +6,20 @@ obj = { 'Password': '123456',
         'Symbol': '165120018',
         'Exchange': 23,
         'TradeType': 2,
-        'TimeInForce': 1,
+        'TimeInForce': 2,
         'Side': '2',
         'Qty': 3,
         'ClosePositionOrder': 1,
+        'FrontOrderType': 30
         'Price': 22000,
-        'ExpireDay': 20200925,
-        'FrontOrderType': 20 }
+        'ExpireDay': 0,
+        'ReverseLimitOrder': {
+                               'TriggerPrice': 26010,
+                               'UnderOver': 2, #1.以下 2.以上
+                               'AfterHitOrderType': 1, #1.成行 2.指値
+                               'AfterHitPrice': 0
+                             }
+      }
 json_data = json.dumps(obj).encode('utf-8')
 
 url = 'http://localhost:18080/kabusapi/sendorder/future'

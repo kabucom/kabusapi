@@ -3,16 +3,26 @@ var data = {
  'Symbol': '9433',
  'Exchange': 1,
  'SecurityType': 1,
- 'FrontOrderType': 20,
  'Side': '1',
  'CashMargin': 3,
  'MarginTradeType': 1,
  'DelivType': 2,
- 'AccountType': 4,
+ 'AccountType': 2,
  'Qty': 200,
- 'ClosePositions': [{'HoldID':'E20200924*****','Qty':100},{'HoldID':'E20200924*****','Qty':100}],
+ 'ClosePositions': [
+                    {'HoldID':'E20200924*****','Qty':100},
+                    {'HoldID':'E20200924*****','Qty':100}
+                   ],
+ 'FrontOrderType': 20,
  'Price': 2762.5,
- 'ExpireDay': 20200924
+ 'ExpireDay': 0,
+ 'ReverseLimitOrder': {
+                       'TriggerSec': 2,
+                       'TriggerPrice': 30000,
+                       'UnderOver': 2,
+                       'AfterHitOrderType': 2,
+                       'AfterHitPrice': 8435
+                      }
 }
 var url = 'http://localhost:18080/kabusapi/sendorder';
 var apikey = '8a8b00d5bcbd4efe9f24d064a94c55bc';
