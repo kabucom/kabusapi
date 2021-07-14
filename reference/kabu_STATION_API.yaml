@@ -49,7 +49,7 @@ paths:
         - "auth"
       summary: "トークン発行"
       description: |-
-        <span style=\"normal-text\">APIトークンを発行します。</span><br>
+        APIトークンを発行します。<br>
         発行したトークンは有効である限り使用することができ、リクエストごとに発行する必要はありません。<br>
         発行されたAPIトークンは以下のタイミングで無効となります。<br>
         ・kabuステーションを終了した時<br>
