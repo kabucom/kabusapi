@@ -1249,7 +1249,12 @@ paths:
             </table>
       responses:
         "200":
-          description: OK
+          x-summary: OK
+          description: |-
+            ※①：レスポンスにある「Bid」と「Ask」は、本来の意味である「買気配」と「売気配」と逆になっております。実際に返却される値は日本語の説明に準じたものになりますので、ご注意いただきますようお願い申し上げます。ご迷惑をおかけしまして、誠に申し訳ございません。<br><br>
+            影響するキー名：<br>
+            BidQty, BidPrice, BidTime, BidSign<br>
+            AskQty, AskPrice, AskTime, AskSign
           content:
             application/json:
               schema:
@@ -3241,11 +3246,11 @@ components:
                   </tr>
                   <tr>
                       <td>2</td>
-                      <td>一般信用</td>
+                      <td>一般信用（長期）</td>
                   </tr>
                   <tr>
                       <td>3</td>
-                      <td>一般信用（売短）</td>
+                      <td>一般信用（デイトレ）</td>
                   </tr>
               </tbody>
             </table>
@@ -4901,23 +4906,23 @@ components:
           format: "double"
           example: 10946119350.0
         BidQty:
-          description: "最良売気配数量<br>※株式・先物・オプション銘柄の場合のみ"
+          description: "最良売気配数量 ※①<br>※株式・先物・オプション銘柄の場合のみ"
           type: "number"
           format: "double"
           example: 100.0
         BidPrice:
-          description: "最良売気配値段<br>※株式・先物・オプション銘柄の場合のみ"
+          description: "最良売気配値段 ※①<br>※株式・先物・オプション銘柄の場合のみ"
           type: "number"
           format: "double"
           example: 2408.5000
         BidTime:
-          description: "最良売気配時刻<br>※株式銘柄の場合のみ"
+          description: "最良売気配時刻 ※①<br>※株式銘柄の場合のみ"
           type: "string"
           format: "date-time"
           example: "2020-07-22T14:59:59+09:00"
         BidSign:
           description: |-
-            最良売気配フラグ<br>※株式・先物・オプション銘柄の場合のみ
+            最良売気配フラグ ※①<br>※株式・先物・オプション銘柄の場合のみ
             <table>
               <thead>
                   <tr>
@@ -5192,23 +5197,23 @@ components:
               format: "double"
               example: 16400.0
         AskQty:
-          description: "最良買気配数量<br>※株式・先物・オプション銘柄の場合のみ"
+          description: "最良買気配数量 ※①<br>※株式・先物・オプション銘柄の場合のみ"
           type: "number"
           format: "double"
           example: 200.0
         AskPrice:
-          description: "最良買気配値段<br>※株式・先物・オプション銘柄の場合のみ"
+          description: "最良買気配値段 ※①<br>※株式・先物・オプション銘柄の場合のみ"
           type: "number"
           format: "double"
           example: 2407.5000
         AskTime:
-          description: "最良買気配時刻<br>※株式銘柄の場合のみ"
+          description: "最良買気配時刻 ※①<br>※株式銘柄の場合のみ"
           type: "string"
           format: "date-time"
           example: "2020-07-22T14:59:59+09:00"
         AskSign:
           description: |-
-            最良買気配フラグ<br>※株式・先物・オプション銘柄の場合のみ
+            最良買気配フラグ ※①<br>※株式・先物・オプション銘柄の場合のみ
             <table>
               <thead>
                   <tr>
@@ -6435,7 +6440,10 @@ components:
           format: "double"
           example: 704.5
         OrderQty:
-          description: "発注数量"
+          description: |-
+            発注数量<br>
+            ※注文期限切れと失効の場合、OrderQtyはゼロになりません。<br>
+            ※期限切れと失効の確認方法としては、DetailsのRecType（3: 期限切れ、7: 失効）にてご確認ください。
           type: "number"
           format: "double"
           example: 1500
@@ -6550,7 +6558,8 @@ components:
           example: 20200702
         MarginTradeType:
           description: |-
-            信用取引区分
+            信用取引区分<br>
+            ※信用を注文した際に表示されます。
             <table>
               <thead>
                   <tr>
@@ -6565,17 +6574,27 @@ components:
                   </tr>
                   <tr>
                       <td>2</td>
-                      <td>一般信用</td>
+                      <td>一般信用（長期）</td>
                   </tr>
                   <tr>
                       <td>3</td>
-                      <td>一般信用（売短）</td>
+                      <td>一般信用（デイトレ）</td>
                   </tr>
               </tbody>
             </table>
           type: "integer"
           format: "int32"
           example: 1
+        MarginPremium:
+          description: |- 
+            プレミアム料<br>
+            ※（注文中数量＋約定済数量）×１株あたりプレミアム料として計算されます。<br>
+            ※信用を注文した際に表示されます。<br>
+            ※制度信用売/買、一般（長期）買、一般（デイトレ）買の場合は、Noneと返されます。<br>
+            一般（長期）売、一般（デイトレ）売の場合は、プレミアム料=0の場合、0（ゼロ）と返されます。
+          type: "number"
+          format: "double"
+          example: 
         Details:
           description: "注文詳細"
           type: "array"
@@ -6933,11 +6952,11 @@ components:
                   </tr>
                   <tr>
                       <td>2</td>
-                      <td>一般信用</td>
+                      <td>一般信用（長期）</td>
                   </tr>
                   <tr>
                       <td>3</td>
-                      <td>一般信用（売短）</td>
+                      <td>一般信用（デイトレ）</td>
                   </tr>
               </tbody>
             </table>

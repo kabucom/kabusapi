@@ -67,6 +67,8 @@ namespace KabuSuteAddin.Elements
         [DataMember(Name = "MarginTradeType")]
         public double MarginTradeType { get; set; }
 
+        [DataMember(Name = "MarginPremium")]
+        public double MarginPremium { get; set; }
 
         [DataMember(Name = "Details")]
         public List<OrderDetails> Details { get; set; }
@@ -121,8 +123,8 @@ namespace KabuSuteAddin.Elements
 
     public class Orders
     {
-        private const int OrdersColDetails = 33;
-        private const int OrdersColNoDetails = 19;
+        private const int OrdersColDetails = 34;
+        private const int OrdersColNoDetails = 20;
 
         [ExcelFunction(IsHidden = true)]
         public static object OrdersDataToArray(dynamic objectJson)
@@ -164,6 +166,7 @@ namespace KabuSuteAddin.Elements
                 array[row, 16] = OrdersArray[i].DelivType;
                 array[row, 17] = OrdersArray[i].ExpireDay;
                 array[row, 18] = OrdersArray[i].MarginTradeType;
+                array[row, 19] = OrdersArray[i].MarginPremium;
 
                 if (DetailRows != 0)
                 {
@@ -174,25 +177,25 @@ namespace KabuSuteAddin.Elements
                         {
                             // 2列目以降の前半は空データを表示
                             // 配列数式の変換処理を行うとnullの場合エクセルに0が表示されるため
-                            for (int col = 0; col < 19; col++)
+                            for (int col = 0; col < 20; col++)
                             {
                                 array[row, col] = "";
                             }
                         }
-                        array[row, 19] = OrdersArray[i].Details[j].SeqNum;
-                        array[row, 20] = OrdersArray[i].Details[j].ID ?? "";
-                        array[row, 21] = OrdersArray[i].Details[j].RecType;
-                        array[row, 22] = OrdersArray[i].Details[j].ExchangeID ?? "";
-                        array[row, 23] = OrdersArray[i].Details[j].State;
-                        array[row, 24] = OrdersArray[i].Details[j].TransactTime ?? "";
-                        array[row, 25] = OrdersArray[i].Details[j].OrdType;
-                        array[row, 26] = OrdersArray[i].Details[j].Price;
-                        array[row, 27] = OrdersArray[i].Details[j].Qty;
-                        array[row, 28] = OrdersArray[i].Details[j].ExecutionID ?? "";
-                        array[row, 29] = OrdersArray[i].Details[j].ExecutionDay ?? "";
-                        array[row, 30] = OrdersArray[i].Details[j].DelivDay;
-                        array[row, 31] = OrdersArray[i].Details[j].Commission;
-                        array[row, 32] = OrdersArray[i].Details[j].CommissionTax;
+                        array[row, 20] = OrdersArray[i].Details[j].SeqNum;
+                        array[row, 21] = OrdersArray[i].Details[j].ID ?? "";
+                        array[row, 22] = OrdersArray[i].Details[j].RecType;
+                        array[row, 23] = OrdersArray[i].Details[j].ExchangeID ?? "";
+                        array[row, 24] = OrdersArray[i].Details[j].State;
+                        array[row, 25] = OrdersArray[i].Details[j].TransactTime ?? "";
+                        array[row, 26] = OrdersArray[i].Details[j].OrdType;
+                        array[row, 27] = OrdersArray[i].Details[j].Price;
+                        array[row, 28] = OrdersArray[i].Details[j].Qty;
+                        array[row, 29] = OrdersArray[i].Details[j].ExecutionID ?? "";
+                        array[row, 30] = OrdersArray[i].Details[j].ExecutionDay ?? "";
+                        array[row, 31] = OrdersArray[i].Details[j].DelivDay;
+                        array[row, 32] = OrdersArray[i].Details[j].Commission;
+                        array[row, 33] = OrdersArray[i].Details[j].CommissionTax;
                         row++;
                     }
                 }
@@ -200,12 +203,7 @@ namespace KabuSuteAddin.Elements
                 {
                     row++;
                 }
-
-
             }
-            
-            
-
             return array;
         }
 
