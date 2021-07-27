@@ -1,0 +1,124 @@
+【前提】
+以下の3点がインストールされていること
+- .Net Framework 4.6
+- IDE support .NET framework
+- Microsoft Visual Studio
+
+【注意】
+初回利用時に、依存関係の欠落によるエラーが発生する可能性がございます。その際は次のように参照を追加してください。
+
+■Newtonsoft.Jsonがない場合
+1. \CSharp_sample\CSharp配下の「CSharp_sample.sln」をクリックする
+2. Solution Explorerを開く
+3. プロジェクト「CSharp_sample」を開く
+4. 「References」を右クリックする
+5. 「Manage NuGet Packages」をクリックする
+6. 「Browse」をクリックする
+7. 「NewtonSoft.Json」を検索し、インストールする
+
+■HttpUtilityがない場合
+1. 上記の4まで実施する
+2. 「Add References」をクリックする
+3. 「Assemblies」をクリックし、「System.Web」のチェックボックスにチェックを入れる
+4. 「OK」をクリックする
+
+【サンプルコードの実行方法】
+1. Solution Explorerにて、「Solution」をクリックする
+2. プロジェクトを右クリックし、「プロパティ」をクリックする
+3. 「Startup Object」にて、サンプルコードを選択し、「Start」をクリックし、実行する
+
+【ファイルリスト】
+1．注文発注（現物）
+（１）買
+Startup Object： CSharp_sample.Kabusapi_Sendorder_Cash_buy
+（２）売
+Startup Object： CSharp_sample.Kabusapi_Sendorder_Cash_sell
+
+2．注文発注（信用）
+（１）新規
+Startup Object： CSharp_sample.Kabusapi_Sendorder_Margin_new
+（２）返済（決済順序）
+Startup Object： CSharp_sample.Kabusapi_Sendorder_Margin_pay_ClosePositionOrder
+（３）返済（返済建玉指定）
+Startup Object： CSharp_sample.Kabusapi_Sendorder_Margin_pay_ClosePositions
+
+3．注文発注（先物）
+（１）新規
+Startup Object： CSharp_sample.Kabusapi_Sendorder_Future_new
+（２）返済（決済順序）
+Startup Object： CSharp_sample.Kabusapi_Sendorder_Future_pay_ClosePositionOrder
+（３）返済（返済建玉指定）
+Startup Object： CSharp_sample.Kabusapi_Sendorder_Future_pay_ClosePositions
+
+4．注文発注（OP）
+（１）新規
+Startup Object： CSharp_sample.Kabusapi_Sendorder_Option_new
+（２）返済（決済順序）
+Startup Object： CSharp_sample.Kabusapi_Sendorder_Option_pay_ClosePositionOrder
+（３）返済（返済建玉指定）
+Startup Object： CSharp_sample.Kabusapi_Sendorder_Option_pay_ClosePositions
+
+5．注文取消
+Startup Object： CSharp_sample.Kabusapi_Cancelorder
+
+6．取引余力（現物）
+Startup Object： CSharp_sample.Kabusapi_Cash
+
+7．取引余力（信用）
+Startup Object： CSharp_sample.Kabusapi_Margin
+
+8．取引余力（先物）
+Startup Object： CSharp_sample.Kabusapi_Wallet_Future
+
+9．取引余力（OP）
+Startup Object： CSharp_sample.Kabusapi_Wallet_Option
+
+10．時価情報・板情報
+Startup Object： CSharp_sample.Kabusapi_Board
+
+11．銘柄情報
+Startup Object： CSharp_sample.Kabusapi_Symbol
+
+12．注文約定照会
+Startup Object： CSharp_sample.Kabusapi_Orders
+
+13．残高照会
+Startup Object： CSharp_sample.Kabusapi_Positions
+
+14．先物銘柄コード取得
+Startup Object： CSharp_sample.Kabusapi_Symbolname_Future
+
+15．オプション銘柄コード取得
+Startup Object： CSharp_sample.Kabusapi_Symbolname_Option
+
+16．PUSH配信開始
+Startup Object： CSharp_sample.Kabusapi_Websocket
+
+17．銘柄登録
+Startup Object： CSharp_sample.Kabusapi_Register
+
+18．銘柄登録解除
+Startup Object： CSharp_sample.Kabusapi_Unregister
+
+19．銘柄登録全解除
+Startup Object： CSharp_sample.Kabusapi_Unregisterall
+
+20. 詳細ランキング
+Startup Object： CSharp_sample.Kabusapi_Ranking
+
+21. 為替情報
+Startup Object： CSharp_sample.Kabusapi_Exchange
+
+22. 規制情報
+Startup Object： CSharp_sample.Kabusapi_Regulations
+
+23. 優先市場
+Startup Object： CSharp_sample.Kabusapi_Primaryexchange
+
+24. ソフトリミット
+Startup Object： CSharp_sample.Kabusapi_Apisoftlimit
+
+// ライセンスについて
+Copyright (c) 2021 au Kabucom Securities Co., Ltd.
+Released under the MIT license
+https://opensource.org/licenses/mit-license.php
