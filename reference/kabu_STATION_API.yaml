@@ -3121,11 +3121,9 @@ components:
         Password:
           description: 注文パスワード
           type: "string"
-          example: "xxxxxx"
         Symbol:
           description: 銘柄コード
           type: "string"
-          example: "9433"
         Exchange:
           description: |-
             市場コード
@@ -3157,7 +3155,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 1
         SecurityType:
           description: |-
             商品種別
@@ -3177,7 +3174,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 1
         Side:
           description: |-
             売買区分
@@ -3200,7 +3196,6 @@ components:
               </tbody>
             </table>
           type: "string"
-          example: "1"
         CashMargin:
           description: |-
             信用区分
@@ -3228,7 +3223,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 3
         MarginTradeType:
           description: |-
             信用取引区分<br>※現物取引の場合は指定不要。<br>※信用取引の場合、必須。
@@ -3256,7 +3250,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 1
         DelivType:
           description: |-
             受渡区分<br>※現物買は指定必須。<br>※現物売は「0(指定なし)」を設定<br>※信用新規は「0(指定なし)」を設定<br>※信用返済は指定必須
@@ -3284,7 +3277,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 2
         FundType:
           description: |-
             資産区分（預り区分）<br>※現物買は、指定必須。<br>※現物売は、「'  '」 半角スペース2つを指定必須。<br>※信用新規と信用返済は、指定不要。
@@ -3315,7 +3307,6 @@ components:
               </tbody>
             </table>
           type: "string"
-          example: "11"
         AccountType:
           description: |-
             口座種別
@@ -3343,12 +3334,10 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 4
         Qty:
           description: "注文数量<br>※信用一括返済の場合、返済したい合計数量を入力してください。"
           type: "integer"
           format: "int32"
-          example: 500
         ClosePositionOrder:
           description: |-
             決済順序<br>※信用返済の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。
@@ -3396,7 +3385,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: null
         ClosePositions:
           description: 返済建玉指定<br>※信用返済の場合、必須。<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。<br>※信用一括返済の場合、各建玉IDと返済したい数量を入力してください。<br>※建玉IDは「E」から始まる番号です。
           type: "array"
@@ -3493,12 +3481,10 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 10
         Price:
           description: 注文価格<br>※FrontOrderTypeで成行を指定した場合、0を指定する。<br>※詳細について、”FrontOrderType”をご確認ください。
           type: "number"
           format: "double"
-          example: 0
         ExpireDay:
           description: |-
             注文有効期限<br>
@@ -3511,7 +3497,6 @@ components:
             ※ 日替わりはkabuステーションが日付変更通知を受信したタイミングです。
           type: "integer"
           format: "int32"
-          example: 20200903
         ReverseLimitOrder:
           description: |-
             逆指値条件<br>
@@ -3552,7 +3537,6 @@ components:
                 </table>
               type: "integer"
               format: "int32"
-              example: 1
             TriggerPrice:
               description: |-
                 トリガ価格<br>
@@ -3560,7 +3544,6 @@ components:
                 ※数字以外が設定された場合はエラーになります。
               type: "number"
               format: "double"
-              example: 40000
             UnderOver:
               description: |-
                 以上／以下<br>
@@ -3586,7 +3569,6 @@ components:
                 </table>
               type: "integer"
               format: "int32"
-              example: 2
             AfterHitOrderType:
               description: |-
                 ヒット後執行条件<br>
@@ -3616,7 +3598,6 @@ components:
                 </table>
               type: "integer"
               format: "int32"
-              example: 1
             AfterHitPrice:
               description: |-
                 ヒット後注文価格<br>
@@ -3647,7 +3628,33 @@ components:
                 </table>
               type: "number"
               format: "double"
-              example: 0
+      example:
+        Password: "xxxxxx"
+        Symbol: "9433"
+        Exchange: 1 
+        SecurityType: 1
+        Side: "1"
+        CashMargin: 3
+        MarginTradeType: 1
+        DelivType: 2
+        AccountType: 4
+        Qty: 4
+        ClosePositionOrder: [
+          {
+            HoldID: "20200702E01N04699739",
+            Qty: 500
+          }
+        ]
+        FrontOrderType: 30
+        Price: 0
+        ExpireDay: 20200903
+        ReverseLimitOrder: {
+          TriggerSec: 1,
+          TriggerPrice: 40000,
+          UnderOver: 2,
+          AfterHitOrderType: 1,
+          AfterHitPrice: 0
+        }
     RequestSendOrderDerivFuture:
       type: "object"
       required:
@@ -3697,7 +3704,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 23
         TradeType:
           description: |-
             取引区分
@@ -3721,7 +3727,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 2
         TimeInForce:
           description: |-
             有効期間条件
@@ -3749,7 +3754,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 2
         Side:
           description: |-
             売買区分
@@ -3772,12 +3776,10 @@ components:
               </tbody>
             </table>
           type: "string"
-          example: "1"
         Qty:
           description: "注文数量"
           type: "integer"
           format: "int32"
-          example: 1
         ClosePositionOrder:
           description: |-
             決済順序<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。
@@ -3825,7 +3827,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: null
         ClosePositions:
           description: "返済建玉指定<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。"
           type: "array"
@@ -3872,12 +3873,10 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 120
         Price:
           description: "注文価格<br>※FrontOrderTypeで成行を指定した場合、0を指定する。<br>※詳細について、”FrontOrderType”をご確認ください。"
           type: "integer"
           format: "int32"
-          example: 0
         ExpireDay:
           description: |-
             注文有効期限<br>
@@ -3891,7 +3890,6 @@ components:
             ※ 日通しの場合、夜間取引の引け後に日付が更新されます。
           type: "integer"
           format: "int32"
-          example: 20200903
         ReverseLimitOrder:
           description: |-
             逆指値条件<br>
@@ -3910,7 +3908,6 @@ components:
                 ※数字以外が設定された場合はエラーになります。
               type: "number"
               format: "double"
-              example: 100
             UnderOver:
               description: |-
                 以上／以下<br>
@@ -3936,7 +3933,6 @@ components:
                 </table>
               type: "integer"
               format: "int32"
-              example: 1
             AfterHitOrderType:
               description: |-
                 ヒット後執行条件<br>
@@ -3965,7 +3961,6 @@ components:
                 </table>
               type: "integer"
               format: "int32"
-              example: 1
             AfterHitPrice:
               description: |-
                 ヒット後注文価格<br>
@@ -3992,7 +3987,29 @@ components:
                 </table>
               type: "number"
               format: "double"
-              example: 0
+      example:
+        Password: "xxxxxx"
+        Symbol: "165120019"
+        Exchange : 23
+        TradeType: 2
+        TimeInForce: 2
+        Side: "1"
+        Qty: 1
+        ClosePositions: [
+          {
+            HoldID: "20200903E01N04773904",
+            Qty: 1
+          }
+        ]
+        FrontOrderType: 30
+        Price: 0
+        ExpireDay: 20200903
+        ReverseLimitOrder: {
+          TriggerPrice: 100,
+          UnderOver: 1,
+          AfterHitOrderType: 1,
+          AfterHitPrice: 0
+        }
     RequestSendOrderDerivOption:
       type: "object"
       required:
@@ -4010,11 +4027,9 @@ components:
         Password:
           description: "注文パスワード"
           type: "string"
-          example: "xxxxxx"
         Symbol:
           description: "銘柄コード<br>※取引最終日に「オプション銘柄コード取得」でDerivMonthに0（直近限月）を指定した場合、日中・夜間の時間帯に関わらず、取引最終日を迎える限月の銘柄コードを返します。取引最終日を迎える銘柄の取引は日中取引をもって終了となりますので、ご注意ください。"
           type: "string"
-          example: "165120019"
         Exchange:
           description: |-
             市場コード
@@ -4042,7 +4057,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 23
         TradeType:
           description: |-
             取引区分
@@ -4066,7 +4080,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 2
         TimeInForce:
           description: |-
             有効期間条件
@@ -4094,7 +4107,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 2
         Side:
           description: |-
             売買区分
@@ -4117,12 +4129,10 @@ components:
               </tbody>
             </table>
           type: "string"
-          example: "1"
         Qty:
           description: "注文数量"
           type: "integer"
           format: "int32"
-          example: 1
         ClosePositionOrder:
           description: |-
             決済順序<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。
@@ -4170,7 +4180,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: null
         ClosePositions:
           description: "返済建玉指定<br>※ClosePositionOrderとClosePositionsはどちらか一方のみ指定可能。<br>※ClosePositionOrderとClosePositionsを両方指定した場合、エラー。"
           type: "array"
@@ -4217,12 +4226,10 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 120
         Price:
           description: "注文価格<br>※FrontOrderTypeで成行を指定した場合、0を指定する。<br>※詳細について、”FrontOrderType”をご確認ください。"
           type: "integer"
           format: "int32"
-          example: 0
         ExpireDay:
           description: |-
             注文有効期限<br>
@@ -4236,7 +4243,6 @@ components:
             ※ 日通しの場合、夜間取引の引け後に日付が更新されます。
           type: "integer"
           format: "int32"
-          example: 20200903
         ReverseLimitOrder:
           description: |-
             逆指値条件<br>
@@ -4255,7 +4261,6 @@ components:
                 ※数字以外が設定された場合はエラーになります。
               type: "number"
               format: "double"
-              example: 100
             UnderOver:
               description: |-
                 以上／以下<br>
@@ -4281,7 +4286,6 @@ components:
                 </table>
               type: "integer"
               format: "int32"
-              example: 1
             AfterHitOrderType:
               description: |-
                 ヒット後執行条件<br>
@@ -4310,7 +4314,6 @@ components:
                 </table>
               type: "integer"
               format: "int32"
-              example: 1
             AfterHitPrice:
               description: |-
                 ヒット後注文価格<br>
@@ -4337,7 +4340,29 @@ components:
                 </table>
               type: "number"
               format: "double"
-              example: 0
+      example:
+        Password: "xxxxxx"
+        Symbol: "165120019"
+        Exchange : 23
+        TradeType: 2
+        TimeInForce: 2
+        Side: "1"
+        Qty: 1
+        ClosePositions: [
+          {
+            HoldID: "20200903E01N04773904",
+            Qty: 1
+          }
+        ]
+        FrontOrderType: 30
+        Price: 0
+        ExpireDay: 20200903
+        ReverseLimitOrder: {
+          TriggerPrice: 100,
+          UnderOver: 1,
+          AfterHitOrderType: 1,
+          AfterHitPrice: 0
+        }
     Positions:
       type: "object"
       properties:
@@ -4356,12 +4381,10 @@ components:
         HoldID:
           description: "返済建玉ID"
           type: "string"
-          example: "20200903E01N04773904"
         Qty:
           description: "返済建玉数量"
           type: "integer"
           format: "int32"
-          example: 1
     RequestCancelOrder:
       type: "object"
       required:
@@ -4584,11 +4607,9 @@ components:
         Symbol:
           description: "銘柄コード"
           type: "string"
-          example: "5401"
         SymbolName:
           description: "銘柄名"
           type: "string"
-          example: "新日鐵住金"
         Exchange:
           description: |-
             市場コード<br>※株式・先物・オプション銘柄の場合のみ
@@ -4636,17 +4657,14 @@ components:
         ExchangeName:
           description: "市場名称<br>※株式・先物・オプション銘柄の場合のみ"
           type: "string"
-          example: "東証１部"
         CurrentPrice:
           description: "現値"
           type: "number"
           format: "double"
-          example: 2408.0
         CurrentPriceTime:
           description: "現値時刻"
           type: "string"
           format: "date-time"
-          example: "2020-07-22T15:00:00+09:00"
         CurrentPriceChangeStatus:
           description: |-
             現値前値比較
@@ -4721,7 +4739,6 @@ components:
               </tbody>
             </table>
           type: "string"
-          example: "0058"
         CurrentPriceStatus:
           description: |-
             現値ステータス
@@ -4829,97 +4846,78 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 1
         CalcPrice:
           description: "計算用現値"
           type: "number"
           format: "double"
-          example: 343.7
         PreviousClose:
           description: "前日終値"
           type: "number"
           format: "double"
-          example: 1048.0000
         PreviousCloseTime:
           description: "前日終値日付"
           type: "string"
           format: "date-time"
-          example: "2020-07-21T00:00:00+09:00"
         ChangePreviousClose:
           description: "前日比"
           type: "number"
           format: "double"
-          example: 1360.0000
         ChangePreviousClosePer:
           description: "騰落率"
           type: "number"
           format: "double"
-          example: 129.77
         OpeningPrice:
           description: "始値"
           type: "number"
           format: "double"
-          example: 2380.0
         OpeningPriceTime:
           description: "始値時刻"
           type: "string"
           format: "date-time"
-          example: "2020-07-22T09:00:00+09:00"
         HighPrice:
           description: "高値"
           type: "number"
           format: "double"
-          example: 2418.0
         HighPriceTime:
           description: "高値時刻"
           type: "string"
           format: "date-time"
-          example: "2020-07-22T13:25:47+09:00"
         LowPrice:
           description: "安値"
           type: "number"
           format: "double"
-          example: 2370.0
         LowPriceTime:
           description: "安値時刻"
           type: "string"
           format: "date-time"
-          example: "2020-07-22T10:00:04+09:00"
         TradingVolume:
           description: "売買高<br>※株式・先物・オプション銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 4571500.0
         TradingVolumeTime:
           description: "売買高時刻<br>※株式・先物・オプション銘柄の場合のみ"
           type: "string"
           format: "date-time"
-          example: "2020-07-22T15:00:00+09:00"
         VWAP:
           description: "売買高加重平均価格（VWAP）<br>※株式・先物・オプション銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 2394.4262
         TradingValue:
           description: "売買代金<br>※株式・先物・オプション銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 10946119350.0
         BidQty:
           description: "最良売気配数量 ※①<br>※株式・先物・オプション銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 100.0
         BidPrice:
           description: "最良売気配値段 ※①<br>※株式・先物・オプション銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 2408.5000
         BidTime:
           description: "最良売気配時刻 ※①<br>※株式銘柄の場合のみ"
           type: "string"
           format: "date-time"
-          example: "2020-07-22T14:59:59+09:00"
         BidSign:
           description: |-
             最良売気配フラグ ※①<br>※株式・先物・オプション銘柄の場合のみ
@@ -4982,12 +4980,10 @@ components:
               </tbody>
             </table>
           type: "string"
-          example: "0101"
         MarketOrderSellQty:
           description: "売成行数量<br>※株式銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 0.0
         Sell1:
           description: "売気配数量1本目"
           type: "object"
@@ -4996,7 +4992,6 @@ components:
               description: "時刻<br>※株式銘柄の場合のみ"
               type: "string"
               format: "date-time"
-              example: "2020-07-22T14:59:59+09:00"
             Sign:
               description: |-
                 気配フラグ<br>※株式・先物・オプション銘柄の場合のみ
@@ -5059,17 +5054,14 @@ components:
                   </tbody>
                 </table>
               type: "string"
-              example: "0101"
             Price:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2408.5000
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 100.0
         Sell2:
           description: "売気配数量2本目"
           type: "object"
@@ -5078,12 +5070,10 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2409.0
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 800.0
         Sell3:
           description: "売気配数量3本目"
           type: "object"
@@ -5092,12 +5082,10 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2409.5000
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2100.0
         Sell4:
           description: "売気配数量4本目"
           type: "object"
@@ -5106,12 +5094,10 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2410.0
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 800.0
         Sell5:
           description: "売気配数量5本目"
           type: "object"
@@ -5120,12 +5106,10 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2410.5000
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 500.0
         Sell6:
           description: "売気配数量6本目"
           type: "object"
@@ -5134,12 +5118,10 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2411.0
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 8400.0
         Sell7:
           description: "売気配数量7本目"
           type: "object"
@@ -5148,12 +5130,10 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2411.5000
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 1200.0
         Sell8:
           description: "売気配数量8本目"
           type: "object"
@@ -5162,12 +5142,10 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2412.0
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 27200.0
         Sell9:
           description: "売気配数量9本目"
           type: "object"
@@ -5176,12 +5154,10 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2412.5000
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 400.0
         Sell10:
           description: "売気配数量10本目"
           type: "object"
@@ -5190,27 +5166,22 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2413.0
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 16400.0
         AskQty:
           description: "最良買気配数量 ※①<br>※株式・先物・オプション銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 200.0
         AskPrice:
           description: "最良買気配値段 ※①<br>※株式・先物・オプション銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 2407.5000
         AskTime:
           description: "最良買気配時刻 ※①<br>※株式銘柄の場合のみ"
           type: "string"
           format: "date-time"
-          example: "2020-07-22T14:59:59+09:00"
         AskSign:
           description: |-
             最良買気配フラグ ※①<br>※株式・先物・オプション銘柄の場合のみ
@@ -5273,12 +5244,10 @@ components:
               </tbody>
             </table>
           type: "string"
-          example: "0101"
         MarketOrderBuyQty:
           description: "買成行数量<br>※株式銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 0.0
         Buy1:
           description: "買気配数量1本目"
           type: "object"
@@ -5287,7 +5256,6 @@ components:
               description: "時刻<br>※株式銘柄の場合のみ"
               type: "string"
               format: "date-time"
-              example: "2020-07-22T14:59:59+09:00"
             Sign:
               description: |-
                 気配フラグ<br>※株式・先物・オプション銘柄の場合のみ
@@ -5350,17 +5318,14 @@ components:
                   </tbody>
                 </table>
               type: "string"
-              example: "0101"
             Price:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2407.5000
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 200.0
         Buy2:
           description: "買気配数量2本目"
           type: "object"
@@ -5369,12 +5334,10 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2407.0
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 400.0
         Buy3:
           description: "買気配数量3本目"
           type: "object"
@@ -5383,12 +5346,10 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2406.5000
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 1000.0
         Buy4:
           description: "買気配数量4本目"
           type: "object"
@@ -5397,12 +5358,10 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2406.0
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 5800.0
         Buy5:
           description: "買気配数量5本目"
           type: "object"
@@ -5411,12 +5370,10 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2405.5000
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 7500.0
         Buy6:
           description: "買気配数量6本目"
           type: "object"
@@ -5425,12 +5382,10 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2405.0
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2200.0
         Buy7:
           description: "買気配数量7本目"
           type: "object"
@@ -5439,12 +5394,10 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2404.5000
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 16700.0
         Buy8:
           description: "買気配数量8本目"
           type: "object"
@@ -5453,12 +5406,10 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2404.0
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 30100.0
         Buy9:
           description: "買気配数量9本目"
           type: "object"
@@ -5467,12 +5418,10 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2403.5000
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 1300.0
         Buy10:
           description: "買気配数量10本目"
           type: "object"
@@ -5481,57 +5430,46 @@ components:
               description: "値段<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 2403.0
             Qty:
               description: "数量<br>※株式・先物・オプション銘柄の場合のみ"
               type: "number"
               format: "double"
-              example: 3000.0
         OverSellQty:
           description: "OVER気配数量<br>※株式銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 974900.0
         UnderBuyQty:
           description: "UNDER気配数量<br>※株式銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 756000.0
         TotalMarketValue:
           description: "時価総額<br>※株式銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 3266254659361.4
         ClearingPrice:
           description: "清算値<br>※先物銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 23000
         IV:
           description: "インプライド・ボラティリティ<br>※オプション銘柄かつ日通しの場合のみ"
           type: "number"
           format: "double"
-          example: 22.11
         Gamma:
           description: "ガンマ<br>※オプション銘柄かつ日通しの場合のみ"
           type: "number"
           format: "double"
-          example: 0.000183
         Theta:
           description: "セータ<br>※オプション銘柄かつ日通しの場合のみ"
           type: "number"
           format: "double"
-          example: -6.5073
         Vega:
           description: "ベガ<br>※オプション銘柄かつ日通しの場合のみ"
           type: "number"
           format: "double"
-          example: 39.3109
         Delta:
           description: "デルタ<br>※オプション銘柄かつ日通しの場合のみ"
           type: "number"
           format: "double"
-          example: 0.4794
         SecurityType:
           description: |-
             銘柄種別
@@ -5598,8 +5536,129 @@ components:
               </tbody>
             </table>
           type: "integer"
-          format: int32
-          example: 101
+          format: "int32"
+      example:
+        Symbol: "5401"
+        SymbolName: "新日鐵住金"
+        Exchange: 1
+        ExchangeName: "東証１部"
+        CurrentPrice: 2408.0
+        CurrentPriceTime: "2020-07-22T15:00:00+09:00"
+        CurrentPriceChangeStatus: "0058"
+        CurrentPriceStatus: 1
+        CalcPrice: 343.7
+        PreviousClose: 1048.0000
+        PreviousCloseTime: "2020-07-21T00:00:00+09:00"
+        ChangePreviousClose: 1360.0000
+        ChangePreviousClosePer: 129.77
+        OpeningPrice: 2380.0
+        OpeningPriceTime: 8"2020-07-22T09:00:00+09:00"
+        HighPrice: 2418.0
+        HighPriceTime: "2020-07-22T13:25:47+09:00"
+        LowPrice: 2370.0
+        LowPriceTime: "2020-07-22T10:00:04+09:00"
+        TradingVolume: 4571500.0
+        TradingVolumeTime: "2020-07-22T15:00:00+09:00"
+        VWAP: 2394.4262
+        TradingValue: 10946119350.0
+        BidQty: 100.0
+        BidPrice: 2408.5000
+        BidTime: "2020-07-22T14:59:59+09:00"
+        BidSign: "0101"
+        MarketOrderSellQty: 0.0
+        Sell1: {
+          Time: "2020-07-22T14:59:59+09:00",
+          Sign: "0101",
+          Price: 2408.5000,
+          Qty: 100.0
+        }
+        Sell2: {
+          Price: 2409.0,
+          Qty: 800.0
+        }
+        Sell3: {
+          Price: 2409.5000,
+          Qty: 2100.0
+        }
+        Sell4: {
+          Price: 2410.0,
+          Qty: 800.0
+        }
+        Sell5: {
+          Price: 2410.5000,
+          Qty: 500
+        }
+        Sell6: {
+          Price: 2411.0,
+          Qty: 8400.0
+        }
+        Sell7: {
+          Price: 2411.5000,
+          Qty: 1200.0
+        }
+        Sell8: {
+          Price: 2412.0,
+          Qty: 27200.0
+        }
+        Sell9: {
+          Price: 2412.5000,
+          Qty: 400.0
+        }
+        Sell10: {
+          Price: 2413.0,
+          Qty: 16400.0
+        }
+        AskQty: 200.0
+        AskPrice: 2407.5000
+        AskTime: "2020-07-22T14:59:59+09:00"
+        AskSign: "0101"
+        MarketOrderBuyQty: 0.0
+        Buy1: {
+          Time: "2020-07-22T14:59:59+09:00",
+          Sign: "0101",
+          Price: 2407.5000,
+          Qty: 200.0
+        }
+        Buy2: {
+          Price: 2407.0,
+          Qty: 400.0
+        }
+        Buy3: {
+          Price: 2406.5000,
+          Qty: 1000.0
+        }
+        Buy4: {
+          Price: 2406.0,
+          Qty: 5800.0
+        }
+        Buy5: {
+          Price: 2405.5000,
+          Qty: 7500
+        }
+        Buy6: {
+          Price: 2405.0,
+          Qty: 2200.0
+        }
+        Buy7: {
+          Price: 2404.5000,
+          Qty: 16700.0
+        }
+        Buy8: {
+          Price: 2403.0,
+          Qty: 1300.0
+        }
+        Buy9: {
+          Price: 2403.5000,
+          Qty: 1300.0
+        }
+        Buy10: {
+          Price: 2403.0,
+          Qty: 3000.0
+        }
+        OverSellQty: 974900
+        UnderBuyQty: 756000
+        TotalMarketValue: 3266254659361.4
+        SecurityType: 1
     RegistSuccess:
       type: "object"
       properties:
@@ -5670,15 +5729,12 @@ components:
         Symbol:
           description: "銘柄コード"
           type: "string"
-          example: "9433"
         SymbolName:
           description: "銘柄名"
           type: "string"
-          example: "ＫＤＤＩ"
         DisplayName:
           description: "銘柄略称<br>※株式・先物・オプション銘柄の場合のみ"
           type: "string"
-          example: "ＫＤＤＩ"
         Exchange:
           description: |-
             市場コード<br>※株式・先物・オプション銘柄の場合のみ
@@ -5722,11 +5778,9 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 1
         ExchangeName:
           description: "市場名称<br>※株式・先物・オプション銘柄の場合のみ"
           type: "string"
-          example: "東証１部"
         BisCategory:
           description: |-
             業種コード名<br>※株式銘柄の場合のみ
@@ -5877,27 +5931,22 @@ components:
               </tbody>
             </table>
           type: "string"
-          example: "5250"
         TotalMarketValue:
           description: "時価総額<br>※株式銘柄の場合のみ<br>追加情報出力フラグ：falseの場合、null"
           type: "number"
           format: "double"
-          example: 7654484465100
         TotalStocks:
           description: "発行済み株式数（千株）<br>※株式銘柄の場合のみ<br>追加情報出力フラグ：falseの場合、null"
           type: "number"
           format: "double"
-          example: 4484
         TradingUnit:
           description: "売買単位<br>※株式・先物・オプション銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 100
         FiscalYearEndBasic:
           description: "決算期日<br>※株式銘柄の場合のみ<br>追加情報出力フラグ：falseの場合、null"
           type: "integer"
           format: "int32"
-          example: 20210331
         PriceRangeGroup:
           description: |-
             呼値グループ<br>※株式・先物・オプション銘柄の場合のみ
@@ -6093,37 +6142,30 @@ components:
               </tbody>
             </table>
           type: "string"
-          example: "10003"
         KCMarginBuy:
           description: "一般信用買建フラグ<br>※trueのとき一般信用買建可能<br>※株式銘柄の場合のみ"
           type: "boolean"
           format: ""
-          example: true
         KCMarginSell:
           description: "一般信用売建フラグ<br>※trueのとき一般信用売建可能<br>※株式銘柄の場合のみ"
           type: "boolean"
           format: ""
-          example: true
         MarginBuy:
           description: "制度信用買建フラグ<br>※trueのとき制度信用買建可能<br>※株式銘柄の場合のみ"
           type: "boolean"
           format: ""
-          example: true
         MarginSell:
           description: "制度信用売建フラグ<br>※trueのとき制度信用売建可能<br>※株式銘柄の場合のみ"
           type: "boolean"
           format: ""
-          example: true
         UpperLimit:
           description: "値幅上限<br>※株式・先物・オプション銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 4041
         LowerLimit:
           description: "値幅下限<br>※株式・先物・オプション銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 2641
         Underlyer:
           description: |-
             原資産コード<br>※先物・オプション銘柄の場合のみ
@@ -6174,26 +6216,21 @@ components:
               </tbody>
             </table>
           type: "string"
-          example: "NK225"
         DerivMonth:
           description: "限月-年月<br>※「限月-年月」は「年(yyyy)/月(MM)」で表示します。<br>※先物・オプション銘柄の場合のみ"
           type: "string"
-          example: "2020/12"
         TradeStart:
           description: "取引開始日<br>※先物・オプション銘柄の場合のみ"
           type: "integer"
           format: "int32"
-          example: 20151211
         TradeEnd:
           description: "取引終了日<br>※先物・オプション銘柄の場合のみ"
           type: "integer"
           format: "int32"
-          example: 20201210
         StrikePrice:
           description: "権利行使価格<br>※オプション銘柄の場合のみ"
           type: "number"
           format: "double"
-          example: 23250.0
         PutOrCall:
           description: |-
             プット/コール区分<br>※オプション銘柄の場合のみ
@@ -6217,19 +6254,31 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 2
         ClearingPrice:
           description: "清算値<br>※先物銘柄の場合のみ<br>追加情報出力フラグ：falseの場合、null"
           type: "number"
           format: "double"
-          example: 23000
+      example:
+        Symbol: "166090018"
+        SymbolName: "日経平均先物 21/09"
+        DisplayName: "日経平均先物 09"
+        Exchange: 23
+        ExchangeName: "大阪日中"
+        TradingUnit: 1.0
+        PriceRangeGroup: "10118"
+        UpperLimit: 29870.0
+        LowerLimit: 25290.0
+        Underlyer: "NK225"
+        DerivMonth: "2021/09"
+        TradeEnd: 20210909
+        TradeStart: 20200313
+        ClearingPrice: null
     OrdersSuccess:
       type: "object"
       properties:
         ID:
           description: "注文番号"
           type: "string"
-          example: "20200715A02N04738436"
         State:
           description: |-
             状態
@@ -6265,7 +6314,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 5
         OrderState:
           description: |-
             注文状態
@@ -6301,7 +6349,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 5
         OrdType:
           description: |-
             執行条件
@@ -6341,19 +6388,15 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 1
         RecvTime:
           description: "受注日時"
           type: "string"
-          example: "2020-07-16T18:00:51.763683+09:00"
         Symbol:
           description: "銘柄コード"
           type: "string"
-          example: "8306"
         SymbolName:
           description: "銘柄名"
           type: "string"
-          example: "三菱ＵＦＪフィナンシャル・グループ"
         Exchange:
           description: |-
             市場コード
@@ -6401,11 +6444,9 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 1
         ExchangeName:
           description: "市場名"
           type: "string"
-          example: "東証１部"
         TimeInForce:
           description: |-
             有効期間条件<br>※先物・オプション銘柄の場合のみ
@@ -6433,12 +6474,10 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 1
         Price:
           description: "値段"
           type: "number"
           format: "double"
-          example: 704.5
         OrderQty:
           description: |-
             発注数量<br>
@@ -6446,12 +6485,10 @@ components:
             ※期限切れと失効の確認方法としては、DetailsのRecType（3: 期限切れ、7: 失効）にてご確認ください。
           type: "number"
           format: "double"
-          example: 1500
         CumQty:
           description: "約定数量"
           type: "number"
           format: "double"
-          example: 1500
         Side:
           description: |-
             売買区分
@@ -6474,7 +6511,6 @@ components:
               </tbody>
             </table>
           type: "string"
-          example: "1"
         CashMargin:
           description: |-
             取引区分
@@ -6498,7 +6534,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 2
         AccountType:
           description: |-
             口座種別
@@ -6526,7 +6561,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 4
         DelivType:
           description: |-
             受渡区分
@@ -6550,12 +6584,10 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 2
         ExpireDay:
           description: "注文有効期限<br>yyyyMMdd形式"
           type: "integer"
           format: "int32"
-          example: 20200702
         MarginTradeType:
           description: |-
             信用取引区分<br>
@@ -6584,7 +6616,6 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 1
         MarginPremium:
           description: |- 
             プレミアム料<br>
@@ -6594,7 +6625,6 @@ components:
             一般（長期）売、一般（デイトレ）売の場合は、プレミアム料=0の場合、0（ゼロ）と返されます。
           type: "number"
           format: "double"
-          example: 
         Details:
           description: "注文詳細"
           type: "array"
@@ -6605,11 +6635,9 @@ components:
                 description: "※注文明細レコードの生成順序です。<br>※通番であるとは限りませんが、大小による順序は保たれています。"
                 type: "integer"
                 format: "int32"
-                example: 1
               ID:
                 description: "注文詳細番号"
                 type: "string"
-                example: "20200715A02N04738436"
               RecType:
                 description: |-
                   明細種別
@@ -6661,7 +6689,6 @@ components:
               ExchangeID:
                 description: "取引所番号"
                 type: "string"
-                example: "00000000-0000-0000-0000-00000000"
               State:
                 description: |-
                   状態
@@ -6697,11 +6724,9 @@ components:
                   </table>
                 type: "integer"
                 format: "int32"
-                example: 3
               TransactTime:
                 description: "処理時刻"
                 type: "string"
-                example: "2020-07-16T18:00:51.763683+09:00"
               OrdType:
                 description: |-
                   執行条件
@@ -6741,48 +6766,103 @@ components:
                   </table>
                 type: "integer"
                 format: "int32"
-                example: 1
               Price:
                 description: "値段"
                 type: "number"
                 format: "double"
-                example: 704.5
               Qty:
                 description: "数量"
                 type: "number"
                 format: "double"
-                example: 1500
               ExecutionID:
                 description: "約定番号"
                 type: "string"
-                example: ""
               ExecutionDay:
                 description: "約定日時"
                 type: "string"
                 format: "date-time"
-                example: "2020-07-02T18:02:00+09:00"
               DelivDay:
                 description: "受渡日"
                 type: "integer"
                 format: "int32"
-                example: 20200706
               Commission:
                 description: "手数料<br>※注文詳細の明細種別が約定（RecType=8)の場合に設定。"
                 type: "number"
                 format: "double"
-                example: 0
               CommissionTax:
                 description: "手数料消費税<br>※明細種別は約定（RecType=8）の場合にのみ表示されます。"
                 type: "number"
                 format: "double"
-                example: 0
+      example:
+        {
+            ID: "20200715A02N04738436",
+            State: 5,
+            OrderState: 5,
+            OrdType: 1,
+            RecvTime: "2020-07-16T18:00:51.763683+09:00",
+            Symbol: "8306",
+            SymbolName: "三菱ＵＦＪフィナンシャル・グループ",
+            Exchange: 1,
+            ExchangeName: "東証１部",
+            TimeInForce: 1,
+            Price: 704.5,
+            OrderQty: 1500,
+            CumQty: 1500,
+            Side: "1",
+            CashMargin: 2,
+            AccountType: 4,
+            DelivType: 2,
+            ExpireDay: 20200702,
+            MarginTradeType: 1,
+            MarginPremium: null,
+            Details: [
+              {
+                SeqNum: 1,
+                ID: "20200715A02N04738436",
+                RecType: 1,
+                ExchangeID: "00000000-0000-0000-0000-00000000",
+                State: 3,
+                TransactTime: "2020-07-16T18:00:51.763683+09:00",
+                OrdType: 1,
+                Price: 704.5,
+                Qty: 1500,
+                ExecutionID: "" ,
+                ExecutionDay: "2020-07-02T18:02:00+09:00",
+                DelivDay: 20200706,
+                Commission: 0,
+                CommissionTax: 0
+              }
+            ]
+          }
     PositionsSuccess:
       type: "object"
+      example:
+        {
+          ExecutionID: "20200715E02N04738464",
+          AccountType: 4,
+          Symbol: 8306,
+          SymbolName: "三菱ＵＦＪフィナンシャル・グループ",
+          Exchange: 1,
+          ExchangeName: "東証１部",
+          ExecutionDay: 20200702,
+          Price: 704,
+          LeavesQty: 500,
+          HoldQty: 0,
+          Side: "1",
+          Expenses: 0,
+          Commission: 1620,
+          CommissionTax: 162,
+          ExpireDay: 20201229,
+          MarginTradeType: 1,
+          CurrentPrice: 414.5,
+          Valuation: 207250,
+          ProfitLoss: 144750,
+          ProfitLossRate: 41.12215909090909
+        }
       properties:
         ExecutionID:
           description: "約定番号<br>※現物取引では、nullが返ります。"
           type: "string"
-          example: "20200715E02N04738464"
         AccountType:
           description: |-
             口座種別
@@ -6810,15 +6890,12 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 4
         Symbol:
           description: "銘柄コード"
           type: "string"
-          example: "8306"
         SymbolName:
           description: "銘柄名"
           type: "string"
-          example: "三菱ＵＦＪフィナンシャル・グループ"
         Exchange:
           description: |-
             市場コード
@@ -6862,36 +6939,29 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 1
         ExchangeName:
           description: "市場名"
           type: "string"
-          example: "東証１部"
         SecurityType:
           description: "銘柄種別<br>※先物・オプション銘柄の場合のみ"
           type: "integer"
           format: "int32"
-          example: 101
         ExecutionDay:
           description: "約定日（建玉日）<br>※信用・先物・オプションの場合のみ<br>※現物取引では、nullが返ります。"
           type: "integer"
           format: "int32"
-          example: 20200702
         Price:
           description: "値段"
           type: "number"
           format: "double"
-          example: 704
         LeavesQty:
           description: "残数量"
           type: "number"
           format: "double"
-          example: 500
         HoldQty:
           description: "拘束数量（保有数量）"
           type: "number"
           format: "double"
-          example: 0
         Side:
           description: |-
             売買区分
@@ -6914,27 +6984,22 @@ components:
               </tbody>
             </table>
           type: "string"
-          example: "1"
         Expenses:
           description: "諸経費<br>※信用・先物・オプションの場合のみ"
           type: "number"
           format: "double"
-          example: 0
         Commission:
           description: "手数料<br>※信用・先物・オプションの場合のみ"
           type: "number"
           format: "double"
-          example: 1620
         CommissionTax:
           description: "手数料消費税<br>※信用・先物・オプションの場合のみ"
           type: "number"
           format: "double"
-          example: 162
         ExpireDay:
           description: "返済期日<br>※信用・先物・オプションの場合のみ"
           type: "integer"
           format: "int32"
-          example: 20201229
         MarginTradeType:
           description: |-
             信用取引区分<br>※信用の場合のみ
@@ -6962,38 +7027,33 @@ components:
             </table>
           type: "integer"
           format: "int32"
-          example: 1
         CurrentPrice:
           description: "現在値<br>追加情報出力フラグ：falseの場合、null"
           type: "number"
           format: "double"
-          example: 414.5
         Valuation:
           description: "評価金額<br>追加情報出力フラグ：falseの場合、null"
           type: "number"
           format: "double"
-          example: 207250
         ProfitLoss:
           description: "評価損益額<br>追加情報出力フラグ：falseの場合、null"
           type: "number"
           format: "double"
-          example: 144750
         ProfitLossRate:
           description: "評価損益率<br>追加情報出力フラグ：falseの場合、null"
           type: "number"
           format: "double"
-          example: 41.12215909090909
     SymbolNameSuccess:
       type: "object"
       properties:
         Symbol:
           description: "銘柄コード"
           type: "string"
-          example: "165120018"
+          example: "136091318"
         SymbolName:
           description: "銘柄名称"
           type: "string"
-          example: "日経平均先物 20/12"
+          example: "日経平均オプション 21/09 プット 31375"
 
     #Ranking ランキング
     RankingDefaultResponse:
