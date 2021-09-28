@@ -3875,8 +3875,8 @@ components:
           format: "int32"
         Price:
           description: "注文価格<br>※FrontOrderTypeで成行を指定した場合、0を指定する。<br>※詳細について、”FrontOrderType”をご確認ください。"
-          type: "integer"
-          format: "int32"
+          type: "number"
+          format: "double"
         ExpireDay:
           description: |-
             注文有効期限<br>
@@ -4228,8 +4228,8 @@ components:
           format: "int32"
         Price:
           description: "注文価格<br>※FrontOrderTypeで成行を指定した場合、0を指定する。<br>※詳細について、”FrontOrderType”をご確認ください。"
-          type: "integer"
-          format: "int32"
+          type: "number"
+          format: "double"
         ExpireDay:
           description: |-
             注文有効期限<br>
