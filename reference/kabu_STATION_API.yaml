@@ -6955,11 +6955,11 @@ components:
           type: "number"
           format: "double"
         LeavesQty:
-          description: "残数量"
+          description: "残数量（保有数量）"
           type: "number"
           format: "double"
         HoldQty:
-          description: "拘束数量（保有数量）"
+          description: "拘束数量（返済のために拘束されている数量）"
           type: "number"
           format: "double"
         Side:
