@@ -16,7 +16,7 @@ namespace KabuSuteAddin.Utils
             if (string.IsNullOrEmpty(password))
                 return ResultMessage.NoPasswordEntered;
 
-            if (password.ToString().Length > 15)
+            if (password.ToString().Length > 16)
                 return ResultMessage.OutofRangeLength;
 
             // ポートチェック
