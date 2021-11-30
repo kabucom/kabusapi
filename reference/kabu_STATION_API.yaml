@@ -5949,7 +5949,23 @@ components:
           format: "int32"
         PriceRangeGroup:
           description: |-
-            呼値グループ<br>※株式・先物・オプション銘柄の場合のみ
+            呼値グループ<br>
+            ※株式・先物・オプション銘柄の場合のみ<br>
+            ※各呼値コードが対応する商品は以下となります。<BR>
+            　株式の呼値の単位の詳細は [JPXページ](https://www.jpx.co.jp/equities/trading/domestic/07.html) をご覧ください。<BR>
+            　10000：株式(TOPIX100採用銘柄以外)　<br>
+            　10003：株式(TOPIX100採用銘柄)<br>
+            　10118 : 日経平均先物<br>
+            　10119 : 日経225mini<br>
+            　10318 : 日経平均オプション<br>
+            　10706 : ﾐﾆTOPIX先物<br>
+            　10718 : TOPIX先物<br>
+            　12122 : JPX日経400指数先物<br>
+            　14473 : NYダウ先物<br>
+            　14515 : 日経平均VI先物<br>
+            　15411 : 東証マザーズ指数先物<br>
+            　15569 : 東証REIT指数先物<br>
+            　17163 : TOPIXCore30指数先物<br>
             <table>
               <thead>
                   <tr>
@@ -6066,12 +6082,7 @@ components:
                   </tr>
                   <tr>
                       <td>10003</td>
-                      <td>50000000円以下</td>
-                      <td>10000</td>
-                  </tr>
-                  <tr>
-                      <td>10003</td>
-                      <td>50000000円超</td>
+                      <td>30000000円超</td>
                       <td>10000</td>
                   </tr>
                   <tr>
