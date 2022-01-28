@@ -23,9 +23,11 @@
 ３．注文発注（信用）
 （１）新規
 コマンド：python kabusapi_sendorder_margin_new.py
-（２）返済（決済順序）
+（２）新規_プレミアム料入札
+kabusapi_sendorder_margin_daytrade.py
+（３）返済（決済順序）
 コマンド：python kabusapi_sendorder_margin_pay_ClosePositionOrder.py
-（３）返済（返済建玉指定）
+（４）返済（返済建玉指定）
 コマンド：python kabusapi_sendorder_margin_pay_ClosePositions.py
 
 ４．注文発注（先物）
@@ -103,6 +105,9 @@
 
 25. ソフトリミット
 コマンド：kabusapi_apisoftlimit.py
+
+26. プレミアム料取得
+kabusapi_marginpremium.py
 
 
 // ライセンスについて
