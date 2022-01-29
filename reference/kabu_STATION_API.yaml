@@ -3087,6 +3087,87 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /margin/marginpremium/{symbol}:
+    get:
+      tags:
+        - info
+      operationId: marginpremiumGet
+      summary: プレミアム料取得
+      description: 指定した銘柄のプレミアム料を取得するAPI
+      parameters:
+        - in: header
+          name: X-API-KEY
+          description: トークン発行メソッドで取得した文字列
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: Symbol
+          description: 銘柄コード
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MarginPremiumResponse"
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: MethodNotAllowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "413":
+          description: RequestEntityTooLarge
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "415":
+          description: UnsupportedMediaType
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: TooManyRequests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 
 
 # Component Schemas
@@ -3250,6 +3331,15 @@ components:
             </table>
           type: "integer"
           format: "int32"
+        MarginPremiumUnit:
+          description: |-
+            １株あたりのプレミアム料(円)<br> 
+            ※プレミアム料の刻値は、プレミアム料取得APIのレスポンスにある"TickMarginPremium"にてご確認ください。<br>
+            ※入札受付中(19:30～20:30)プレミアム料入札可能銘柄の場合、「MarginPremiumUnit」は必須となります。<br>
+            ※入札受付中(19:30～20:30)のプレミアム料入札可能銘柄以外の場合は、「MarginPremiumUnit」の記載は無視されます。<br>
+            ※入札受付中以外の時間帯では、「MarginPremiumUnit」の記載は無視されます。
+          type: "number"
+          format: "double"
         DelivType:
           description: |-
             受渡区分<br>※現物買は指定必須。<br>※現物売は「0(指定なし)」を設定<br>※信用新規は「0(指定なし)」を設定<br>※信用返済は指定必須
@@ -3635,10 +3725,11 @@ components:
         SecurityType: 1
         Side: "1"
         CashMargin: 3
-        MarginTradeType: 1
+        MarginTradeType: 3
+        MarginPremiumUnit: 12.34 
         DelivType: 2
         AccountType: 4
-        Qty: 4
+        Qty: 500
         ClosePositionOrder: [
           {
             HoldID: "20200702E01N04699739",
@@ -8075,7 +8166,150 @@ components:
         FutureMini: 100
         Option: 20
         KabuSVersion: "5.13.1.0"
-  
+    MarginPremiumResponse:
+      type: object
+      properties:
+        Symbol: 
+          description: "銘柄コード"
+          type: "string"
+        GeneralMargin:
+          description: "一般信用（長期）"
+          type: "object"
+          properties:
+            MarginPremiumType:
+              description: |-
+                プレミアム料入力区分
+                <table>
+                  <thead>
+                      <tr>
+                          <th>定義値</th>
+                          <th>説明</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td>null</td>
+                          <td>一般信用（長期）非対応銘柄</td>
+                      </tr>
+                      <tr>
+                          <td>0</td>
+                          <td>プレミアム料がない銘柄</td>
+                      </tr>
+                      <tr>
+                          <td>1</td>
+                          <td>プレミアム料が固定の銘柄</td>
+                      </tr>
+                      <tr>
+                          <td>2</td>
+                          <td>プレミアム料が入札で決定する銘柄</td>
+                      </tr>
+                  </tbody>
+                </table>
+              type: "integer"
+              format: "int32"
+            MarginPremium:
+              description: |-
+                確定プレミアム料<br>
+                ※入札銘柄の場合、入札受付中は随時更新します。受付時間外は、確定したプレミアム料を返します。<br>
+                ※非入札銘柄の場合、常に固定値を返します。<br>
+                ※信用取引不可の場合、nullを返します。<br>
+                ※19:30~翌営業日のプレミアム料になります。
+              type: "number"
+              format: "double"
+            UpperMarginPremium:
+              description: |-
+                上限プレミアム料<br>
+                ※プレミアム料がない場合は、nullを返します。
+              type: "number"
+              format: "double"
+            LowerMarginPremium:
+              description: |-
+                下限プレミアム料<br>
+                ※プレミアム料がない場合は、nullを返します。
+              type: "number"
+              format: "double"
+            TickMarginPremium:
+              description: |-
+                プレミアム料刻値<br>
+                ※入札可能銘柄以外は、nullを返します。
+              type: "number"
+              format: "double"
+        DayTrade:
+          type: object
+          description: "一般信用（デイトレ）"
+          properties:
+            MarginPremiumType:
+              description: |-
+                プレミアム料入力区分
+                <table>
+                  <thead>
+                      <tr>
+                          <th>定義値</th>
+                          <th>説明</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td>null</td>
+                          <td>一般信用（デイトレ）非対応銘柄</td>
+                      </tr>
+                      <tr>
+                          <td>0</td>
+                          <td>プレミアム料がない銘柄</td>
+                      </tr>
+                      <tr>
+                          <td>1</td>
+                          <td>プレミアム料が固定の銘柄</td>
+                      </tr>
+                      <tr>
+                          <td>2</td>
+                          <td>プレミアム料が入札で決定する銘柄</td>
+                      </tr>
+                  </tbody>
+                </table>
+              type: "integer"
+              format: "int32"
+            MarginPremium:
+              description: |-
+                確定プレミアム料<br>
+                ※入札銘柄の場合、入札受付中は随時更新します。受付時間外は、確定したプレミアム料を返します。<br>
+                ※非入札銘柄の場合、常に固定値を返します。<br>
+                ※信用取引不可の場合、nullを返します。<br>
+                ※19:30~翌営業日のプレミアム料になります。
+              type: "number"
+              format: "double"
+            UpperMarginPremium:
+              description: |-
+                上限プレミアム料<br>
+                ※プレミアム料がない場合は、nullを返します。
+              type: "number"
+              format: "double"
+            LowerMarginPremium:
+              description: |-
+                下限プレミアム料<br>
+                ※プレミアム料がない場合は、nullを返します。
+              type: "number"
+              format: "double"
+            TickMarginPremium:
+              description: |-
+                プレミアム料刻値<br>
+                ※入札可能銘柄以外は、nullを返します。
+              type: "number"
+              format: "double"
+      example:
+        Symbol: "9433"
+        GeneralMargin:
+          MarginPremiumType: null  
+          MarginPremium: null
+          UpperMarginPremium: null
+          LowerMarginPremium: null
+          TickMarginPremium: null
+        DayTrade:
+          MarginPremiumType: 2  
+          MarginPremium: 0.55
+          UpperMarginPremium: 1
+          LowerMarginPremium: 0.3
+          TickMarginPremium: 0.01
     #APIエラー結果
     ErrorResponse:
       type: "object"

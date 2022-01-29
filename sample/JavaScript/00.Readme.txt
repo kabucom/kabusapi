@@ -12,9 +12,11 @@ sendorder_cash_sell.js
 ３．注文発注（信用）
 （１）新規
 sendorder_margin_new.js
-（２）返済（決済順序）
+（２）新規_プレミアム料入札
+sendorder_margin_daytrade.js
+（３）返済（決済順序）
 sendorder_margin_pay_ClosePositionOrder.js
-（３）返済（返済建玉指定）
+（４）返済（返済建玉指定）
 sendorder_margin_pay_ClosePositions.js
 
 ４．注文発注（先物）
@@ -92,6 +94,9 @@ primaryexchange.js
 
 25. ソフトリミット
 apisoftlimit.js
+
+26. プレミアム料取得
+marginpremium.js
 
 
 // ライセンスについて

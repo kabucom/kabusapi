@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>CSharp_sample.Kabusapi_Sendorder_Option_new</StartupObject>
+    <StartupObject>CSharp_sample.Kabusapi_Sendorder_Margin_DayTrade</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -55,6 +55,7 @@
     <Compile Include="Kabusapi_CancelOrder.cs" />
     <Compile Include="GenerateToken.cs" />
     <Compile Include="Kabusapi_Exchange.cs" />
+    <Compile Include="Kabusapi_MarginPremium.cs" />
     <Compile Include="Kabusapi_Sendorder_Margin_pay_ClosePositions.cs" />
     <Compile Include="Kabusapi_Orders.cs" />
     <Compile Include="Kabusapi_Positions.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Kabusapi_Wallet_Option.cs" />
     <Compile Include="Kabusapi_Sendorder_Cash_sell.cs" />
     <Compile Include="Kabusapi_WebSocket.cs" />
+    <Compile Include="Kabusapi_Sendorder_Margin_DayTrade.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
