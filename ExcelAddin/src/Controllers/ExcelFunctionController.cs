@@ -1047,6 +1047,49 @@ namespace KabuSuteAddin
                 }
             }
         }
+
+        [ExcelFunction(Name = "MARGINPREMIUM", Category = "kabuSTATIONアドイン", Description = "指定した銘柄のプレミアム料を取得する", IsHidden = false)]
+        public static object MarginPremium(
+            [ExcelArgument(Description = "のプレミアム料を取得する", Name = "銘柄コード")] string Symbol
+            )
+        {
+            string Json = null;
+            try
+            {
+                string ResultMessage = Validate.ValidateCommon();
+                if (!string.IsNullOrEmpty(ResultMessage))
+                    return ResultMessage;
+
+                Tuple<DateTime, string> tpl;
+                var tplKey = string.Format(Symbol);
+                if (_primaryexchangeCache.TryGetValue(tplKey, out tpl))
+                {
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
+                    {
+                        Json = tpl.Item2;
+                    }
+                    
+                }
+                if (string.IsNullOrEmpty(Json))
+                {
+                    Json = middleware.GerMarginPremium(Symbol);
+                    _primaryexchangeCache[tplKey] = Tuple.Create(DateTime.Now, Json);
+                }
+                object array = MarginPremiumResult.MarginPremiumCheck(Json);
+                return XlCall.Excel(XlCall.xlUDF, "Resize", array);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException == null)
+                {
+                    return ex.Message;
+                }
+                else
+                {
+                    return ex.InnerException.Message;
+                }
+            }
+        }
     }
 
     internal class ExcelFunctionMiddleware
@@ -1542,5 +1585,12 @@ namespace KabuSuteAddin
             return response.Content.ReadAsStringAsync().Result;
         }
 
+        internal string GerMarginPremium(string symbol)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/margin/marginpremium/" + symbol);
+            request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
+            HttpResponseMessage response = client.SendAsync(request).Result;
+            return response.Content.ReadAsStringAsync().Result;
+        }
     }
 }

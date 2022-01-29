@@ -74,6 +74,7 @@
     <Compile Include="Element\Board.cs" />
     <Compile Include="Element\CancelOrder.cs" />
     <Compile Include="Element\Exchange.cs" />
+    <Compile Include="Element\MarginPremium.cs" />
     <Compile Include="Element\Orders.cs" />
     <Compile Include="Element\Positions.cs" />
     <Compile Include="Element\PrimaryExchange.cs" />
