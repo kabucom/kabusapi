@@ -2559,20 +2559,16 @@ paths:
                       <td>東証全体</td>
                   </tr>
                   <tr>
-                      <td>T1</td>
-                      <td>東証一部</td>
+                      <td>TP</td>
+                      <td>東証プライム</td>
                   </tr>
                   <tr>
-                      <td>T2</td>
-                      <td>東証二部</td>
+                      <td>TS</td>
+                      <td>東証スタンダード</td>
                   </tr>
                   <tr>
-                      <td>TM</td>
-                      <td>マザーズ</td>
-                  </tr>
-                  <tr>
-                      <td>JQ</td>
-                      <td>JASDAQ</td>
+                      <td>TG</td>
+                      <td>東証グロース</td>
                   </tr>
                   <tr>
                       <td>M</td>
@@ -2593,10 +2589,9 @@ paths:
             enum:
               - ALL
               - T
-              - T1
-              - T2
-              - TM
-              - JQ
+              - TP
+              - TS
+              - TG
               - M
               - FK
               - S
@@ -5632,33 +5627,33 @@ components:
         Symbol: "5401"
         SymbolName: "新日鐵住金"
         Exchange: 1
-        ExchangeName: "東証１部"
+        ExchangeName: "東証プ"
         CurrentPrice: 2408.0
-        CurrentPriceTime: "2020-07-22T15:00:00+09:00"
+        CurrentPriceTime: "2022-04-04T15:00:00+09:00"
         CurrentPriceChangeStatus: "0058"
         CurrentPriceStatus: 1
         CalcPrice: 343.7
         PreviousClose: 1048.0000
-        PreviousCloseTime: "2020-07-21T00:00:00+09:00"
+        PreviousCloseTime: "2022-04-01T00:00:00+09:00"
         ChangePreviousClose: 1360.0000
         ChangePreviousClosePer: 129.77
         OpeningPrice: 2380.0
-        OpeningPriceTime: 8"2020-07-22T09:00:00+09:00"
+        OpeningPriceTime: "2022-04-04T09:00:00+09:00"
         HighPrice: 2418.0
-        HighPriceTime: "2020-07-22T13:25:47+09:00"
+        HighPriceTime: "2022-04-04T13:25:47+09:00"
         LowPrice: 2370.0
-        LowPriceTime: "2020-07-22T10:00:04+09:00"
+        LowPriceTime: "2022-04-04T10:00:04+09:00"
         TradingVolume: 4571500.0
-        TradingVolumeTime: "2020-07-22T15:00:00+09:00"
+        TradingVolumeTime: "2022-04-04T15:00:00+09:00"
         VWAP: 2394.4262
         TradingValue: 10946119350.0
         BidQty: 100.0
         BidPrice: 2408.5000
-        BidTime: "2020-07-22T14:59:59+09:00"
+        BidTime: "2022-04-04T14:59:59+09:00"
         BidSign: "0101"
         MarketOrderSellQty: 0.0
         Sell1: {
-          Time: "2020-07-22T14:59:59+09:00",
+          Time: "2022-04-04T14:59:59+09:00",
           Sign: "0101",
           Price: 2408.5000,
           Qty: 100.0
@@ -5701,11 +5696,11 @@ components:
         }
         AskQty: 200.0
         AskPrice: 2407.5000
-        AskTime: "2020-07-22T14:59:59+09:00"
+        AskTime: "2022-04-04T14:59:59+09:00"
         AskSign: "0101"
         MarketOrderBuyQty: 0.0
         Buy1: {
-          Time: "2020-07-22T14:59:59+09:00",
+          Time: "2022-04-04T14:59:59+09:00",
           Sign: "0101",
           Price: 2407.5000,
           Qty: 200.0
@@ -6245,11 +6240,11 @@ components:
             </table>
           type: "string"
         KCMarginBuy:
-          description: "一般信用買建フラグ<br>※trueのとき一般信用買建可能<br>※株式銘柄の場合のみ"
+          description: "一般信用買建フラグ<br>※trueのとき、一般信用(長期)または一般信用(デイトレ)が買建可能<br>※株式銘柄の場合のみ"
           type: "boolean"
           format: ""
         KCMarginSell:
-          description: "一般信用売建フラグ<br>※trueのとき一般信用売建可能<br>※株式銘柄の場合のみ"
+          description: "一般信用売建フラグ<br>※trueのとき、一般信用(長期)または一般信用(デイトレ)が売建可能<br>※株式銘柄の場合のみ"
           type: "boolean"
           format: ""
         MarginBuy:
@@ -6897,15 +6892,15 @@ components:
                 format: "double"
       example:
         {
-            ID: "20200715A02N04738436",
+            ID: "20220404A02N04738436",
             State: 5,
             OrderState: 5,
             OrdType: 1,
-            RecvTime: "2020-07-16T18:00:51.763683+09:00",
+            RecvTime: "2022-04-04T18:00:51.763683+09:00",
             Symbol: "8306",
             SymbolName: "三菱ＵＦＪフィナンシャル・グループ",
             Exchange: 1,
-            ExchangeName: "東証１部",
+            ExchangeName: "東証プ",
             TimeInForce: 1,
             Price: 704.5,
             OrderQty: 1500,
@@ -6914,23 +6909,23 @@ components:
             CashMargin: 2,
             AccountType: 4,
             DelivType: 2,
-            ExpireDay: 20200702,
+            ExpireDay: 20220404,
             MarginTradeType: 1,
             MarginPremium: null,
             Details: [
               {
                 SeqNum: 1,
-                ID: "20200715A02N04738436",
+                ID: "20220404A02N04738436",
                 RecType: 1,
                 ExchangeID: "00000000-0000-0000-0000-00000000",
                 State: 3,
-                TransactTime: "2020-07-16T18:00:51.763683+09:00",
+                TransactTime: "2022-04-04T18:00:51.763683+09:00",
                 OrdType: 1,
                 Price: 704.5,
                 Qty: 1500,
                 ExecutionID: "" ,
-                ExecutionDay: "2020-07-02T18:02:00+09:00",
-                DelivDay: 20200706,
+                ExecutionDay: "2022-04-04T18:02:00+09:00",
+                DelivDay: 20220406,
                 Commission: 0,
                 CommissionTax: 0
               }
@@ -6940,13 +6935,13 @@ components:
       type: "object"
       example:
         {
-          ExecutionID: "20200715E02N04738464",
+          ExecutionID: "20220404E02N04738464",
           AccountType: 4,
-          Symbol: 8306,
+          Symbol: "8306",
           SymbolName: "三菱ＵＦＪフィナンシャル・グループ",
           Exchange: 1,
-          ExchangeName: "東証１部",
-          ExecutionDay: 20200702,
+          ExchangeName: "東証プ",
+          ExecutionDay: 20220404,
           Price: 704,
           LeavesQty: 500,
           HoldQty: 0,
@@ -6954,7 +6949,7 @@ components:
           Expenses: 0,
           Commission: 1620,
           CommissionTax: 162,
-          ExpireDay: 20201229,
+          ExpireDay: 20220404,
           MarginTradeType: 1,
           CurrentPrice: 414.5,
           Valuation: 207250,
@@ -7270,7 +7265,7 @@ components:
             CurrentPriceTime: 15:00
             TradingVolume: 1629.5
             Turnover: 458.575
-            ExchangeName: "東証JQS"
+            ExchangeName: "東証ス"
             CategoryName: "小売業"
           - No: 2
             Trend: "1"
@@ -7283,7 +7278,7 @@ components:
             CurrentPriceTime: 15:00
             TradingVolume: 19720
             Turnover: 3797.37
-            ExchangeName: "東証１部"
+            ExchangeName: "東証ス"
             CategoryName: "輸送用機器"
     RankingByTickCountResponse:
       title: 株価情報 (種別:5)
@@ -7398,7 +7393,7 @@ components:
           - No: 1
             Trend: "2"
             AverageRanking: 2
-            Symbol: "9884"
+            Symbol: "9984"
             SymbolName: "ｿﾌﾄﾊﾞﾝｸG"
             CurrentPrice: 8306
             ChangeRatio: 817
@@ -7408,7 +7403,7 @@ components:
             ChangePercentage: 10.9
             TradingVolume: 68384.4
             Turnover: 557485
-            ExchangeName: "東証１部"
+            ExchangeName: "東証プ"
             CategoryName: "情報・通信業"
           - No: 2
             Trend: "1"
@@ -7423,7 +7418,7 @@ components:
             ChangePercentage: 0.29
             TradingVolume: 11803.4
             Turnover: 17228.4096
-            ExchangeName: 東証JQS
+            ExchangeName: 東証ス
             CategoryName: 機械
 
     RankingByTradeVolumeResponse:
@@ -7530,20 +7525,20 @@ components:
           - No: 1
             Trend: "1"
             AverageRanking: 999
-            Symbol: 7462
-            SymbolName: ﾀﾞｲﾔ通商
+            Symbol: "7462"
+            SymbolName: CAPITA
             CurrentPrice: 2481
             ChangeRatio: 11
             RapidTradePercentage: 10202.32
             TradingVolume: 177.2
             CurrentPriceTime: 15:00
             ChangePercentage: 0.44
-            ExchangeName: 東証JQS
+            ExchangeName: 東証ス
             CategoryName: 小売業
           - No: 2
             Trend: "1"
             AverageRanking: 999
-            Symbol: 3358
+            Symbol: "3358"
             SymbolName: ﾜｲｴｽﾌｰﾄﾞ
             CurrentPrice: 297
             ChangeRatio: 71
@@ -7551,7 +7546,7 @@ components:
             TradingVolume: 1629.5
             CurrentPriceTime: 15:00
             ChangePercentage: 31.41
-            ExchangeName: 東証JQS
+            ExchangeName: 東証ス
             CategoryName: 小売業
     RankingByTradeValueResponse:
       title: 株価情報 (種別:7)
@@ -7657,7 +7652,7 @@ components:
           - No: 1
             Trend: "1"
             AverageRanking: 999
-            Symbol: 3358
+            Symbol: "3358"
             SymbolName: ﾜｲｴｽﾌｰﾄﾞ
             CurrentPrice: 297
             ChangeRatio: 71
@@ -7665,20 +7660,20 @@ components:
             Turnover: 458.5749
             CurrentPriceTime: 15:00
             ChangePercentage: 31.41
-            ExchangeName: 東証JQS
+            ExchangeName: 東証ス
             CategoryName: 小売業
           - No: 2
             Trend: "1"
             AverageRanking: 999
-            Symbol: 7462
-            SymbolName: ﾀﾞｲﾔ通商
+            Symbol: "7462"
+            SymbolName: CAPITA
             CurrentPrice: 2481
             ChangeRatio: 11
             RapidPaymentPercentage: 9973.95
             Turnover: 429.1906
             CurrentPriceTime: 15:00
             ChangePercentage: 0.44
-            ExchangeName: 東証JQS
+            ExchangeName: 東証ス
             CategoryName: 小売業
 
     RankingByMarginResponse:
@@ -7738,24 +7733,24 @@ components:
         ExchangeDivision: "ALL"
         Ranking:
           - No: 1
-            Symbol: 7888
+            Symbol: "7888"
             SymbolName: 三光合成
             SellRapidPaymentPercentage: 1410.9
             SellLastWeekRatio: 1343.4
             BuyRapidPaymentPercentage: 1108.2
             BuyLastWeekRatio: 832.7
             Ratio: 0.79
-            ExchangeName: 東証１部
+            ExchangeName: 東証プ
             CategoryName: 化学
           - No: 2
-            Symbol: 4564
+            Symbol: "4564"
             SymbolName: ＯＴＳ
             SellRapidPaymentPercentage: 6588
             SellLastWeekRatio: 1315.7
             BuyRapidPaymentPercentage: 22180.5
             BuyLastWeekRatio: -223.4
             Ratio: 3.37
-            ExchangeName: 東証ﾏｻﾞｰｽﾞ
+            ExchangeName: 東証グ
             CategoryName: 医薬品
 
     RankingByCategoryResponse:
