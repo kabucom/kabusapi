@@ -3725,9 +3725,9 @@ components:
         DelivType: 2
         AccountType: 4
         Qty: 500
-        ClosePositionOrder: [
+        ClosePositions: [
           {
-            HoldID: "20200702E01N04699739",
+            HoldID: "E20200702xxxxx",
             Qty: 500
           }
         ]
@@ -4083,7 +4083,7 @@ components:
         Qty: 1
         ClosePositions: [
           {
-            HoldID: "20200903E01N04773904",
+            HoldID: "E20200903xxxxx",
             Qty: 1
           }
         ]
@@ -4436,7 +4436,7 @@ components:
         Qty: 1
         ClosePositions: [
           {
-            HoldID: "20200903E01N04773904",
+            HoldID: "E20200903xxxxx",
             Qty: 1
           }
         ]
@@ -4455,12 +4455,10 @@ components:
         HoldID:
           description: "返済建玉ID"
           type: "string"
-          example: "20200702E01N04699739"
         Qty:
           description: "返済建玉数量"
           type: "integer"
           format: "int32"
-          example: 500
     PositionsDeriv:
       type: "object"
       properties:
@@ -6935,7 +6933,7 @@ components:
       type: "object"
       example:
         {
-          ExecutionID: "20220404E02N04738464",
+          ExecutionID: "E20220404xxxxx",
           AccountType: 4,
           Symbol: "8306",
           SymbolName: "三菱ＵＦＪフィナンシャル・グループ",
