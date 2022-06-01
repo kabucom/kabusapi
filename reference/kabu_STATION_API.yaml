@@ -3560,7 +3560,7 @@ components:
                   <tr>
                       <td>30</td>
                       <td>逆指値</td>
-                      <td></td>
+                      <td>指定なし<br>※AfterHitPriceで指定ください</td>
                   </tr>
               </tbody>
             </table>
@@ -3732,7 +3732,6 @@ components:
           }
         ]
         FrontOrderType: 30
-        Price: 0
         ExpireDay: 20200903
         ReverseLimitOrder: {
           TriggerSec: 1,
@@ -3948,7 +3947,7 @@ components:
                   <tr>
                       <td>30</td>
                       <td>逆指値</td>
-                      <td></td>
+                      <td>指定なし<br>※AfterHitPriceで指定ください</td>
                   </tr>
                   <tr>
                       <td>120</td>
@@ -4088,7 +4087,6 @@ components:
           }
         ]
         FrontOrderType: 30
-        Price: 0
         ExpireDay: 20200903
         ReverseLimitOrder: {
           TriggerPrice: 100,
@@ -4301,7 +4299,7 @@ components:
                   <tr>
                       <td>30</td>
                       <td>逆指値</td>
-                      <td></td>
+                      <td>指定なし<br>※AfterHitPriceで指定ください</td>
                   </tr>
                   <tr>
                       <td>120</td>
@@ -4441,7 +4439,6 @@ components:
           }
         ]
         FrontOrderType: 30
-        Price: 0
         ExpireDay: 20200903
         ReverseLimitOrder: {
           TriggerPrice: 100,
