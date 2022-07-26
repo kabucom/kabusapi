@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="Description" content="kabuステーション APIに関するページです。">
+	<meta name="Keywords" content="auKabucom, kabu.com,auカブコム証券, カブドットコム証券,API">
+	<title>kabuステーション API ｜株のことならネット証券会社【auカブコム証券】</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" type="text/css" href="content/css/common.css">
+	<link rel="stylesheet" type="text/css" href="content/css/manual.css">
+</head>
+
+<body>
+	<header>
+		<p class="logo">
+			<a href="https://kabu.com" target="_blank">
+				<img src="content/image/common/logo-kabucomau.png" width="180px" />
+			</a>
+		</p>
+	</header>
+	<main>
+	<div id="visual">
+		<section class="visual-inner">
+			<h1>
+				<a href="index.html">
+					<img src="content/image/common/logo.png" alt="kabuステーションAPI" width="520px" />
+				</a>
+			</h1>
+		</section>
+	</div>
+	<div class="container">
+		<div class="grid-sidebar affix">
+			<ul class="list-group">
+				<li class="list-group-item">
+					<a href="howto.html" class="font-weight-normal">API利用設定</a>
+				</li>
+				<li class="list-group-item">
+					<a href="howto.html#step1" class="sidebar-image">
+						<img src="content/image/howto/nav_step1.png" class="sidebar-image" id="sidebar-step1">
+					</a>
+				</li>
+				<li class="list-group-item">
+					<a href="howto.html#step2" class="font-weight-normal">
+						<img src="content/image/howto/nav_step2.png" class="sidebar-image" id="sidebar-step2">
+					</a>
+				</li>
+			</ul>
+			<ul class="list-group">
+				<li class="list-group-item">
+					<a href="add-in.html" class="font-weight-normal">Excelアドイン利用方法</a>
+				</li>
+				<li class="list-group-item">
+					<a href="add-in.html#step1" class="sidebar-image">
+						<img src="content/image/add-in/nav_step1.png" class="sidebar-image" id="sidebar_step1">
+					</a>
+				</li>
+				<li class="list-group-item">
+					<a href="add-in.html#step2" class="sidebar-image">
+						<img src="content/image/add-in/nav_step2.png" class="sidebar-image" id="sidebar_step2">
+					</a>
+				</li>
+			</ul>
+			<ul class="list-group">
+				<li class="list-group-item">
+					<a href="time-zone-setting.html" class="font-weight-normal">タイムゾーン、日付、時刻、地域等の設定</a>
+				</li>
+				<li class="list-group-item">
+					<a href="#step1" class="sidebar-image">
+						<img src="content/image/time-zone-setting/Time_zone_step1.png" class="sidebar-image" id="sidebar_step1">
+					</a>
+				</li>
+				<li class="list-group-item">
+					<a href="#step2" class="sidebar-image">
+						<img src="content/image/time-zone-setting/Time_zone_step2.png" class="sidebar-image" id="sidebar_step2">
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="grid-content">
+			<button onClick="window.print()" class="btn_print">印刷する</button>
+			<div class="page-header">
+				<h3>タイムゾーン、日付、時刻、地域等の設定</h3>
+			</div>
+
+			<a name="step1" id="step1"></a>
+			<div class="support_title">
+				<img src="content/image/common/sankaku.gif" width="9px" height="12px"> &nbsp;kabuステーション<sup>&reg;</sup>、kabuステーション<sup>&reg;</sup>APIを実行するPCのタイムゾーンは、日本時間(UTC+09:00)を設定ください。
+                また、日付のデータ表示形式は西暦を設定ください。
+                <br>※正しい設定をしない場合、各APIのレスポンス項目にある日時が、正確に取得できない可能性があります。
+			</div>
+			<div class="support_box">
+				<div class="step_title">
+					<img src="content/image/common/support_title1.gif" height="22px">
+					<h2>タイムゾーンの設定方法</h2>
+				</div>
+				<div class="support_contents">
+					<div class="support_text">
+						<h3>タイムゾーンの設定方法</h3>
+                        ※以下はWindows10にて説明いたします。OSのバージョンにより、画面の表示方法が異なる場合があります。
+						<ol>
+							<li>スタート > 設定 をクリックします。
+								<div class="support_img">
+									<img src="content/image/time-zone-setting/step1_01.png" width="75%" height="auto" alt="">
+								</div>
+							</li>
+							<li>時刻と言語 をクリックします。
+								<div class="support_img">
+									<img src="content/image/time-zone-setting/step1_02.png" width="100%" height="auto" alt="">
+								</div>
+							</li>
+							<li>日付と時刻 をクリックします。
+								<div class="support_img">
+									<img src="content/image/time-zone-setting/step1_03.png" width="60%" height="auto" alt="">
+								</div>
+							</li>
+							<li>タイムゾーンは以下のように設定します。
+								<div class="support_img">
+									<img src="content/image/time-zone-setting/step1_04.png" width="100%" height="auto" alt="">
+								</div>
+							</li>
+						</ol>
+						<a name="step2" id="step2"></a>
+					<!-- /support_text -->
+					</div>
+				<!-- /support_contents -->
+				</div>
+			<!-- /support_box -->
+			</div>
+
+
+			<div class="support_box">
+				<div class="step_title">
+					<img src="content/image/common/support_title1.gif" height="22px">
+					<h2>日付、時刻、地域の書式設定</h2>
+				</div>
+				<div class="support_contents">
+					<div class="support_text">
+						<h3>日付、時刻、地域の書式設定 </h3>
+						<ol>
+							<li>日付、時刻、地域の書式設定 をクリックします。
+                                <div class="support_img">
+									<img src="content/image/time-zone-setting/step2_1.png" width="100%" height="auto" alt="">
+								</div>
+                            </li>
+                            <li>国または地域 を 「日本」、現在の形式 を 「推奨[日本語（日本）]」と設定します。
+                                <div class="support_img">
+									<img src="content/image/time-zone-setting/step2_2.png" width="100%" height="auto" alt="">
+								</div>
+                            </li>
+                            <li>データ形式を変更する をクリックします。
+                                <div class="support_img">
+									<img src="content/image/time-zone-setting/step2_3.png" width="100%" height="auto" alt="">
+								</div>
+                            </li>
+                            <li>各項目は下記のように設定します。
+                                <div class="support_img">
+									<img src="content/image/time-zone-setting/step2_4.png" width="75%" height="auto" alt="">
+								</div>
+                            </li>
+							
+						</ol>
+					<!-- /support_text -->
+					</div>
+				<!-- /support_contents -->
+				</div>
+			<!-- /support_box -->
+			</div>
+		</div>
+		<div class="container-botton-area">
+		</div>
+	</div>
+
+	<footer>
+		<p class="copy">&copy;2020 - auKabucom Securities Co.,Ltd. All rights reserved.</p>
+	</footer>
+</body>
+
+</html>
