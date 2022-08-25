@@ -1484,11 +1484,11 @@ paths:
           schema:
             type: string
             enum:
-              - 0
-              - 1
-              - 2
-              - 3
-              - 4
+              - "0"
+              - "1"
+              - "2"
+              - "3"
+              - "4"
           required: false
           description: |-
             取得する商品
@@ -1613,11 +1613,11 @@ paths:
           schema:
             type: string
             enum:
-              - 1
-              - 2
-              - 3
-              - 4
-              - 5
+              - "1"
+              - "2"
+              - "3"
+              - "4"
+              - "5"
           required: false
         - in: query
           name: side
@@ -1648,15 +1648,15 @@ paths:
           schema:
             type: string
             enum:
-              - 1
-              - 2
+              - "1"
+              - "2"
         - in: query
           name: cashmargin
           schema:
             type: string
             enum:
-              - 2
-              - 3
+              - "2"
+              - "3"
           description: |-
             取引区分<br>
             ※指定された取引区分と一致する注文のみレスポンスします。<br>
@@ -1794,11 +1794,11 @@ paths:
           schema:
             type: string
             enum:
-              - 0
-              - 1
-              - 2
-              - 3
-              - 4
+              - "0"
+              - "1"
+              - "2"
+              - "3"
+              - "4"
           required: false
         - in: query
           name: symbol
@@ -1832,8 +1832,8 @@ paths:
           schema:
             type: string
             enum:
-              - 1
-              - 2
+              - "1"
+              - "2"
           required: false
         - in: query
           name: addinfo
@@ -2521,21 +2521,21 @@ paths:
           schema:
             type: string
             enum:
-              - 1
-              - 2
-              - 3
-              - 4
-              - 5
-              - 6
-              - 7
-              - 8
-              - 9
-              - 10
-              - 11
-              - 12
-              - 13
-              - 14
-              - 15
+              - "1"
+              - "2"
+              - "3"
+              - "4"
+              - "5"
+              - "6"
+              - "7"
+              - "8"
+              - "9"
+              - "10"
+              - "11"
+              - "12"
+              - "13"
+              - "14"
+              - "15"
           required: true
         - in: query
           name: ExchangeDivision
@@ -7234,11 +7234,11 @@ components:
               TradingVolume:
                 type: number
                 format: double
-                description: "売買高"
+                description: "売買高<br>売買高を千株単位で表示する<br>※百株の位を四捨五入"
               Turnover:
                 type: number
                 format: double
-                description: "売買代金"
+                description: "売買代金<br>売買代金を百万円単位で表示する<br>※十万円の位を四捨五入"
               ExchangeName:
                 description: "市場名"
                 type: "string"
@@ -7370,11 +7370,11 @@ components:
               TradingVolume:
                 type: number
                 format: double
-                description: "売買高"
+                description: "売買高<br>売買高を千株単位で表示する<br>※百株の位を四捨五入"
               Turnover:
                 type: number
                 format: double
-                description: "売買代金"
+                description: "売買代金<br>売買代金を百万円単位で表示する<br>※十万円の位を四捨五入"
               ExchangeName:
                 description: "市場名"
                 type: "string"
@@ -7499,7 +7499,7 @@ components:
               TradingVolume:
                 type: number
                 format: double
-                description: "売買高"
+                description: "売買高<br>売買高を千株単位で表示する<br>※百株の位を四捨五入"
               CurrentPriceTime:
                 description: "時刻<br>HH:mm<br>※日付は返しません"
                 type: "string"
@@ -7626,7 +7626,7 @@ components:
               Turnover:
                 type: number
                 format: double
-                description: "売買代金"
+                description: "売買代金<br>売買代金を百万円単位で表示する<br>※十万円の位を四捨五入"
               CurrentPriceTime:
                 description: "時刻<br>HH:mm<br>※日付は返しません"
                 type: "string"
