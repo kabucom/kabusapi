@@ -6831,6 +6831,14 @@ components:
                     </thead>
                     <tbody>
                         <tr>
+                            <td>null</td>
+                            <td>RecType=[6] 取消 の場合</td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>RecType=[3] 期限切れ, [7] 失効, [8] 約定 の場合</td>
+                        </tr>
+                        <tr>
                             <td>1</td>
                             <td>ザラバ</td>
                         </tr>
