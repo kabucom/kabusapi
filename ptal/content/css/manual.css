@@ -170,12 +170,6 @@
 /*  body
 -----------------------------------------------------*/
 
-body {
-    font-family: 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, sans-serif;
-    font-size: 100%;
-    color: #333333;
-}
-
 a {
     color: #2b6884;
     text-decoration: none;
@@ -295,7 +289,6 @@ a:visited{
 -----------------------------------------------------*/
 
 .container-botton-area {
-    padding: 20px 0 50px 0;
     text-align: center;
     width: 100%;
     display: table;

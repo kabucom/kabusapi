@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="Description" content="kabuステーション APIに関するページです。" />
+  <meta name="Keywords" content="auKabucom, kabu.com,auカブコム証券, カブドットコム証券,API" />
+  <title>
+    kabuステーション API ｜株のことならネット証券会社【auカブコム証券】
+  </title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="stylesheet" type="text/css" href="content/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="content/css/index.css" />
+  <link rel="stylesheet" type="text/css" href="content/css/manual.css" />
+</head>
+
+<body>
+  <header>
+    <p class="logo">
+      <a href="https://kabu.com" target="_blank">
+        <img src="content/image/common/logo-kabucomau.png" width="180px" />
+      </a>
+    </p>
+  </header>
+  <main>
+    <div id="visual">
+      <section class="visual-inner">
+        <h1>
+          <a href="index.html">
+            <img src="content/image/common/logo.png" alt="kabuステーションAPI" width="520px" />
+          </a>
+        </h1>
+      </section>
+    </div>
+    <div style="margin-bottom: 100px;">
+      <div id="contents-inner">
+        <div class="page-header">
+          <h3>よくある質問</h3>
+        </div>
+        <button class="collapsible">ログの格納先はどこですか？</button>
+        <div class="content">
+          <div class="support_text">
+            <p>以下の手順に従って、ログの参照が可能となります。</p>
+
+            <ol>
+              <li>Windowsキー + R を押下します。
+                <div class="support_img">
+                  <img src="content/image/faq/Windows+R.png" width="30%" height="auto" alt="">
+                </div>
+              </li>
+              <li>参照したいログのパスを入力し、「OK」をクリックします。<br>
+                ※以下はデバッグログを例としています。<br>
+                デバッグログ：%appdata%\KabuS\Log<br>
+                APIログ：%appdata%\KabuS\Log\APILog
+
+                <div class="support_img">
+                  <img src="content/image/faq/RUN.png" width="30%" height="auto" alt="">
+                </div>
+              </li>
+
+            </ol>
+            <!-- /support_text -->
+          </div>
+        </div>
+        <button class="collapsible">APIリクエスト頻度の上限を教えてください。</button>
+        <div class="content">
+          <p>
+            発注APIは5件/秒、取引余力APIや情報API、銘柄登録APIは10件/秒となります。それ以上のリクエストをしますと、エラーとなります。
+          </p>
+        </div>
+        <button class="collapsible">kabuステーションは毎日自動ログアウトされますが、なぜですか？</button>
+        <div class="content">
+          <p>
+            kabuステーション®の利用可能時間は、6:30から翌早朝6:15までとなります（メンテナンス日を除く）。<br>
+          </p>
+          <p>※ご参考：<a target="_blank" href="https://faq.kabu.com/s/article/k001765">kabuステーション®の利用可能時間について教えてください</a></p>
+        </div>
+        <button class="collapsible">kabuステーション®が起動しているPCとは違うPCからkabuステーション®APIを利用できますか？
+        </button>
+        <div class="content">
+          <p>
+            kabuステーション®APIはkabuステーション®と同一IPからのリクエストのみを受け入れます。そのため、同一PCでご使用ください。
+          </p>
+        </div>
+        <button class="collapsible">kabuステーション®を起動しないとkabuステーション®APIが利用できないのですか？</button>
+        <div class="content">
+          <p>
+            kabuステーション®APIを使ったリクエストは、kabuステーション®を通してリクエストしています。<br/>
+            kabuステーション®APIをご利用になる際は、常にkabuステーション®を起動しておく必要があります。
+          </p>
+        </div>
+        <button class="collapsible">PUSHの間引き間隔を教えてください。</button>
+        <div class="content">
+          <p>
+            間引き間隔は400msとなっております。
+          </p>
+        </div>
+        <button class="collapsible">検証用環境はどんな時に使いますか？</button>
+        <div class="content">
+          <p>
+            作成したプログラムの動作確認としてご利用いただけます。
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+  <footer>
+    <p id="footer">
+      &copy;2020 - auKabucom Securities Co.,Ltd. All rights reserved.
+    </p>
+  </footer>
+
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight) {
+          content.style.maxHeight = null;
+          content.style.padding = "0";
+        } else {
+          content.style.maxHeight = "fit-content";
+          content.style.padding = "0 30px";
+          content.style.lineHeight = "normal";
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

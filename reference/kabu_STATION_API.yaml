@@ -3338,6 +3338,7 @@ components:
         DelivType:
           description: |-
             受渡区分<br>※現物買は指定必須。<br>※現物売は「0(指定なし)」を設定<br>※信用新規は「0(指定なし)」を設定<br>※信用返済は指定必須
+            <br>※auマネーコネクトが有効の場合にのみ、「3」を設定可能
             <table>
               <thead>
                   <tr>
@@ -3357,6 +3358,10 @@ components:
                   <tr>
                       <td>2</td>
                       <td>お預り金</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>auマネーコネクト</td>
                   </tr>
               </tbody>
             </table>
@@ -4623,7 +4628,19 @@ components:
       type: "object"
       properties:
         StockAccountWallet:
-          description: "現物買付可能額"
+          description: "現物買付可能額<br>
+          ※auマネーコネクトが有効の場合、auじぶん銀行の残高を含めた合計可能額を表示する<br>
+          ※auマネーコネクトが無効の場合、auカブコム証券の可能額のみを表示する"
+          type: "number"
+          format: "double"
+          example: null
+        AuKCStockAccountWallet:
+          description: "うち、auカブコム証券可能額"
+          type: "number"
+          format: "double"
+          example: null
+        AuJbnStockAccountWallet:
+          description: "うち、auじぶん銀行残高<br>※auマネーコネクトが無効の場合、「0」を表示する"
           type: "number"
           format: "double"
           example: null
@@ -6373,7 +6390,8 @@ components:
           type: "string"
         State:
           description: |-
-            状態
+            状態<br>
+            ※OrderStateと同一である
             <table>
               <thead>
                   <tr>
@@ -6408,7 +6426,8 @@ components:
           format: "int32"
         OrderState:
           description: |-
-            注文状態
+            注文状態<br>
+            ※Stateと同一である
             <table>
               <thead>
                   <tr>
@@ -6671,6 +6690,10 @@ components:
                   <tr>
                       <td>2</td>
                       <td>お預り金</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>auマネーコネクト</td>
                   </tr>
               </tbody>
             </table>
