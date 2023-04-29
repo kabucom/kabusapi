@@ -2,11 +2,8 @@
 
 /*  body
 -----------------------------------------------------*/
-body {
-    font-family: 'ÉqÉâÉMÉmäpÉS ProN W3', 'Hiragino Kaku Gothic ProN', 'ÉÅÉCÉäÉI', Meiryo, sans-serif;
-    font-size: 100%;
-    color: #333333;
-}
+
+
 
 a {
     font-weight: bold;
@@ -70,6 +67,7 @@ a {
 
 #contents-inner div p.comment {
     padding: 10px;
+    line-height: normal;
 }
 
 #contents-inner div.issue,
@@ -82,7 +80,6 @@ a {
 }
 
 #contents-inner div.issue {
-    display: flex;
     padding: 20px;
 }
 
@@ -117,7 +114,7 @@ a {
 /*  sub
 -----------------------------------------------------*/
 .bnrarea {
-    padding:20px 0 100px 0;
+    padding:20px 0 20px 0;
     text-align: center;
     border-top: solid 1px #cccccc;
     width: 100%;
@@ -158,3 +155,39 @@ a {
             display: none;
         }
 }
+
+/* collapsible FAQ
+-----------------------------------------------------*/
+.collapsible {
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    background-color: #fff;
+  }
+
+  .collapsible:after {
+    content: '\25B6';
+    font-weight: bold;
+    float: left;
+    margin-right: 15px;
+    
+  }
+  .active:after {
+    content: "\25BC";
+  }
+  .content {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    margin: 0px;
+  }
+
+  ul {
+    list-style-type: circle;
+    list-style-position: inside;
+  }
