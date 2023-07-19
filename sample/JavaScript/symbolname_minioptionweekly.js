@@ -1,6 +1,6 @@
-var url = new URL('http://localhost:18080/kabusapi/symbolname/option');
-url.searchParams.append('OptionCode', 'NK225op');
+var url = new URL('http://localhost:18080/kabusapi/symbolname/minioptionweekly');
 url.searchParams.append('DerivMonth', 202306);
+url.searchParams.append('DerivWeekly', 1);
 url.searchParams.append('PutOrCall', 'P');
 url.searchParams.append('StrikePrice', 27250);
 

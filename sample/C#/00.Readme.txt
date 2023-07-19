@@ -118,6 +118,9 @@ Startup Object： CSharp_sample.Kabusapi_Primaryexchange
 24. ソフトリミット
 Startup Object： CSharp_sample.Kabusapi_Apisoftlimit
 
+25．ミニオプション(限週)銘柄コード取得
+Startup Object： CSharp_sample.Kabusapi_Symbolname_MiniOptionWeekly
+
 // ライセンスについて
 Copyright (c) 2021 au Kabucom Securities Co., Ltd.
 Released under the MIT license

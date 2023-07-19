@@ -74,6 +74,7 @@
     <Compile Include="Kabusapi_Sendorder_Option_pay_ClosePositions.cs" />
     <Compile Include="Kabusapi_Symbol.cs" />
     <Compile Include="Kabusapi_Symbolname_Future.cs" />
+    <Compile Include="Kabusapi_Symbolname_MiniOptionWeekly.cs" />
     <Compile Include="Kabusapi_Symbolname_Option.cs" />
     <Compile Include="Kabusapi_Unregister.cs" />
     <Compile Include="Kabusapi_Unregisterall.cs" />

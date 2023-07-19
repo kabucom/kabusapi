@@ -5,21 +5,21 @@ using System.Web;
 
 namespace CSharp_sample
 {
-    class Kabusapi_Symbolname_Option
+    class Kabusapi_Symbolname_MiniOptionWeekly
     {
         static void Main(string[] args)
         {
-            string OptionCode = "NK225op";
             string PutOrCall = "C";
-            int DerivMonth = 0;
+            int DerivMonth = 202305;
+            int DerivWeekly = 0;
             int StrikePrice = 24000;
 
             string token = GenerateToken.GetToken();
 
-            var builder = new UriBuilder("http://localhost:18080/kabusapi/symbolname/option");
+            var builder = new UriBuilder("http://localhost:18080/kabusapi/symbolname/minioptionweekly");
             var param = HttpUtility.ParseQueryString(builder.Query);
-            param["OptionCode"] = OptionCode.ToString();
-            param["DerivMonth"] = DerivMonth.ToString();           
+            param["DerivMonth"] = DerivMonth.ToString();
+            param["DerivWeekly"] = DerivWeekly.ToString();
             param["PutOrCall"] = PutOrCall;
             param["StrikePrice"] = StrikePrice.ToString();
 

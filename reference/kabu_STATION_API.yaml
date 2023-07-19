@@ -2234,6 +2234,10 @@ paths:
                       <td>REIT</td>
                       <td>東証REIT指数先物</td>
                   </tr>
+                  <tr>
+                      <td>NK225micro</td>
+                      <td>日経225マイクロ先物</td>
+                  </tr>
               </tbody>
             </table>
         - in: "query"
@@ -2322,6 +2326,32 @@ paths:
           schema:
             type: string
           required: true
+        - in: "query"
+          name: "OptionCode"
+          description: |-
+            オプションコード<br>
+            ※指定なしの場合は、日経225オプションを対象とする。<br>
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>NK225op</td>
+                      <td>日経225オプション</td>
+                  </tr>
+                  <tr>
+                      <td>NK225miniop</td>
+                      <td>日経225ミニオプション</td>
+                  </tr>
+              </tbody>
+            </table>
+          schema:
+            type: string
+          required: false
         - in: "query"
           name: "DerivMonth"
           description: "限月<br>※限月はyyyyMM形式で指定します。0を指定した場合、直近限月となります。<br>※取引最終日に「0」（直近限月）を指定した場合、日中・夜間の時間帯に関わらず、取引最終日を迎える限月の銘柄コードを返します。取引最終日を迎える銘柄の取引は日中取引をもって終了となりますので、ご注意ください。"
@@ -2423,6 +2453,129 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /symbolname/minioptionweekly:
+    get:
+      tags:
+        - "info"
+      operationId: symbolnameOptionMiniGet
+      summary: "ミニオプション（限週）銘柄コード取得"
+      description: "ミニオプション（限週）銘柄コード取得"
+      parameters:
+        - in: header
+          name: X-API-KEY
+          description: トークン発行メソッドで取得した文字列
+          schema:
+            type: string
+          required: true
+        - in: "query"
+          name: "DerivMonth"
+          description: "限月<br>※限月はyyyyMM形式で指定します。0を指定した場合、直近限月となります。<br>※取引最終日に「0」（直近限月）を指定した場合、日中・夜間の時間帯に関わらず、取引最終日を迎える限月の銘柄コードを返します。取引最終日を迎える銘柄の取引は日中取引をもって終了となりますので、ご注意ください。"
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - in: "query"
+          name: "DerivWeekly"
+          description: "限週<br>※限週は0,1,3,4,5のいずれかを指定します。0を指定した場合、指定した限月の直近限週となります。<br>※取引最終日に「0」（直近限週）を指定した場合、日中・夜間の時間帯に関わらず、取引最終日を迎える限週の銘柄コードを返します。取引最終日を迎える銘柄の取引は日中取引をもって終了となりますので、ご注意ください。"
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - in: "query"
+          name: "PutOrCall"
+          description: |-
+            コール or プット<br>
+            ※大文字小文字は区別しません。
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>P</td>
+                      <td>PUT</td>
+                  </tr>
+                  <tr>
+                      <td>C</td>
+                      <td>CALL</td>
+                  </tr>
+              </tbody>
+            </table>
+          schema:
+            type: string
+          required: true
+        - in: "query"
+          name: "StrikePrice"
+          description: "権利行使価格<br>※0を指定した場合、APIを実行した時点でのATMとなります。"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SymbolNameSuccess"
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: MethodNotAllowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "413":
+          description: RequestEntityTooLarge
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "415":
+          description: UnsupportedMediaType
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: TooManyRequests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
   /ranking:
     get:
       tags:
@@ -3830,18 +3983,105 @@ components:
               <tbody>
                   <tr>
                       <td>1</td>
-                      <td>FAS<br>※逆指値注文以外の場合、FASを指定した場合、FrontOrderTypeは指値(20)のみ指定可能。</td>
+                      <td>FAS</td>
                   </tr>
                   <tr>
                       <td>2</td>
-                      <td>FAK<br>※逆指値注文以外の場合、FAKを指定した場合、Exchangeは日中(23)、夜間(24)のみ指定可能。</td>
+                      <td>FAK</td>
                   </tr>
                   <tr>
                       <td>3</td>
-                      <td>FOK<br>※逆指値注文以外の場合、FOKを指定した場合、Exchangeは日中(23)、夜間(24)のみ指定可能。</td>
+                      <td>FOK</td>
                   </tr>
               </tbody>
             </table>
+            
+            ※執行条件(FrontOrderType)、有効期限条件(TimeInForce)、市場コード(Exchange)で選択できる組み合わせは下表のようになります。          
+            
+            
+            
+            
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">執行条件</th>
+                  <th rowspan="2">有効期間条件</th>
+                  <th colspan="3">市場コード</th>
+                </tr>
+                <tr>
+                  <th>日中</th>
+                  <th>夜間</th>
+                  <th>日通し</th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                <tr>
+                  <td>指値</td>
+                  <td>FAS</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>●</td>
+                </tr>
+                <tr>
+                  <td>指値</td>
+                  <td>FAK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>指値</td>
+                  <td>FOK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>成行</td>
+                  <td>FAK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>成行</td>
+                  <td>FOK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>逆指値（指値）</td>
+                  <td>FAK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>●</td>
+                </tr>
+                <tr>
+                  <td>逆指値（成行）</td>
+                  <td>FAK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>引成</td>
+                  <td>FAK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>引指</td>
+                  <td>FAS</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+              </tbody>
+            </table>
+            
           type: "integer"
           format: "int32"
         Side:
@@ -4182,18 +4422,107 @@ components:
               <tbody>
                   <tr>
                       <td>1</td>
-                      <td>FAS<br>※逆指値注文以外の場合、FASを指定した場合、FrontOrderTypeは指値(20)のみ指定可能。</td>
+                      <td>FAS</td>
                   </tr>
                   <tr>
                       <td>2</td>
-                      <td>FAK<br>※逆指値注文以外の場合、FAKを指定した場合、Exchangeは日中(23)、夜間(24)のみ指定可能。</td>
+                      <td>FAK</td>
                   </tr>
                   <tr>
                       <td>3</td>
-                      <td>FOK<br>※逆指値注文以外の場合、FOKを指定した場合、Exchangeは日中(23)、夜間(24)のみ指定可能。</td>
+                      <td>FOK</td>
                   </tr>
               </tbody>
             </table>
+            
+            ※執行条件(FrontOrderType)、有効期限条件(TimeInForce)、市場コード(Exchange)で選択できる組み合わせは下表のようになります。          
+            
+            
+            
+            
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">執行条件</th>
+                  <th rowspan="2">有効期間条件</th>
+                  <th colspan="3">市場コード</th>
+                </tr>
+                <tr>
+                  <th>日中</th>
+                  <th>夜間</th>
+                  <th>日通し</th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                <tr>
+                  <td>指値</td>
+                  <td>FAS</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>●</td>
+                </tr>
+                <tr>
+                  <td>指値</td>
+                  <td>FAK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>指値</td>
+                  <td>FOK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>成行</td>
+                  <td>FAK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>成行</td>
+                  <td>FOK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>逆指値（指値）</td>
+                  <td>FAK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>●</td>
+                </tr>
+                <tr>
+                  <td>逆指値（成行）</td>
+                  <td>FAK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>引成</td>
+                  <td>FAK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>引指</td>
+                  <td>FAS</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+              </tbody>
+            </table>
+            
+            
+            
           type: "integer"
           format: "int32"
         Side:
@@ -6051,8 +6380,8 @@ components:
             ※株式・先物・オプション銘柄の場合のみ<br>
             ※各呼値コードが対応する商品は以下となります。<BR>
             　株式の呼値の単位の詳細は [JPXページ](https://www.jpx.co.jp/equities/trading/domestic/07.html) をご覧ください。<BR>
-            　10000：株式(TOPIX100採用銘柄以外)　<br>
-            　10003：株式(TOPIX100採用銘柄)<br>
+            　10000：株式(TOPIX500採用銘柄以外)　<br>
+            　10003：株式(TOPIX500採用銘柄)<br>
             　10118 : 日経平均先物<br>
             　10119 : 日経225mini<br>
             　10318 : 日経平均オプション<br>
@@ -6583,6 +6912,9 @@ components:
                   </tr>
               </tbody>
             </table>
+            
+            
+            
           type: "integer"
           format: "int32"
         Price:
@@ -8170,11 +8502,19 @@ components:
           type: "number"
           format: "double"
         FutureMini:
-          description: 先物ミニのワンショット上限<br>※単位は枚
+          description: ミニ先物のワンショット上限<br>※単位は枚
+          type: "number"
+          format: "double"
+        FutureMicro:
+          description: マイクロ先物のワンショット上限<br>※単位は枚
           type: "number"
           format: "double"
         Option:
           description: オプションのワンショット上限<br>※単位は枚
+          type: "number"
+          format: "double"
+        OptionMini:
+          description: ミニオプションのワンショット上限<br>※単位は枚
           type: "number"
           format: "double"
         KabuSVersion:
@@ -8185,7 +8525,9 @@ components:
         Margin: 200
         Future: 10
         FutureMini: 100
+        FutureMicro: 1000
         Option: 20
+        MiniOption: 200
         KabuSVersion: "5.13.1.0"
     MarginPremiumResponse:
       type: object

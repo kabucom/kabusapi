@@ -2,9 +2,8 @@ import urllib.request
 import json
 import pprint
 
-url = 'http://localhost:18080/kabusapi/symbolname/option'
-#params = { 'OptionCode': 'NK225op', 'DerivMonth': 202306, 'PutOrCall': 'C', 'StrikePrice': 27250 }
-params = { 'OptionCode': 'NK225miniop', 'DerivMonth': 202306, 'PutOrCall': 'C', 'StrikePrice': 27250 }
+url = 'http://localhost:18080/kabusapi/symbolname/minioptionweekly'
+params = { 'DerivMonth': 202306, 'DerivWeekly': 1, 'PutOrCall': 'C', 'StrikePrice': 27250 }
 
 req = urllib.request.Request('{}?{}'.format(url, urllib.parse.urlencode(params)), method='GET')
 req.add_header('Content-Type', 'application/json')

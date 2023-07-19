@@ -76,7 +76,7 @@ kabusapi_sendorder_margin_daytrade.py
 15．先物銘柄コード取得
 コマンド：python kabusapi_symbolname_future.py
 
-16．オプション銘柄コード取得
+16．オプション、ミニオプション(限月)銘柄コード取得
 コマンド：python kabusapi_symbolname_option.py
 
 17．PUSH配信開始
@@ -108,6 +108,9 @@ kabusapi_sendorder_margin_daytrade.py
 
 26. プレミアム料取得
 kabusapi_marginpremium.py
+
+27．ミニオプション(限週)銘柄コード取得
+コマンド：python kabusapi_symbolname_minioptionweekly.py
 
 
 // ライセンスについて

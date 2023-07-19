@@ -754,18 +754,21 @@ namespace KabuSuteAddin
         /// </summary>
         [ExcelFunction(Name = "SYMBOLNAME.OPTION", Category = "kabuSTATIONアドイン", Description = "オプション銘柄コードを取得する.（プット／コール区分は\"で囲んで文字列としてください）", IsHidden = false)]
         public static object SYMBOLNAME_OPTION(
+            [ExcelArgument(Description = "に対応するオプション銘柄コードを取得する", Name = "オプションコード")] string OptionCode,
             [ExcelArgument(Description = "に対応するオプション銘柄コードを取得する", Name = "限月")] string DerivMonth,
             [ExcelArgument(Description = "に対応するオプション銘柄コードを取得する", Name = "プット／コール区分")] string PutOrCall,
             [ExcelArgument(Description = "に対応するオプション銘柄コードを取得する", Name = "権利行使価格")] string StrikePrice)
+            
+
         {
             string json = null;
             try
             {
-                string ResultMessage = Validate.ValidateRequiredAll(DerivMonth, PutOrCall, StrikePrice);
+                string ResultMessage = Validate.ValidateRequiredAll(OptionCode, DerivMonth, PutOrCall, StrikePrice);
                 if (!string.IsNullOrEmpty(ResultMessage)) return ResultMessage;
 
                 Tuple<DateTime, string> tpl;
-                var tplKey = string.Format("{0}-{1}-{2}", DerivMonth, PutOrCall, StrikePrice);
+                var tplKey = string.Format("{0}-{1}-{2}-{3}", OptionCode, DerivMonth, PutOrCall, StrikePrice);
                 if (_symbolNameOptionCache.TryGetValue(tplKey, out tpl))
                 {
                     // ArrayResizerで3回元の関数が呼び出されるので、キャッシュでAPIの呼び出し回数を抑える
@@ -777,8 +780,60 @@ namespace KabuSuteAddin
 
                 if (string.IsNullOrEmpty(json))
                 {
-                    json = middleware.GetSymbolNameOption(DerivMonth, PutOrCall, StrikePrice);
+                    json = middleware.GetSymbolNameOption(OptionCode, DerivMonth, PutOrCall, StrikePrice);
                     _symbolNameOptionCache[tplKey] = Tuple.Create(DateTime.Now, json);
+                }
+
+                object[] array = SymbolName.SymbolNameCheck(json);
+
+                return XlCall.Excel(XlCall.xlUDF, "Resize", array);
+            }
+            catch (Exception exception)
+            {
+                if (exception.InnerException == null)
+                {
+                    return exception.Message;
+                }
+                else
+                {
+                    return exception.InnerException.Message;
+                }
+            }
+        }
+
+        // key : 限月-限週-プット／コール区分-権利行使価格、value : Tuple<Tupleを作成した日時, APIからの戻り値>
+        private static Dictionary<string, Tuple<DateTime, string>> _symbolNameMiniOptionCache = new Dictionary<string, Tuple<DateTime, string>>();
+        /// <summary>
+        /// ミニオプション（限週）銘柄コード取得
+        /// </summary>
+        [ExcelFunction(Name = "SYMBOLNAME.MINIOPTIONWEEKLY", Category = "kabuSTATIONアドイン", Description = "ミニオプション(限週）銘柄コードを取得する.（プット／コール区分は\"で囲んで文字列としてください）", IsHidden = false)]
+        public static object SYMBOLNAME_MINIOPTIONWEEKLY(
+            [ExcelArgument(Description = "に対応するミニオプション銘柄コードを取得する", Name = "限月")] string DerivMonth,
+            [ExcelArgument(Description = "に対応するミニオプション銘柄コードを取得する", Name = "限週")] string DerivWeekly,
+            [ExcelArgument(Description = "に対応するミニオプション銘柄コードを取得する", Name = "プット／コール区分")] string PutOrCall,
+            [ExcelArgument(Description = "に対応するミニオプション銘柄コードを取得する", Name = "権利行使価格")] string StrikePrice)
+        {
+            string json = null;
+            try
+            {
+                string ResultMessage = Validate.ValidateRequiredAll(DerivMonth, DerivWeekly, PutOrCall, StrikePrice);
+                if (!string.IsNullOrEmpty(ResultMessage)) return ResultMessage;
+
+                Tuple<DateTime, string> tpl;
+                var tplKey = string.Format("{0}-{1}-{2}-{3}", DerivMonth, DerivWeekly, PutOrCall, StrikePrice);
+                if (_symbolNameMiniOptionCache.TryGetValue(tplKey, out tpl))
+                {
+                    // ArrayResizerで3回元の関数が呼び出されるので、キャッシュでAPIの呼び出し回数を抑える
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
+                    {
+                        json = tpl.Item2;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(json))
+                {
+                    json = middleware.GetSymbolNameMiniOption(DerivMonth, DerivWeekly, PutOrCall, StrikePrice);
+                    _symbolNameMiniOptionCache[tplKey] = Tuple.Create(DateTime.Now, json);
                 }
 
                 object[] array = SymbolName.SymbolNameCheck(json);
@@ -1520,9 +1575,19 @@ namespace KabuSuteAddin
 
         //----------------------------------
         // オプション銘柄コード取得
-        internal string GetSymbolNameOption(string DerivMonth, string PutOrCall, string StrikePrice)
+        internal string GetSymbolNameOption(string OptionCode, string DerivMonth, string PutOrCall, string StrikePrice)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/symbolname/option?DerivMonth=" + DerivMonth + "&PutOrCall=" + PutOrCall + "&StrikePrice=" + StrikePrice);
+            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/symbolname/option?OptionCode=" + OptionCode + "&DerivMonth=" + DerivMonth + "&PutOrCall=" + PutOrCall + "&StrikePrice=" + StrikePrice);
+            request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
+            HttpResponseMessage response = client.SendAsync(request).Result;
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        //----------------------------------
+        // ミニオプション銘柄コード取得
+        internal string GetSymbolNameMiniOption(string DerivMonth, string DerivWeekly, string PutOrCall, string StrikePrice)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/symbolname/minioptionweekly?DerivMonth=" + DerivMonth + "&DerivWeekly=" + DerivWeekly + "&PutOrCall=" + PutOrCall + "&StrikePrice=" + StrikePrice);
             request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
             HttpResponseMessage response = client.SendAsync(request).Result;
             return response.Content.ReadAsStringAsync().Result;
