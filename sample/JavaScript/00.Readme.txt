@@ -65,7 +65,7 @@ positions.js
 15．先物銘柄コード取得
 symbolname_future.js
 
-16．オプション銘柄コード取得
+16．オプション、ミニオプション(限月)銘柄コード取得
 symbolname_option.js
 
 17．PUSH配信開始
@@ -97,6 +97,9 @@ apisoftlimit.js
 
 26. プレミアム料取得
 marginpremium.js
+
+27．ミニオプション(限週)銘柄コード取得
+symbolname_minioptionweekly.js
 
 
 // ライセンスについて

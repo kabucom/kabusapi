@@ -15,8 +15,12 @@ namespace KabuSuteAddin.Elements
         public int Future { get; set; }
         [DataMember(Name = "FutureMini")]
         public int FutureMini { get; set; }
+        [DataMember(Name = "FutureMicro")]
+        public int FutureMicro { get; set; }
         [DataMember(Name ="Option")]
         public int Option { get; set; }
+        [DataMember(Name = "MiniOption")]
+        public int MiniOption { get; set; }
         [DataMember(Name ="kabuSVersion")]
         public string kabuSVersion { get; set; }
 
@@ -24,7 +28,7 @@ namespace KabuSuteAddin.Elements
 
     public class APISoftLimitResult
     {
-        private const int ResCol = 6;
+        private const int ResCol = 8;
         private static object APISoftLimitToArray(dynamic objectJson)
         {
             APISoftLimitElement APISoftLimitData = (APISoftLimitElement)objectJson;
@@ -33,8 +37,10 @@ namespace KabuSuteAddin.Elements
             array[1] = APISoftLimitData.Margin;
             array[2] = APISoftLimitData.Future;
             array[3] = APISoftLimitData.FutureMini;
-            array[4] = APISoftLimitData.Option;
-            array[5] = APISoftLimitData.kabuSVersion;
+            array[4] = APISoftLimitData.FutureMicro;
+            array[5] = APISoftLimitData.Option;
+            array[6] = APISoftLimitData.MiniOption;
+            array[7] = APISoftLimitData.kabuSVersion;
             return array;
         }
 

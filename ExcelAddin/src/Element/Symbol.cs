@@ -64,6 +64,9 @@ namespace KabuSuteAddin.Elements
         [DataMember(Name = "DerivMonth")]
         public string DerivMonth { get; set; }
 
+        [DataMember(Name = "DerivWeekly")]
+        public int DerivWeekly { get; set; }
+
         [DataMember(Name = "TradeStart")]
         public int TradeStart { get; set; }
 
@@ -78,11 +81,10 @@ namespace KabuSuteAddin.Elements
 
         [DataMember(Name = "ClearingPrice")]
         public decimal ClearingPrice { get; set; }
-
     }
     public class SymbolResult
     {
-        private const int SymbolCol = 24;
+        private const int SymbolCol = 25;
         private static object SymbolToArray(dynamic objectJson)
         {
 
@@ -108,11 +110,12 @@ namespace KabuSuteAddin.Elements
             array[16] = SymbolData.LowerLimit;
             array[17] = SymbolData.Underlyer;
             array[18] = SymbolData.DerivMonth;
-            array[19] = SymbolData.TradeStart;
-            array[20] = SymbolData.TradeEnd;
-            array[21] = SymbolData.StrikePrice;
-            array[22] = SymbolData.PutOrCall;
-            array[23] = SymbolData.ClearingPrice;
+            array[19] = SymbolData.DerivWeekly;
+            array[20] = SymbolData.TradeStart;
+            array[21] = SymbolData.TradeEnd;
+            array[22] = SymbolData.StrikePrice;
+            array[23] = SymbolData.PutOrCall;
+            array[24] = SymbolData.ClearingPrice;
 
             return array;
         }
