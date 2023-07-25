@@ -8527,7 +8527,7 @@ components:
         FutureMini: 100
         FutureMicro: 1000
         Option: 20
-        MiniOption: 200
+        OptionMini: 200
         KabuSVersion: "5.13.1.0"
     MarginPremiumResponse:
       type: object
