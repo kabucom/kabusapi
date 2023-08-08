@@ -8513,7 +8513,7 @@ components:
           description: オプションのワンショット上限<br>※単位は枚
           type: "number"
           format: "double"
-        OptionMini:
+        MiniOption:
           description: ミニオプションのワンショット上限<br>※単位は枚
           type: "number"
           format: "double"
@@ -8527,7 +8527,7 @@ components:
         FutureMini: 100
         FutureMicro: 1000
         Option: 20
-        OptionMini: 200
+        MiniOption: 200
         KabuSVersion: "5.13.1.0"
     MarginPremiumResponse:
       type: object
