@@ -28,6 +28,9 @@ namespace KabuSuteAddin.Elements
         [DataMember(Name = "MarginRequirement")]
         public double MarginRequirement { get; set; }
 
+        [DataMember(Name = "MarginRequirementSell")]
+        public double MarginRequirementSell { get; set; }
+
     }
 
     public class WalletOptionResult
@@ -46,7 +49,7 @@ namespace KabuSuteAddin.Elements
     public class WalletResult
     {
         private const int WalletMarginCol = 4;
-        private const int WalletFutureCol = 2;
+        private const int WalletFutureCol = 3;
         private const int WalletOptionCol = 3;
 
         private static object WalletMarginToArray(dynamic objectJson)
@@ -73,6 +76,7 @@ namespace KabuSuteAddin.Elements
 
             array[0] = FutureData.FutureTradeLimit;
             array[1] = FutureData.MarginRequirement;
+            array[2] = FutureData.MarginRequirementSell;
 
             return array;
         }
