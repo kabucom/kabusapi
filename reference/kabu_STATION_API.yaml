@@ -2211,8 +2211,8 @@ paths:
                       <td>ミニTOPIX先物</td>
                   </tr>
                   <tr>
-                      <td>MOTHERS</td>
-                      <td>東証マザーズ先物</td>
+                      <td>GROWTH</td>
+                      <td>グロース250先物</td>
                   </tr>
                   <tr>
                       <td>JPX400</td>
@@ -2721,7 +2721,7 @@ paths:
                   </tr>
                   <tr>
                       <td>TG</td>
-                      <td>東証グロース</td>
+                      <td>グロース250</td>
                   </tr>
                   <tr>
                       <td>M</td>
@@ -5005,7 +5005,12 @@ components:
           format: "double"
           example: null
         MarginRequirement:
-          description: "必要証拠金額<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、空を返す。"
+          description: "買い必要証拠金額<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、空を返す。"
+          type: "number"
+          format: "double"
+          example: null
+        MarginRequirementSell:
+          description: "売り必要証拠金額<br>※銘柄指定の場合のみ。<br>※銘柄が指定されなかった場合、空を返す。"
           type: "number"
           format: "double"
           example: null
@@ -5942,7 +5947,7 @@ components:
                 </tr>
                 <tr>
                   <td>154</td>
-                  <td>東証マザーズ指数先物</td>
+                  <td>グロース250先物</td>
                 </tr>
                 <tr>
                   <td>155</td>
@@ -6390,7 +6395,7 @@ components:
             　12122 : JPX日経400指数先物<br>
             　14473 : NYダウ先物<br>
             　14515 : 日経平均VI先物<br>
-            　15411 : 東証マザーズ指数先物<br>
+            　15411 : グロース250先物<br>
             　15569 : 東証REIT指数先物<br>
             　17163 : TOPIXCore30指数先物<br>
             <table>
@@ -6624,8 +6629,8 @@ components:
                       <td>日経300</td>
                   </tr>
                   <tr>
-                      <td>MOTHERS</td>
-                      <td>東証マザーズ</td>
+                      <td>GROWTH</td>
+                      <td>グロース250先物</td>
                   </tr>
                   <tr>
                       <td>JPX400</td>
