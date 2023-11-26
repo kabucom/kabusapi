@@ -3505,10 +3505,6 @@ components:
                       <td>指定なし</td>
                   </tr>
                   <tr>
-                      <td>1</td>
-                      <td>自動振替</td>
-                  </tr>
-                  <tr>
                       <td>2</td>
                       <td>お預り金</td>
                   </tr>
@@ -7020,10 +7016,6 @@ components:
                   </tr>
               </thead>
               <tbody>
-                  <tr>
-                      <td>1</td>
-                      <td>自動振替</td>
-                  </tr>
                   <tr>
                       <td>2</td>
                       <td>お預り金</td>
