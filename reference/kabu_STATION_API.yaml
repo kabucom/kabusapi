@@ -914,8 +914,8 @@ paths:
             銘柄コード <br>
             ※次の形式で入力してください。<br>
             [銘柄コード]@[市場コード]<br>
-            ※市場コードは下記の定義値から選択してください。
-            <b>市場コード</b>
+            ※市場コードは下記の定義値から選択してください。    
+            ※SOR市場は取扱っておりませんのでご注意ください。<b>市場コード</b><br>
             <table>
               <thead>
                   <tr>
@@ -1207,8 +1207,8 @@ paths:
             銘柄コード <br>
             ※次の形式で入力してください。<br>
             [銘柄コード]@[市場コード]<br>
-            ※市場コードは下記の定義値から選択してください。
-            <b>市場コード</b>
+            ※市場コードは下記の定義値から選択してください。<br>
+            ※SOR市場は取扱っておりませんのでご注意ください。<b>市場コード</b><br>
             <table>
               <thead>
                   <tr>
@@ -1336,8 +1336,8 @@ paths:
             銘柄コード <br>
             ※次の形式で入力してください。<br>
             [銘柄コード]@[市場コード]<br>
-            ※市場コードは下記の定義値から選択してください。
-            <b>市場コード</b>
+            ※市場コードは下記の定義値から選択してください。<br>
+            ※SOR市場は取扱っておりませんのでご注意ください。<b>市場コード</b><br>
             <table>
               <thead>
                   <tr>
@@ -2246,7 +2246,7 @@ paths:
             限月<br>
             ※限月はyyyyMM形式で指定します。0を指定した場合、直近限月となります。<br>
             ※取引最終日に「0」（直近限月）を指定した場合、日中・夜間の時間帯に関わらず、
-            取引最終日を迎える限月の銘柄コードを返します。取引最終日を迎える銘柄の取引は日中取引をもって終了となりますので、ご注意ください。
+            取引最終日を迎える限月の銘柄コードを返します。取引最終日を迎える銘柄の取引は日中取引をもって終了となりますので、ご注意ください。<br>
           required: true
           schema:
             type: integer
@@ -3917,8 +3917,7 @@ components:
           type: "string"
           example: "165120019"
         Exchange:
-          description: |-
-            市場コード
+          description: 市場コード
             <table>
               <thead>
                   <tr>
@@ -3938,6 +3937,58 @@ components:
                   <tr>
                       <td>24</td>
                       <td>夜間</td>
+                  </tr>
+                  <tr>
+                      <td>32</td>
+                      <td>SOR日通し</td>
+                  </tr>
+                  <tr>
+                      <td>33</td>
+                      <td>SOR日中</td>
+                  </tr>
+                  <tr>
+                      <td>34</td>
+                      <td>SOR夜間</td>
+                  </tr>
+              </tbody>
+            </table>
+
+            SOR日中、SOR夜間、SOR日通しは一部銘柄のみ対象となります。<br> SOR対象銘柄は以下をご参照ください。
+            <table>
+              <thead>
+                  <tr>
+                      <th>先物SOR取扱銘柄</th>
+                      <th>有効限月</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>日経225先物ラージ</td>
+                      <td>直近2限月</td>
+                  </tr>
+                  <tr>
+                      <td>日経225先物ミニ</td>
+                      <td>直近4限月</td>
+                  </tr>
+                  <tr>
+                      <td>TOPIX先物ラージ</td>
+                      <td>直近2限月</td>
+                  </tr>
+                  <tr>
+                      <td>TOPIX先物ミニ </td>
+                      <td>直近3限月</td>
+                  </tr>
+                  <tr>
+                      <td>東証マザーズ指数先物</td>
+                      <td>直近2限月</td>
+                  </tr>
+                  <tr>
+                      <td>JPX日経400先物</td>
+                      <td>直近2限月</td>
+                  </tr>
+                  <tr>
+                      <td>NYダウ先物</td>
+                      <td>直近2限月</td>
                   </tr>
               </tbody>
             </table>
@@ -3992,16 +4043,14 @@ components:
               </tbody>
             </table>
             
-            ※執行条件(FrontOrderType)、有効期限条件(TimeInForce)、市場コード(Exchange)で選択できる組み合わせは下表のようになります。          
-            
-            
-            
-            
+            ※執行条件(FrontOrderType)、有効期限条件(TimeInForce)、市場コード(Exchange)で選択できる組み合わせは下表のようになります。<br>
+
+            <br>■日中、夜間、日通し対応表          
             <table>
               <thead>
                 <tr>
                   <th rowspan="2">執行条件</th>
-                  <th rowspan="2">有効期間条件</th>
+                  <th rowspan="2">有効<br>期間条件</th>
                   <th colspan="3">市場コード</th>
                 </tr>
                 <tr>
@@ -4073,6 +4122,88 @@ components:
                   <td>FAS</td>
                   <td>●</td>
                   <td>●</td>
+                  <td>-</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <br>■SOR日中、SOR夜間、SOR日通し対応表  
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">執行条件</th>
+                  <th rowspan="2">有効<br>期間条件</th>
+                  <th colspan="3">市場コード</th>
+                </tr>
+                <tr>
+                  <th>SOR日中</th>
+                  <th>SOR夜間</th>
+                  <th>SOR日通し</th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                <tr>
+                  <td>指値</td>
+                  <td>FAS</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>●</td>
+                </tr>
+                <tr>
+                  <td>指値</td>
+                  <td>FAK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>指値</td>
+                  <td>FOK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>成行</td>
+                  <td>FAK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>成行</td>
+                  <td>FOK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>逆指値（指値）</td>
+                  <td>FAK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>●</td>
+                </tr>
+                <tr>
+                  <td>逆指値（成行）</td>
+                  <td>FAK</td>
+                  <td>●</td>
+                  <td>●</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>引成</td>
+                  <td>FAK</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>引指</td>
+                  <td>FAS</td>
+                  <td>-</td>
+                  <td>-</td>
                   <td>-</td>
                 </tr>
               </tbody>
