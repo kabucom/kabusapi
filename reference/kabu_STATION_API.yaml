@@ -55,7 +55,7 @@ paths:
         ・kabuステーションを終了した時<br>
         ・kabuステーションからログアウトした時<br>
         ・別のトークンが新たに発行された時<br>
-        ※kabuステーションは早朝、強制的にログアウトいたしますのでご留意ください。<br>
+        ※kabuステーションは早朝、強制的にログアウトいたしますのでAPIを使うには再ログインが必要になります。ご留意ください。<br>
       requestBody:
         required: true
         content:
@@ -1932,6 +1932,7 @@ paths:
       summary: "銘柄登録"
       description: |-
         PUSH配信する銘柄を登録します。<br>
+        毎日リセットされるので再登録する必要があります。<br>
         API登録銘柄リストを開くには、kabuステーションAPIインジケーターを右クリックし「API登録銘柄リスト」を選択してください。
       parameters:
         - in: header
