@@ -12,7 +12,6 @@ namespace CSharp_sample
             var obj = new
             {
                 OrderId = "20200709A02N04712032",
-                Password = "123456"
             };
             var url = "http://localhost:18080/kabusapi/cancelorder";
             string token = GenerateToken.GetToken();

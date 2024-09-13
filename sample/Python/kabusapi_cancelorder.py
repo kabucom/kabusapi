@@ -2,7 +2,7 @@ import urllib.request
 import json
 import pprint
 
-obj = { 'OrderID': '20200709A02N04712032', 'Password': '123456' }
+obj = { 'OrderID': '20200709A02N04712032' }
 json_data = json.dumps(obj).encode('utf8')
 
 url = 'http://localhost:18080/kabusapi/cancelorder'

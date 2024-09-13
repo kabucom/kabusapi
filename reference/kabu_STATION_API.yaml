@@ -3334,7 +3334,6 @@ components:
     RequestSendOrder:
       type: object
       required:
-        - Password
         - Symbol
         - Exchange
         - SecurityType
@@ -3347,9 +3346,6 @@ components:
         - ExpireDay
         - FrontOrderType
       properties:
-        Password:
-          description: 注文パスワード
-          type: "string"
         Symbol:
           description: 銘柄コード
           type: "string"
@@ -3868,7 +3864,6 @@ components:
               type: "number"
               format: "double"
       example:
-        Password: "xxxxxx"
         Symbol: "9433"
         Exchange: 1 
         SecurityType: 1
@@ -3897,7 +3892,6 @@ components:
     RequestSendOrderDerivFuture:
       type: "object"
       required:
-        - Password
         - Symbol
         - Exchange
         - TradeType
@@ -3908,10 +3902,6 @@ components:
         - ExpireDay
         - FrontOrderType
       properties:
-        Password:
-          description: "注文パスワード"
-          type: "string"
-          example: "xxxxxx"
         Symbol:
           description: "銘柄コード<br>※取引最終日に「先物銘柄コード取得」でDerivMonthに0（直近限月）を指定した場合、日中・夜間の時間帯に関わらず、取引最終日を迎える限月の銘柄コードを返します。取引最終日を迎える銘柄の取引は日中取引をもって終了となりますので、ご注意ください。"
           type: "string"
@@ -4445,7 +4435,6 @@ components:
               type: "number"
               format: "double"
       example:
-        Password: "xxxxxx"
         Symbol: "165120019"
         Exchange : 23
         TradeType: 2
@@ -4469,7 +4458,6 @@ components:
     RequestSendOrderDerivOption:
       type: "object"
       required:
-        - Password
         - Symbol
         - Exchange
         - TradeType
@@ -4480,9 +4468,6 @@ components:
         - ExpireDay
         - FrontOrderType
       properties:
-        Password:
-          description: "注文パスワード"
-          type: "string"
         Symbol:
           description: "銘柄コード<br>※取引最終日に「オプション銘柄コード取得」でDerivMonthに0（直近限月）を指定した場合、日中・夜間の時間帯に関わらず、取引最終日を迎える限月の銘柄コードを返します。取引最終日を迎える銘柄の取引は日中取引をもって終了となりますので、ご注意ください。"
           type: "string"
@@ -4886,7 +4871,6 @@ components:
               type: "number"
               format: "double"
       example:
-        Password: "xxxxxx"
         Symbol: "165120019"
         Exchange : 23
         TradeType: 2
@@ -4931,16 +4915,11 @@ components:
       type: "object"
       required:
         - OrderId
-        - Password
       properties:
         OrderId:
           description: "注文番号<br>sendorderのレスポンスで受け取るOrderID。"
           type: "string"
           example: "20200529A01N06848002"
-        Password:
-          description: "注文パスワード"
-          type: "string"
-          example: "xxxxxx"
     RequestRegister:
       type: "object"
       properties:

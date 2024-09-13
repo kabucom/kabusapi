@@ -11,7 +11,6 @@ namespace CSharp_sample
         {
             var obj = new
             {
-                Password = "111111",
                 Symbol = "5104",
                 Exchange = 1,
                 SecurityType = 1,

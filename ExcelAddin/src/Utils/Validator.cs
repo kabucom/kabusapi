@@ -36,7 +36,7 @@ namespace KabuSuteAddin.Utils
         /// 発注制御チェック
         /// </summary>
         [ExcelFunction(IsHidden = true)]
-        public static string ValidateOrderCancel(string value1, string value2)
+        public static string ValidateOrderCancel(string value1)
         {
 
             if (!(CustomRibbon._orderPressed))
@@ -48,9 +48,6 @@ namespace KabuSuteAddin.Utils
 
                 if (string.IsNullOrEmpty(value1.ToString()))
                 return ResultMessage.NotEntered;
-
-                if (string.IsNullOrEmpty(value2.ToString()))
-                    return ResultMessage.OutofRangeLength;
             }
 
             return result;

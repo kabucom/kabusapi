@@ -56,26 +56,25 @@ namespace KabuSuteAddin
         private static Dictionary<string, Tuple<DateTime, string>> _cancelOrderCache = new Dictionary<string, Tuple<DateTime, string>>();
         [ExcelFunction(Name = "CANCELORDER", Category = "kabuSTATIONアドイン", Description = "注文を取消する.", IsHidden = false)]
         public static object CANCELORDER(
-            [ExcelArgument(Description = "の注文を取消する", Name = "受付注文番号")] string orderId,
-            [ExcelArgument(Description = "", Name = "注文パスワード")] string orderPassword)
+            [ExcelArgument(Description = "の注文を取消する", Name = "受付注文番号")] string orderId)
         {
             string ret = null;
             try
             {
 
-                string ResultMessage = Validate.ValidateOrderCancel(orderId, orderPassword);
+                string ResultMessage = Validate.ValidateOrderCancel(orderId);
                 if (!string.IsNullOrEmpty(ResultMessage))
                     return ResultMessage;
 
                 Tuple<DateTime, string> tpl;
-                var tplKey = orderId + "-" + orderPassword;
+                var tplKey = orderId;
                 if (_cancelOrderCache.TryGetValue(tplKey, out tpl))
                 {
                     ret = tpl.Item2;
                 }
                 else
                 {
-                    ret = middleware.PutCancelOrder(orderId, orderPassword);
+                    ret = middleware.PutCancelOrder(orderId);
 
                     var objectJson = DynamicJson.Parse(ret);
                     if (!objectJson.IsDefined("Code"))
@@ -1192,13 +1191,12 @@ namespace KabuSuteAddin
 
         //----------------------------------
         // 注文取消
-        internal string PutCancelOrder(string orderId, string orderPassword)
+        internal string PutCancelOrder(string orderId)
         {
 
             var param = new CancelOrderParam
             {
-                OrderId = orderId,
-                OrderPassword = orderPassword,
+                OrderId = orderId
             };
 
             var json = "";
