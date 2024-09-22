@@ -160,8 +160,6 @@ namespace KabuSuteAddin
         {
             [DataMember(Name = "Symbol")]
             public string Symbol { get; set; }
-            [DataMember(Name = "Password")]
-            public string Password { get; set; }
             [DataMember(Name = "CashMargin")]
             public int CashMargin { get; set; }
             [DataMember(Name = "DelivType")]
@@ -194,7 +192,6 @@ namespace KabuSuteAddin
             var param = new SendOrderParam
             {
                 Symbol = "8001@1",
-                Password = "123456",
                 CashMargin = 1,
                 DelivType = 2,
                 ExpireDay = 20200403,

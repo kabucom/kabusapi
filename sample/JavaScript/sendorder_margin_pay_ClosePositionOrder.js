@@ -1,5 +1,4 @@
 var data = {
- 'Password': '123456',
  'Symbol': '9433',
  'Exchange': 1,
  'SecurityType': 1,

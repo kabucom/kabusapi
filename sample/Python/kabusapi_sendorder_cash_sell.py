@@ -2,8 +2,7 @@ import urllib.request
 import json
 import pprint
 
-obj = { 'Password': '123456',
-        'Symbol': '9433',
+obj = { 'Symbol': '9433',
         'Exchange': 1,
         'SecurityType': 1,
         'Side': '1',

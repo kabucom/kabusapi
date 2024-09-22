@@ -1,6 +1,5 @@
 var data = {
-  'OrderID': '20200708A02N04711002',
-  'Password': '123456'
+  'OrderID': '20200708A02N04711002'
 }
 var url = 'http://localhost:18080/kabusapi/cancelorder';
 var apikey = 'a68e2d55951b4756a3131f7942974eeb';
