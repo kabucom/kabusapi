@@ -576,6 +576,10 @@ paths:
                       <td>6</td>
                       <td>札証</td>
                   </tr>
+                  <tr>
+                      <td>9</td>
+                      <td>SOR</td>
+                  </tr>
               </tbody>
             </table>
       responses:
@@ -753,6 +757,10 @@ paths:
                 <tr>
                   <td>3</td>
                   <td>名証</td>
+                </tr>
+                <tr>
+                  <td>9</td>
+                  <td>SOR</td>
                 </tr>
               </tbody>
             </table>
@@ -3376,6 +3384,10 @@ components:
                       <td>6</td>
                       <td>札証</td>
                   </tr>
+                  <tr>
+                      <td>9</td>
+                      <td>SOR</td>
+                  </tr>
               </tbody>
             </table>
           type: "integer"
@@ -3628,12 +3640,14 @@ components:
         FrontOrderType:
           description: |-
             執行条件
+            ※SOR以外は以下、全て指定可能です。
             <table>
               <thead>
                   <tr>
                       <th>定義値</th>
                       <th>説明</th>
                       <th>”Price"の指定</th>
+                      <th>SORで発注可</th>
                   </tr>
               </thead>
               <tbody>
@@ -3641,76 +3655,91 @@ components:
                       <td>10</td>
                       <td>成行</td>
                       <td>0</td>
+                      <td>〇</td>
                   </tr>
                   <tr>
                       <td>13</td>
                       <td>寄成（前場）</td>
                       <td>0</td>
+                      <td>　</td>
                   </tr>
                   <tr>
                       <td>14</td>
                       <td>寄成（後場）</td>
                       <td>0</td>
+                      <td>　</td>
                   </tr>
                   <tr>
                       <td>15</td>
                       <td>引成（前場）</td>
                       <td>0</td>
+                      <td>　</td>
                   </tr>
                   <tr>
                       <td>16</td>
                       <td>引成（後場）</td>
                       <td>0</td>
+                      <td>　</td>
                   </tr>
                   <tr>
                       <td>17</td>
                       <td>IOC成行</td>
                       <td>0</td>
+                      <td>　</td>
                   </tr>
                   <tr>
                       <td>20</td>
                       <td>指値</td>
                       <td>発注したい金額</td>
+                      <td>〇</td>
                   </tr>
                   <tr>
                       <td>21</td>
                       <td>寄指（前場）</td>
                       <td>発注したい金額</td>
+                      <td>　</td>
                   </tr>
                   <tr>
                       <td>22</td>
                       <td>寄指（後場）</td>
                       <td>発注したい金額</td>
+                      <td>　</td>
                   </tr>
                   <tr>
                       <td>23</td>
                       <td>引指（前場）</td>
                       <td>発注したい金額</td>
+                      <td>　</td>
                   </tr>
                   <tr>
                       <td>24</td>
                       <td>引指（後場）</td>
                       <td>発注したい金額</td>
+                      <td>　</td>
                   </tr>
                   <tr>
                       <td>25</td>
                       <td>不成（前場）</td>
                       <td>発注したい金額</td>
+                      <td>　</td>
                   </tr>
                   <tr>
                       <td>26</td>
                       <td>不成（後場）</td>
                       <td>発注したい金額</td>
+                      <td>　</td>
                   </tr>
                   <tr>
                       <td>27</td>
                       <td>IOC指値</td>
                       <td>発注したい金額</td>
+                      <td>　</td>
                   </tr>
                   <tr>
                       <td>30</td>
                       <td>逆指値</td>
                       <td>指定なし<br>※AfterHitPriceで指定ください</td>
+                      <td>〇</td>
                   </tr>
               </tbody>
             </table>
@@ -6980,6 +7009,10 @@ components:
                       <td>SOR</td>
                   </tr>
                   <tr>
+                      <td>27</td>
+                      <td>東証+</td>
+                  </tr>
+                  <tr>
                       <td>2</td>
                       <td>日通し</td>
                   </tr>
@@ -7484,6 +7517,14 @@ components:
                   <tr>
                       <td>6</td>
                       <td>札証</td>
+                  </tr>
+                  <tr>
+                      <td>9</td>
+                      <td>SOR</td>
+                  </tr>
+                  <tr>
+                      <td>27</td>
+                      <td>東証+</td>
                   </tr>
                   <tr>
                       <td>2</td>
