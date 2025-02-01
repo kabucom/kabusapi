@@ -5065,12 +5065,12 @@ components:
         StockAccountWallet:
           description: "現物買付可能額<br>
           ※auマネーコネクトが有効の場合、auじぶん銀行の残高を含めた合計可能額を表示する<br>
-          ※auマネーコネクトが無効の場合、auカブコム証券の可能額のみを表示する"
+          ※auマネーコネクトが無効の場合、三菱UFJ eスマート証券の可能額のみを表示する"
           type: "number"
           format: "double"
           example: null
         AuKCStockAccountWallet:
-          description: "うち、auカブコム証券可能額"
+          description: "うち、三菱UFJ eスマート証券可能額"
           type: "number"
           format: "double"
           example: null
