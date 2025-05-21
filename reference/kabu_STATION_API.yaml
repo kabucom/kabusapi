@@ -580,6 +580,10 @@ paths:
                       <td>9</td>
                       <td>SOR</td>
                   </tr>
+                  <tr>
+                      <td>27</td>
+                      <td>東証+</td>
+                  </tr>
               </tbody>
             </table>
       responses:
@@ -761,6 +765,10 @@ paths:
                 <tr>
                   <td>9</td>
                   <td>SOR</td>
+                </tr>
+                <tr>
+                  <td>27</td>
+                  <td>東証+</td>
                 </tr>
               </tbody>
             </table>
@@ -3387,6 +3395,10 @@ components:
                   <tr>
                       <td>9</td>
                       <td>SOR</td>
+                  </tr>
+                  <tr>
+                      <td>27</td>
+                      <td>東証+</td>
                   </tr>
               </tbody>
             </table>
