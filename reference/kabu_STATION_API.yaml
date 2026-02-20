@@ -532,6 +532,7 @@ paths:
     get:
       tags:
         - "wallet"
+      operationId: walletCashSymbolGet
       summary: "取引余力（現物）（銘柄指定）"
       description: "指定した銘柄の取引余力（現物）を取得します"
       parameters:
@@ -726,6 +727,7 @@ paths:
     get:
       tags:
         - "wallet"
+      operationId: walletMarginSymbolGet
       summary: "取引余力（信用）（銘柄指定）"
       description: "指定した銘柄の取引余力（信用）を取得します"
       parameters:
@@ -912,6 +914,7 @@ paths:
     get:
       tags:
         - "wallet"
+      operationId: walletFutureSymbolGet
       summary: "取引余力（先物）（銘柄指定）"
       description: "指定した銘柄の取引余力（先物）を取得します"
       parameters:
@@ -1094,6 +1097,7 @@ paths:
     get:
       tags:
         - "wallet"
+      operationId: walletOptionSymbolGet
       summary: "取引余力（オプション）（銘柄指定）"
       description: "指定した銘柄の取引余力（オプション）を取得します"
       parameters:
@@ -3378,7 +3382,7 @@ components:
               <tbody>
                   <tr>
                       <td>1</td>
-                      <td>東証</td>
+                      <td>東証※</td>
                   </tr>
                   <tr>
                       <td>3</td>
@@ -3402,6 +3406,11 @@ components:
                   </tr>
               </tbody>
             </table>
+
+            ※SORまたは、東証+がメンテナンス中は現物のみ東証への指定が可能です。<br>
+            通常時に東証を指定しての新規発注はできません。<br>
+            ※信用建玉の返済注文につきましては、返済期限までは東証で返済可能です。<br>
+            東証で保有している建玉をSORまたは東証+では返済できませんのでご注意ください。
           type: "integer"
           format: "int32"
         SecurityType:
@@ -3906,7 +3915,7 @@ components:
               format: "double"
       example:
         Symbol: "9433"
-        Exchange: 1 
+        Exchange: 27 
         SecurityType: 1
         Side: "1"
         CashMargin: 3
@@ -6109,8 +6118,16 @@ components:
                   <td>日経平均225ミニ先物</td>
                 </tr>
                 <tr>
+                  <td>903</td>
+                  <td>日経225ミニオプション</td>
+                </tr>
+                <tr>
                   <td>907</td>
                   <td>TOPIXミニ先物</td>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>日経225マイクロ先物</td>
                 </tr>
               </tbody>
             </table>
@@ -7461,8 +7478,8 @@ components:
             RecvTime: "2022-04-04T18:00:51.763683+09:00",
             Symbol: "8306",
             SymbolName: "三菱ＵＦＪフィナンシャル・グループ",
-            Exchange: 1,
-            ExchangeName: "東証プ",
+            Exchange: 27,
+            ExchangeName: "東証＋プ",
             TimeInForce: 1,
             Price: 704.5,
             OrderQty: 1500,
@@ -8512,12 +8529,24 @@ components:
                         <td>SOR</td>
                       </tr>
                       <tr>
-                        <td>10</td>
-                        <td>CXJ</td>
+                        <td>21</td>
+                        <td>ジャパンネクスト J-Market</td>
                       </tr>
                       <tr>
-                        <td>21</td>
-                        <td>JNX</td>
+                        <td>27</td>
+                        <td>MS東証</td>
+                      </tr>
+                      <tr>
+                        <td>36</td>
+                        <td>大阪デジタルエクスチェンジ</td>
+                      </tr>
+                      <tr>
+                        <td>37</td>
+                        <td>Japan Alternative Market</td>
+                      </tr>
+                      <tr>
+                        <td>38</td>
+                        <td>ジャパンネクスト X-Market</td>
                       </tr>
                     </tbody>
                   </table>
