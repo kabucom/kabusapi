@@ -5152,6 +5152,16 @@ components:
           type: "number"
           format: "double"
           example: null
+        MaximumSellOpenAmountPerSymbol:
+          description: "銘柄あたり建玉可能額（売）<br>※銘柄指定の場合のみ。<br>※銘柄あたり建玉上限対象外の場合、nullを返す。"
+          type: "number"
+          format: "double"
+          example: null
+        MaximumBuyOpenAmountPerSymbol:
+          description: "銘柄あたり建玉可能額（買）<br>※銘柄指定の場合のみ。<br>※銘柄あたり建玉上限対象外の場合、nullを返す。"
+          type: "number"
+          format: "double"
+          example: null
     WalletFutureSuccess:
       type: "object"
       properties:
@@ -6817,6 +6827,10 @@ components:
           description: "制度信用売建フラグ<br>※trueのとき制度信用売建可能<br>※株式銘柄の場合のみ"
           type: "boolean"
           format: ""
+        PerSymbolLimit:
+          description: "銘柄あたり建玉上限額<br>※株式銘柄の場合のみ<br>※銘柄あたり建玉対象外銘柄（ETF/REIT）の場合、null"
+          type: "number"
+          format: "double"
         UpperLimit:
           description: "値幅上限<br>※株式・先物・オプション銘柄の場合のみ"
           type: "number"
