@@ -52,6 +52,9 @@ namespace KabuSuteAddin.Elements
         [DataMember(Name = "MarginSell")]
         public bool MarginSell { get; set; }
 
+        [DataMember(Name = "PerSymbolLimit")]
+        public double PerSymbolLimit { get; set; }
+
         [DataMember(Name = "UpperLimit")]
         public double UpperLimit { get; set; }
 
@@ -84,7 +87,7 @@ namespace KabuSuteAddin.Elements
     }
     public class SymbolResult
     {
-        private const int SymbolCol = 25;
+        private const int SymbolCol = 26;
         private static object SymbolToArray(dynamic objectJson)
         {
 
@@ -106,16 +109,17 @@ namespace KabuSuteAddin.Elements
             array[12] = SymbolData.KCMarginSell;
             array[13] = SymbolData.MarginBuy;
             array[14] = SymbolData.MarginSell;
-            array[15] = SymbolData.UpperLimit;
-            array[16] = SymbolData.LowerLimit;
-            array[17] = SymbolData.Underlyer;
-            array[18] = SymbolData.DerivMonth;
-            array[19] = SymbolData.DerivWeekly;
-            array[20] = SymbolData.TradeStart;
-            array[21] = SymbolData.TradeEnd;
-            array[22] = SymbolData.StrikePrice;
-            array[23] = SymbolData.PutOrCall;
-            array[24] = SymbolData.ClearingPrice;
+            array[15] = SymbolData.PerSymbolLimit;
+            array[16] = SymbolData.UpperLimit;
+            array[17] = SymbolData.LowerLimit;
+            array[18] = SymbolData.Underlyer;
+            array[19] = SymbolData.DerivMonth;
+            array[20] = SymbolData.DerivWeekly;
+            array[21] = SymbolData.TradeStart;
+            array[22] = SymbolData.TradeEnd;
+            array[23] = SymbolData.StrikePrice;
+            array[24] = SymbolData.PutOrCall;
+            array[25] = SymbolData.ClearingPrice;
 
             return array;
         }

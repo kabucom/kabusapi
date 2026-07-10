@@ -76,6 +76,7 @@
     <Compile Include="Kabusapi_Symbolname_Future.cs" />
     <Compile Include="Kabusapi_Symbolname_MiniOptionWeekly.cs" />
     <Compile Include="Kabusapi_Symbolname_Option.cs" />
+    <Compile Include="Kabusapi_TimeAndSales.cs" />
     <Compile Include="Kabusapi_Unregister.cs" />
     <Compile Include="Kabusapi_Unregisterall.cs" />
     <Compile Include="Kabusapi_Wallet_Cash.cs" />

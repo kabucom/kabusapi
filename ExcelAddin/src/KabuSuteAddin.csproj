@@ -83,6 +83,7 @@
     <Compile Include="Element\Regulations.cs" />
     <Compile Include="Element\Symbol.cs" />
     <Compile Include="Element\SymbolName.cs" />
+    <Compile Include="Element\TimeAndSales.cs" />
     <Compile Include="Element\Token.cs" />
     <Compile Include="Element\Wallet.cs" />
     <Compile Include="RTD\RtdBoard.cs" />

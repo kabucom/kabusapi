@@ -18,6 +18,12 @@ namespace KabuSuteAddin.Elements
         [DataMember(Name = "CashOfConsignmentDepositRate")]
         public double CashOfConsignmentDepositRate { get; set; }
 
+        [DataMember(Name = "MaximumSellOpenAmountPerSymbol")]
+        public double MaximumSellOpenAmountPerSymbol { get; set; }
+
+        [DataMember(Name = "MaximumBuyOpenAmountPerSymbol")]
+        public double MaximumBuyOpenAmountPerSymbol { get; set; }
+
     }
 
     public class WalletFutureResult
@@ -48,7 +54,7 @@ namespace KabuSuteAddin.Elements
 
     public class WalletResult
     {
-        private const int WalletMarginCol = 4;
+        private const int WalletMarginCol = 6;
         private const int WalletFutureCol = 3;
         private const int WalletOptionCol = 3;
 
@@ -63,6 +69,8 @@ namespace KabuSuteAddin.Elements
             array[1] = MarginData.DepositkeepRate;
             array[2] = MarginData.ConsignmentDepositRate;
             array[3] = MarginData.CashOfConsignmentDepositRate;
+            array[4] = MarginData.MaximumSellOpenAmountPerSymbol;
+            array[5] = MarginData.MaximumBuyOpenAmountPerSymbol;
 
             return array;
         }
