@@ -112,6 +112,9 @@ kabusapi_marginpremium.py
 27．ミニオプション(限週)銘柄コード取得
 コマンド：python kabusapi_symbolname_minioptionweekly.py
 
+28．歩み値取得
+コマンド：python kabusapi_timeandsales.py
+
 
 // ライセンスについて
 Copyright (c) 2020 Mitsubishi UFJ eSmart Securities Co., Ltd.

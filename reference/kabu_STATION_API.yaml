@@ -21,7 +21,7 @@ tags:
   - name: order
     description: |-
       注文の発注・取消を行います。<br>
-      発注系のリクエストは秒間5件ほどの流量制限を設けています。
+      発注系のリクエストは秒間10件の流量制限を設けています。
     x-displayName: 発注
   - name: wallet
     description: |-
@@ -129,9 +129,6 @@ paths:
         - "order"
       operationId: sendorderPost
       summary: "注文発注（現物・信用）"
-      description: |-
-        注文を発注します。<br>
-        同一の銘柄に対しての注文は同時に5件ほどを上限としてご利用ください。
       parameters:
         - in: header
           name: X-API-KEY
@@ -212,9 +209,6 @@ paths:
         - "order"
       operationId: sendoderFuturePost
       summary: "注文発注（先物）"
-      description: |-
-        先物銘柄の注文を発注します。<br>
-        同一の銘柄に対しての注文は同時に5件ほどを上限としてご利用ください。
       parameters:
         - in: header
           name: X-API-KEY
@@ -295,9 +289,6 @@ paths:
         - "order"
       operationId: sendorderOptionPost
       summary: "注文発注（オプション）"
-      description: |-
-        オプション銘柄の注文を発注します。<br>
-        同一の銘柄に対しての注文は同時に5件ほどを上限としてご利用ください。
       parameters:
         - in: header
           name: X-API-KEY
@@ -3336,8 +3327,130 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-
-
+  /timeandsales/{symbol}:
+    get:
+      tags:
+        - info
+      operationId: timeandsalesGet
+      summary: 歩み値取得
+      description: 指定した銘柄の歩み値情報を取得するAPI<br>歩み値のリクエストは秒間2件の流用制限を設けています。
+      parameters:
+        - in: header
+          name: X-API-KEY
+          description: トークン発行メソッドで取得した文字列
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: symbol
+          schema:
+            type: string
+          required: true
+          description: |-
+            銘柄コード <br>
+            ※次の形式で入力してください。<br>
+            [銘柄コード]@[市場コード]<br>
+            ※市場コードは下記の定義値から選択してください。<br>
+            ※SOR市場は取扱っておりませんのでご注意ください。
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>東証</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>名証</td>
+                  </tr>
+                  <tr>
+                      <td>5</td>
+                      <td>福証</td>
+                  </tr>
+                  <tr>
+                      <td>6</td>
+                      <td>札証</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>日通し</td>
+                  </tr>
+                  <tr>
+                      <td>23</td>
+                      <td>日中</td>
+                  </tr>
+                  <tr>
+                      <td>24</td>
+                      <td>夜間</td>
+                  </tr>
+              </tbody>
+            </table>
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TimeAndSalesResponse"
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: MethodNotAllowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "413":
+          description: RequestEntityTooLarge
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "415":
+          description: UnsupportedMediaType
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: TooManyRequests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 # Component Schemas
 components:
   schemas:
@@ -8911,6 +9024,98 @@ components:
           UpperMarginPremium: 1
           LowerMarginPremium: 0.3
           TickMarginPremium: 0.01
+    TimeAndSalesResponse:
+      type: object
+      properties:
+        Symbol: 
+          description: "銘柄コード"
+          type: "string"
+        Exchange:
+          description: |-
+            市場コード<br>※株式・先物・オプション銘柄の場合のみ
+            <table>
+              <thead>
+                  <tr>
+                      <th>定義値</th>
+                      <th>説明</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>東証</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>名証</td>
+                  </tr>
+                  <tr>
+                      <td>5</td>
+                      <td>福証</td>
+                  </tr>
+                  <tr>
+                      <td>6</td>
+                      <td>札証</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>日通し</td>
+                  </tr>
+                  <tr>
+                      <td>23</td>
+                      <td>日中</td>
+                  </tr>
+                  <tr>
+                      <td>24</td>
+                      <td>夜間</td>
+                  </tr>
+              </tbody>
+            </table>
+          type: "integer"
+          format: "int32"
+        TradingPriceCount: 
+          description: "歩み値合計件数"
+          type: "integer"
+          format: "int32"
+        TradingPrice:
+          description: "歩み値リスト"
+          type: "array"
+          items:
+            type: "object"
+            properties:
+              Time:
+                description: "出来時刻"
+                type: "string"
+              Volume:
+                description: "出来高"
+                type: "integer"
+                format: "int32"
+              Price:
+                description: "出来値"
+                type: "integer"
+                format: "int32"
+      example:
+        Symbol: "8306"
+        Exchange: 1,
+        TradingPriceCount: 3
+        TradingPrice: [
+          {
+            Time: "2026-06-17T10:57:56+09:00",
+            Volume: 2876.0,
+            Price: 1901.0
+          },
+          {
+            Time: "2026-06-17T10:57:57+09:00",
+            Volume: 2900.0,
+            Price: 1910.0
+          },
+          {
+            Time: "2026-06-17T10:57:58+09:00",
+            Volume: 2920.0,
+            Price: 1902.0
+          }
+        ]
+
     #APIエラー結果
     ErrorResponse:
       type: "object"

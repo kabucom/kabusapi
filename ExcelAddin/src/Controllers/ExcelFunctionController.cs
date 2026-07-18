@@ -1144,6 +1144,51 @@ namespace KabuSuteAddin
                 }
             }
         }
+        
+        /// <summary>
+        /// 歩み値の取得
+        /// </summary>
+        private static Dictionary<string, Tuple<DateTime, string>> _timeandsalesCache = new Dictionary<string, Tuple<DateTime, string>>();
+        [ExcelFunction(Name = "TIMEANDSALES", Category = "kabuSTATIONアドイン", Description = "歩み値情報を取得する", IsHidden = false)]
+        public static object Timeandsales(
+            [ExcelArgument(Description = "の歩み値情報を取得する", Name = "銘柄コード")] string Symbol,
+            [ExcelArgument(Description = "の歩み値情報を取得する", Name = "市場コード")] string Exchange)
+        {
+            string ret = null;
+            try
+            {
+                string ResultMessage = Validate.ValidateRequired(Symbol, Exchange);
+                if (!string.IsNullOrEmpty(ResultMessage))
+                    return ResultMessage;
+
+                Tuple<DateTime, string> tpl;
+                var tplKey = Symbol + "-" + Exchange;
+                if (_timeandsalesCache.TryGetValue(tplKey, out tpl))
+                {
+                    if ((DateTime.Now - tpl.Item1).TotalSeconds < 1)
+                        ret = tpl.Item2;
+                }
+                if (String.IsNullOrEmpty(ret))
+                {
+                    ret = middleware.GetTimeAndSales(Symbol, Exchange);
+                    _timeandsalesCache[tplKey] = Tuple.Create(DateTime.Now, ret);
+                }
+
+                object array;
+                array = TimeAndSalesResult.TimeAndSalesCheck(ret);
+
+                return XlCall.Excel(XlCall.xlUDF, "Resize", array);
+
+            }
+            catch (Exception exception)
+            {
+                if (exception.InnerException == null)
+                    return exception.Message;
+                else
+                    return exception.InnerException.Message;
+            }
+
+        }
     }
 
     internal class ExcelFunctionMiddleware
@@ -1652,6 +1697,25 @@ namespace KabuSuteAddin
         {
             var request = new HttpRequestMessage(HttpMethod.Get, domain + CustomRibbon._port + "/kabusapi/margin/marginpremium/" + symbol);
             request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
+            HttpResponseMessage response = client.SendAsync(request).Result;
+            return response.Content.ReadAsStringAsync().Result;
+        }
+        
+        //----------------------------------
+        // 銘柄情報取得x
+        internal string GetTimeAndSales(string Symbol, string Exchange)
+        {
+            var builder = new UriBuilder(domain + CustomRibbon._port + "/kabusapi/timeandsales/" + Symbol + "@" + Exchange);
+            var param = HttpUtility.ParseQueryString(builder.Query);
+
+            builder.Query = param.ToString();
+
+            string url = builder.ToString();
+
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+
+            request.Headers.Add(@"X-API-KEY", CustomRibbon._token);
+
             HttpResponseMessage response = client.SendAsync(request).Result;
             return response.Content.ReadAsStringAsync().Result;
         }
