@@ -199,12 +199,12 @@ namespace KabuSuteAddin.Elements
         public string SymbolName { get; set; }
         [DataMember(Name = "SellRapidPaymentPercentage")]
         public double SellRapidPaymentPercentage { get; set; }
-        [DataMember(Name = "SellLastWeekRatio")]
-        public double SellLastWeekRatio { get; set; }
+        [DataMember(Name = "SellLastDayRatio")]
+        public double SellLastDayRatio { get; set; }
         [DataMember(Name = "BuyRapidPaymentPercentage")]
         public double BuyRapidPaymentPercentage { get; set; }
-        [DataMember(Name = "BuyLastWeekRatio")]
-        public double BuyLastWeekRatio { get; set; }
+        [DataMember(Name = "BuyLastDayRatio")]
+        public double BuyLastDayRatio { get; set; }
         [DataMember(Name = "Ratio")]
         public double Ratio { get; set; }
         [DataMember(Name = "ExchangeName")]
@@ -481,9 +481,9 @@ namespace KabuSuteAddin.Elements
                     array[row, 3] = RankingData.Ranking[i].Symbol;
                     array[row, 4] = RankingData.Ranking[i].SymbolName;
                     array[row, 5] = RankingData.Ranking[i].SellRapidPaymentPercentage;
-                    array[row, 6] = RankingData.Ranking[i].SellLastWeekRatio;
+                    array[row, 6] = RankingData.Ranking[i].SellLastDayRatio;
                     array[row, 7] = RankingData.Ranking[i].BuyRapidPaymentPercentage;
-                    array[row, 8] = RankingData.Ranking[i].BuyLastWeekRatio;
+                    array[row, 8] = RankingData.Ranking[i].BuyLastDayRatio;
                     array[row, 9] = RankingData.Ranking[i].Ratio;
                     array[row, 10] = RankingData.Ranking[i].ExchangeName;
                     array[row, 11] = RankingData.Ranking[i].CategoryName;
