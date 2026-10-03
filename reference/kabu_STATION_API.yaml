@@ -2599,7 +2599,7 @@ paths:
         <br>※株価情報ランキング、業種別指数ランキングは、下記の時間帯でデータがクリアされるため、
         <br>その間の詳細ランキングAPIは空レスポンスとなります。
         <br>データクリア：平日7:53頃-9:00過ぎ頃
-        <br>※信用情報ランキングは毎週第３営業日の7:55頃にデータが更新されます。
+        <br>※信用情報ランキングは営業日の7:55頃にデータが更新されます。
       parameters:
         - in: header
           name: X-API-KEY
@@ -4234,7 +4234,7 @@ components:
                 </tr>
                 <tr>
                   <td>逆指値（指値）</td>
-                  <td>FAK</td>
+                  <td>FAS</td>
                   <td>●</td>
                   <td>●</td>
                   <td>●</td>
@@ -4316,7 +4316,7 @@ components:
                 </tr>
                 <tr>
                   <td>逆指値（指値）</td>
-                  <td>FAK</td>
+                  <td>FAS</td>
                   <td>●</td>
                   <td>●</td>
                   <td>●</td>
@@ -4750,7 +4750,7 @@ components:
                 </tr>
                 <tr>
                   <td>逆指値（指値）</td>
-                  <td>FAK</td>
+                  <td>FAS</td>
                   <td>●</td>
                   <td>●</td>
                   <td>●</td>
@@ -8403,18 +8403,18 @@ components:
                 type: number
                 format: double
                 description: "売残（千株）"
-              SellLastWeekRatio:
+              SellLastDayRatio:
                 type: number
                 format: double
-                description: "売残前週比"
+                description: "売残前日比"
               BuyRapidPaymentPercentage:
                 type: number
                 format: double
                 description: "買残（千株）"
-              BuyLastWeekRatio:
+              BuyLastDayRatio:
                 type: number
                 format: double
-                description: "買残前週比"
+                description: "買残前日比"
               Ratio:
                 type: number
                 format: double
@@ -8433,9 +8433,9 @@ components:
             Symbol: "7888"
             SymbolName: 三光合成
             SellRapidPaymentPercentage: 1410.9
-            SellLastWeekRatio: 1343.4
+            SellLastDayRatio: 1343.4
             BuyRapidPaymentPercentage: 1108.2
-            BuyLastWeekRatio: 832.7
+            BuyLastDayRatio: 832.7
             Ratio: 0.79
             ExchangeName: 東証プ
             CategoryName: 化学
@@ -8443,9 +8443,9 @@ components:
             Symbol: "4564"
             SymbolName: ＯＴＳ
             SellRapidPaymentPercentage: 6588
-            SellLastWeekRatio: 1315.7
+            SellLastDayRatio: 1315.7
             BuyRapidPaymentPercentage: 22180.5
-            BuyLastWeekRatio: -223.4
+            BuyLastDayRatio: -223.4
             Ratio: 3.37
             ExchangeName: 東証グ
             CategoryName: 医薬品
