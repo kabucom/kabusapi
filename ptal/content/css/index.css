@@ -191,3 +191,33 @@ a {
     list-style-type: circle;
     list-style-position: inside;
   }
+  
+.notice-area {
+  background-color: #f3f3f3;
+  padding: 16px 0 18px;
+}
+
+/* ’ˆÓ‘‚«–{‘ÌFÔ˜g“à‚¾‚¯”’ */
+.notice-box {
+  box-sizing: border-box;
+  width: min(700px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 10px 12px;
+
+  border: 2px solid #ff0000;
+  background-color: #ffffff; /* Ô˜g‚Ì“à‘¤‚¾‚¯”’ */
+
+  color: #000000;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.notice-box p {
+  margin: 0;
+}
+
+.notice-box .notice-title {
+  margin-bottom: 4px;
+  color: #ff0000;
+  font-weight: bold;
+}
