@@ -7351,6 +7351,10 @@ components:
               </thead>
               <tbody>
                   <tr>
+                      <td>0</td>
+                      <td>現物買と信用返済の場合</td>
+                  </tr>
+                  <tr>
                       <td>2</td>
                       <td>お預り金</td>
                   </tr>
